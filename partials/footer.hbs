@@ -1,0 +1,50 @@
+<footer class="pt-6 pb-6 text-white md:pt-6 md:pb-6 lg:pt-10 lg:pb-10 bg-slate-900 footer">
+
+    <div class="container">
+
+        {{navigation type="secondary"}}
+
+        <!-- logo -->
+        <div class="row">
+            <div class="mb-6 w-full flex justify-center flex-col items-center">
+                <a class="text-2xl lg:text-4xl gh-head-logo" href="{{@site.url}}">
+                    {{#if @site.logo}}
+                        <img src="{{asset "img/dovolit-si-logo-white.png"}}" alt="{{@site.title}}" width="150"
+                             height="150">
+                    {{else}}
+                        {{@site.title}}
+                    {{/if}}
+                </a>
+            </div>
+        </div>
+        <!-- end of logo -->
+
+        <div class="row">
+            {{#if @site.members_enabled}}
+                {{^if @member}}
+                    <div class="mb-6 w-full flex justify-center flex-col items-center">
+                        <div class="mx-auto mt-2 mb-6 macaw-description md:leading-relaxed md:mt-4 md:max-w-xl opacity-80 font-text text-center">
+                            <h2 class="text-2xl md:text-3xl font-bold mb-3 leading-tight">
+                                Už se zvedáš? Chápu. <br>Bylo krásné tě tu mít
+                            </h2>
+
+                            <p class="text-base md:text-lg">
+                                Pokud nechceš, aby ti příště uteklo to nejlepší pod třešní 🍒, nech mi na sebe e-mail.
+                                Jednou za měsíc se ti ozvu s novým důvodem si zase přisednout.
+                            </p>
+                        </div>
+                        {{> "newsletter-form" label="footer" source="footer"}}
+                    </div>
+                {{/if}}
+            {{/if}}
+            {{!-- Information about the theme --}}
+            <div class="text-center mt-12">
+                <p class="text-sm text-white/75 font-display">Psáno s láskou na lavičce pod třešní. <br>© Martina
+                    Nakládalová {{date format="YYYY"}}
+                </p>
+            </div>
+        </div>
+
+    </div>
+</footer>
+

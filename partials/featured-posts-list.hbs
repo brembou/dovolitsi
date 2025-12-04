@@ -1,0 +1,96 @@
+<div class="container mb-10 md:mb-16 lg:mb-20">
+    <div class="featured-wrapper">
+
+        <div class="relative px-2 py-2 overflow-hidden md:px-6 md:py-6 lg:px-16 lg:py-16 xl:px-[3.333rem] xl:py-18 grad-bg rounded-3xl">
+
+            <div class="grid grid-cols-1 gap-2 md:gap-6 lg:gap-14 xl:gap-[3.333rem] md:grid-cols-2">
+
+                {{#foreach featured}}
+                    <article
+                            class="{{post_class}} relative group text-center rounded-3xl overflow-hidden bg-white/50 p-2 md:p-4 lg:p-8 hover:bg-white/80 duration-300 transition-colors">
+                        <div class="relative mb-4 overflow-hidden md:mb-5 rounded-3xl">
+                            {{#if feature_image}}
+
+                                <div class="absolute inset-0 z-30 flex flex-col justify-start p-4 pointer-events-none md:p-8">
+                                    <div class="flex items-end justify-end">
+                                        <span class="text-white macaw-pill bg-white/25">{{t "Featured"}}</span>
+                                    </div>
+                                </div>
+                                <picture class="gh-card-picture">
+                                    <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image
+                                                                                                      size="s"}} 1x"
+                                            media="(max-width: 420px)">
+                                    <source srcset="{{img_url feature_image size="mx2"}} 2x,{{img_url feature_image
+                                                                                                      size="m"}} 1x"
+                                            media="(max-width: 768px)">
+                                    <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image
+                                                                                                      size="s"}} 1x"
+                                            media="(max-width: 1024px)">
+                                    <img srcset="{{img_url feature_image size="mx2"}} 2x"
+                                         src="{{img_url feature_image size="m"}}"
+                                         alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                                         class="object-cover w-full duration-700 rounded-3xl gh-card-image group-hover:scale-110 group-hover:-rotate-1 group-hover:brightness-95 bg-light/95" {{^if
+                                            @first}}loading="lazy" {{/if}}>
+
+                                </picture>
+                            {{/if}}
+                        </div>
+
+                        <div class="px-0 lg:px-4">
+
+                            <div class="flex flex-wrap items-center justify-center mb-4 space-x-5">
+                                {{#foreach tags}}
+                                    <a class="macaw-pill bg-acc-before text-accent post-tag-{{slug}}" href="{{url}}"
+                                       title="{{name}}">
+
+                                        <svg class="h-1.5 w-1.5 fill-bg-acc ml-[-3px]" viewBox="0 0 6 6"
+                                             aria-hidden="true">
+                                            <circle cx="3" cy="3" r="3"></circle>
+                                        </svg>
+                                        {{name}}
+                                    </a>
+                                {{/foreach}}
+                            </div>
+
+
+                            <h3 class="px-4 mb-4 text-2xl font-bold leading-tight transition-all duration-300 md:text-2xl lg:text-3xl group-hover:text-accent font-display">{{title}}</h3>
+
+                            <div class="relative z-10 flex flex-wrap items-center justify-center mb-2 text-sm text-gray-600 sm:mb-0 md:leading-none md:text-sm font-display">
+                                <span class="macaw-post-author">
+                                    {{#foreach authors}}<a href="{{url}}"
+                                                           class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
+                                </span>
+                                <span>
+                                    <span class="mx-2 bull">&bull;</span>
+                                    <time class="feed-date" datetime="{{date format="DD-MM-YYYY"}}">
+                                        {{date published_at format="DD. MMM YYYY"}}
+                                    </time>
+                                </span>
+
+                                <span class="visibility">
+                                    <span class="mx-2 bull">&bull;</span>
+                                    {{visibility}}
+                                </span>
+
+                                {{#if reading_time}}
+                                    <span class="mx-2 bull">&bull;</span>
+                                    <div class="feed-length">
+                                                {{reading_time minute="Čtení na minutku" minutes="Čtení na % min"}}
+                                    </div>
+                                {{/if}}
+
+                            </div>
+
+                        </div>
+
+                        <a class="absolute top-0 left-0 w-full h-full" href={{url}} aria-label="{{title}}"
+                           title="{{t "Read more about:"}} {{title}}"></a>
+
+                    </article>
+                {{/foreach}}
+            </div>
+
+        </div>
+
+    </div>
+</div>

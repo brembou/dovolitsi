@@ -1,0 +1,82 @@
+<section class="relative p-8 m-auto text-center max-md:max-w-sm rounded-3xl bg-white/50 max-w-content"
+         data-aos="fade-in" data-aos-duration="500" data-aos-delay="150">
+
+
+    {{#if profile_image}}
+        <!-- This is a conditional check. If 'profile_image' exists, the following code block will be executed. -->
+
+        <div class="m-auto w-24 mt-[-76px] block text-center">
+            <a href="/jako-ja/" data-rel="author-photo">
+                <img class="object-cover w-24 h-24 rounded-full border border-[#bfae9a] shadow-sm"
+                     src="{{img_url profile_image}}"
+                     alt="{{name}}">
+            </a>
+        </div>
+    {{/if}}
+
+    <div class="flex flex-col mt-4 gap-y-4">
+
+
+        <header class="macaw-author-header">
+
+
+            <h4 class="text-3xl font-bold text-gray-900 font-display"><a href="/jako-ja/"
+                                                                         data-rel="author-name">{{name}}</a></h4>
+            <!-- This is a heading element with CSS classes and a link. It displays the name. -->
+
+            <div class="mt-3 text-center text-sm">
+                <a href="/co-o-mne-rikaji/" style="text-decoration: underline; font-weight: 600;">Říkají</a>, že píšu
+                bez kudrlinek. Až zjistíš, <a href="/jako-ja/" style="text-decoration: underline; font-weight: 600;">kdo
+                jsem</a>, pochopíš <a href="/protoze-muzes/"
+                                      style="text-decoration: underline; font-weight: 600;">proč</a>.
+            </div>
+
+            {{#if location}}
+                <!-- This is a conditional check. If 'location' exists, the following code block will be executed. -->
+
+                <span class="text-base leading-none text-gray-600 font-display">{{location}}</span>
+
+            {{/if}}
+        </header>
+
+        {{#if bio}}
+            <div class="max-w-lg mx-auto mb-2 text-base font-normal leading-relaxed opacity-80">{{bio}}</div>
+            <!-- This is a div element with CSS classes and dynamic content. It displays a biography. -->
+        {{/if}}
+
+        <div class="flex flex-col items-center text-center">
+
+            <!--            &lt;!&ndash; CTA newsletter jako hlavní tlačítko &ndash;&gt;
+            {{#if website}}
+                <a href="#/portal/signup" rel="noopener noreferrer"
+                   class="px-6 py-3 mb-4 text-lg font-semibold text-white rounded-full bg-acc-before hover:bg-acc-after transition" style="background-color: rgb(196, 101, 66);">
+                    📩 PŘISEDÁM SI
+                </a>
+            {{/if}}-->
+
+            <!-- Textová výzva -->
+            <p class="mt-3 text-center text-sm">
+                Upřímnost tady je jen čajíček proti tomu, co občas vykecám na sítích.
+            </p>
+
+            <!-- Sociální sítě s ikonou + textem -->
+            <div class="flex flex-wrap justify-center gap-6">
+                {{#if facebook}}
+                    <a href="https://www.facebook.com/{{facebook}}" target="_blank" rel="noopener noreferrer"
+                       class="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-acc-before transition">
+                        <span>Facebook</span>&nbsp;|&nbsp;&nbsp;&nbsp;
+                    </a>
+                {{/if}}
+
+                {{#if instagram}}
+                    <a href="https://www.instagram.com/{{instagram}}" target="_blank" rel="noopener noreferrer"
+                       class="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-acc-before transition">
+                        <span>Instagram</span>
+                    </a>
+                {{/if}}
+            </div>
+        </div>
+
+
+    </div>
+</section>

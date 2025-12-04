@@ -1,0 +1,153 @@
+<progress class="reading-progress" value="0" max="100" aria-label="Reading progress"></progress>
+
+
+<div class="progress-action">
+    {{#match @custom.progress_bar_action "!=" "None"}}
+
+        {{#match @custom.progress_bar_action "Next post"}}
+            {{#next_post}}
+                <a href="{{url}}" class="block text-base text-black font-display">
+                    <span class="block mb-2 text-sm text-gray-600 md:leading-none font-display">{{t
+                            "Your next read"}}</span>
+                    {{title}}
+                </a>
+            {{/next_post}}
+        {{/match}}
+
+        {{#match @custom.progress_bar_action "Subscribe button"}}
+            {{#if @site.members_enabled}}
+                {{^if @member}}
+                    <form data-members-form="subscribe">
+                        <span class="block mb-1 mr-4 text-xs text-gray-600 md:leading-none font-display">{{t
+                                "Receive latest posts"}}</span>
+
+                        <div class="relative z-10 w-full text-left max-sm:p-0">
+
+                            <div class="macaw-newsletter-form__fileds {{form-class}} flex items-center relative">
+                                <input data-members-label type="hidden" value="From homepage">
+                                <input data-members-email type="email" required placeholder="{{t "Your email"}}"
+                                       class="h-[40px] w-[400px] px-4 md:px-4 border-0 bg-white rounded-[2rem] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-gray-400 sm:text-sm sm:leading-6 outline-none">
+
+                                <button type="submit"
+                                        class="font-display uppercase bg-acc text-white leading-none rounded-3xl px-4 h-[28px] tracking-wider flex items-center justify-center absolute right-2 text-xs hover:opacity-80 transition-opacity macaw-button">
+                                    <span class="default">{{t "Subscribe" }}</span>
+                                    <span class="submitting">{{t "Submitting..."}}</span>
+                                </button>
+
+                                <div class="macaw-success-message macaw-alert font-display">
+                                    <svg class="h-1.5 w-1.5  mr-1" fill="#4caf50" viewBox="0 0 6 6" aria-hidden="true">
+                                        <circle cx="3" cy="3" r="3"></circle>
+                                    </svg>
+                                    {{t
+                                            "Great! Please check your inbox and click the confirmation link."}}
+                                </div>
+                                <div class="macaw-error-message macaw-alert font-display">
+                                    <svg class="h-1.5 w-1.5  mr-1" fill="#ff0700" viewBox="0 0 6 6" aria-hidden="true">
+                                        <circle cx="3" cy="3" r="3"></circle>
+                                    </svg>
+                                    {{t
+                                            "Sorry, something went wrong. Please try again."}}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                {{/if}}
+            {{/if}}
+        {{/match}}
+
+    {{/match}}
+</div>
+
+<style>
+    .reading-progress {
+        position: fixed;
+        top: 0;
+        z-index: 9002;
+        width: 100%;
+        left: 0;
+        height: 3px;
+        /* Progress bar height */
+        background: #d8d8d8;
+        /* Progress bar background color */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        /* Hide default progress bar */
+    }
+
+    .reading-progress::-webkit-progress-bar {
+        background-color: transparent;
+    }
+
+    .reading-progress::-webkit-progress-value {
+        background: var(--ghost-accent-color);
+        opacity: .85;
+        /* Progress bar color */
+    }
+
+    .progress-action {
+        opacity: 0;
+        position: fixed;
+        top: 50px;
+        right: 40px;
+        z-index: 9003;
+        max-width: 300px;
+        text-align: right;
+        line-height: 1.2;
+        background-color: rgba(255, 255, 255, .1);
+        padding: 10px 20px;
+        border-radius: 2rem;
+        transition: opacity .3s ease-in-out;
+    }
+
+    .progress-action.progress-active {
+        opacity: 1;
+
+    }
+
+    .progress-action.progress-active a {
+        pointer-events: auto;
+    }
+
+    .progress-action a {
+        transition: color .3s ease-in-out;
+        pointer-events: none;
+    }
+
+    .progress-action a:hover {
+        color: var(--ghost-accent-color);
+    }
+
+    @media (max-width: 1200px) {
+        .progress-action {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    const progressBar = document.querySelector('.reading-progress');
+    const myDiv = document.querySelector('.progress-action');
+
+    function updateProgress() {
+        const totalHeight = document.body.clientHeight;
+        const windowHeight = document.documentElement.clientHeight;
+        const position = window.scrollY;
+        const progress = (position / (totalHeight - windowHeight)) * 100;
+        progressBar.setAttribute('value', progress);
+
+        if (progress >= 45 && progress <= 85) {
+            myDiv.classList.add('progress-active');
+        } else {
+            myDiv.classList.remove('progress-active');
+        }
+
+        requestAnimationFrame(updateProgress);
+    }
+
+    requestAnimationFrame(updateProgress);
+</script>

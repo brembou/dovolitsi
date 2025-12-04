@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+
+    <head>
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-552ZK5N5');</script>
+        <!-- End Google Tag Manager -->
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2250%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2290%22>🍒</text></svg>">
+
+        {{!-- Check font options  if the System is set then do not load Google Fonts --}}
+        {{#match @custom.typography "!=" "Ghost Fonts"}}
+            {{#match @custom.typography "!=" "System"}}
+
+                {{#match @custom.typography "!=" "System"}}
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                {{/match}}
+
+                {{#match @custom.typography "Tight"}}
+                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+                {{/match}}
+                {{#match @custom.typography "Playful"}}
+                    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+                {{/match}}
+                {{#match @custom.typography "Elegant"}}
+                    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+                {{/match}}
+                {{#match @custom.typography "Kreon"}}
+                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Kreon:wght@400;700&display=swap" rel="stylesheet">
+                {{/match}}
+                {{#match @custom.typography "Quicksand"}}
+                    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+                {{/match}}
+                {{#match @custom.typography "Azeret"}}
+                    <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;700&display=swap" rel="stylesheet">
+                {{/match}}
+            {{/match}}
+        {{/match}}
+        {{!-- Check fonts end --}}
+
+        {{!-- Main stylesheet --}}
+        <link rel="stylesheet" href="{{asset "built/index.css"}}">
+        {{!-- Main JS file --}}
+        <script src="{{asset "built/index.js"}}" defer></script>
+        {{!-- Performance: preconnect for external third-parties --}}
+        <link rel="preconnect" href="https://www.googletagmanager.com">
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+        <link rel="preconnect" href="https://talk.hyvor.com">
+        <link rel="dns-prefetch" href="https://talk.hyvor.com">
+        <title>{{meta_title}}</title>
+        {{!-- Additional Check to make load more pagination work --}}
+        <script>
+            var site_url = '{{ @site.url }}',
+                pagination_next_page_number = '{{ pagination.next }}',
+                pagination_available_pages_number = '{{ pagination.pages }}';
+        </script>
+
+
+        {{!-- Website cover functionality as a background --}}
+        {{#if @site.cover_image}}
+            <style>
+                .website-banner::before,
+                .grad-bg:before {
+                    background: url({{@site.cover_image}}) no-repeat top center;
+                }
+            </style>
+        {{else}}
+            <style>
+                .grad-bg:before {
+                    background: var(--ghost-accent-color);
+                    opacity: .2;
+                }
+
+                .navbar .indicator::before {
+                    background: var(--ghost-accent-color);
+                }
+            </style>
+        {{/if}}
+
+        {{ghost_head}}
+        {{!-- Outputs important meta data and settings, should always be in <head> --}}
+
+    </head>
+    {{!-- Here we check for font options and add addtional CSS classes --}}
+
+    <body class="{{body_class}} relative website-banner {{#match @custom.typography "!=" "Ghost Fonts"}}{{#match @custom.typography "System"}}is-font-system{{/match}}{{#match @custom.typography "Tight"}}is-font-tight{{/match}} {{#match @custom.typography "Playful"}}is-font-playful{{/match}}{{#match @custom.typography "Elegant"}}is-font-elegant{{/match}}{{#match @custom.typography "Kreon"}}is-font-kreon{{/match}}{{#match @custom.typography "Quciksand"}}is-font-quicksand{{/match}}{{#match @custom.typography "Azeret"}}is-font-azeret{{/match}}{{else}}gh-ghost-fonts{{/match}} {{#unless @site.cover_image}} cover-inactive{{/unless}}">
+
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-552ZK5N5"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+        <div class="relative gh-viewport">
+
+            <!-- start of header -->
+            <header class="fixed top-0 z-[9000] w-full header [&.invisible]:-translate-y-full font-display bg-white/50 backdrop-blur-sm lg:backdrop-blur-0 lg:bg-transparent pointer-events-none">
+                {{!-- We check if the header is wide or not and add additional classes --}}
+                <div class="container {{#match @custom.navigation_layout "Wide"}}max-w-full px-12{{/match}}">
+                    <div class="relative flex items-center justify-between py-2 pointer-events-auto md:py-4 lg:py-12">
+                        <!-- logo -->
+                        <div class="hideOnScroll lg:[&.scrolled]:opacity-0 lg:[&.scrolled]:-translate-x-8 md:w-1/4 transition-all duration-300">
+                            <div class="gh-head-brand">
+                                <a class="text-2xl lg:text-4xl gh-head-logo" href="{{@site.url}}">
+                                    {{#if @site.logo}}
+                                        <img src="{{@site.logo}}" alt="{{@site.title}}" loading="lazy" decoding="async">
+                                    {{else}}
+                                        {{@site.title}}
+                                    {{/if}}
+                                </a>
+                            </div>
+                        </div>
+                        <!-- end of logo -->
+
+                        <!-- navbar -->
+                        <nav class="navbar">
+                            <span class="indicator"></span>
+                            {{navigation}}
+                            <div class="block lg:hidden mobile-actions px-[22px]">
+                                {{> "header-actions"}}
+                            </div>
+                        </nav>
+                        <!-- end of navbar -->
+
+                        {{!-- Navigation overlay --}}
+                        <div class="navOverlay"></div>
+
+                        <!-- toggle mobile-nav -->
+                        <button type="button" aria-label="Toggle Mobile Navigation" class="navToggler">
+                            {{> "icons/burger"}}
+                            {{> "icons/close"}}
+                        </button>
+
+                        {{> "header-actions"}}
+
+                    </div>
+                </div>
+            </header>
+            <!-- end of header -->
+
+            {{!-- Div that helps us to hide header on scroll --}}
+            <div class="trigger"></div>
+
+            {{!-- Start of main content --}}
+            <main class="relative z-10 pt-[84px] md:pt-[100px] lg:pt-[150px] min-h-[70vh] overflow-hidden pb-8 md:pb-10 lg:pb-16">
+
+                <div class="relative">
+                    {{!-- Check if we are on the home page loading of cover and featured posts --}}
+                    {{#is "home"}}
+                        {{> "cover"}}
+                        {{> "featured-posts"}}
+                    {{/is}}
+
+                    {{{body}}}
+                    {{!-- All content gets inserted here, index.hbs, post.hbs, etc --}}
+                </div>
+
+            </main>
+            {{!-- Footer Start --}}
+            {{> "footer"}}
+
+        </div>
+
+        {{ghost_foot}}
+        {{!-- Outputs important scripts - should always be included before closing body tag --}}
+
+        {{!-- We check if we are on post and load post js - addtional JS optimization --}}
+        {{#is "post"}}
+            <script src="{{asset "built/post.js"}}" defer></script>
+        {{/is}}
+
+        {{#is "page"}}
+            <script src="{{asset "built/post.js"}}" defer></script>
+        {{/is}}
+
+        {{!-- We check if we are on home page and load slider js - slider for featured posts --}}
+        {{#match @custom.display_featured_posts "==" "Slider"}}
+            {{#is "home"}}
+                <script src="{{asset "built/slider.js"}}" defer></script>
+            {{/is}}
+        {{/match}}
+
+        <script src="https://talk.hyvor.com/embed/comment-counts.js"></script>
+        <script>
+        // Sdílená funkce pro formátování počtu komentářů
+        function formatCommentCount(count) {
+          if (count === 0) return "Žádný komentář. Budeš první?";
+          if (count === 1) return count + " komentář. Přidáš i ten svůj?";
+          if (count >= 2 && count <= 4) return count + " komentáře. Máš k tomu co říct?";
+          return count + " komentářů. Máš k tomu co říct?";
+        }
+
+        // Funkce pro načtení/reload Hyvor
+        function loadHyvorCounts() {
+          if (window.hyvorTalkCommentCounts) {
+            window.hyvorTalkCommentCounts.load(
+              { "website-id": 14402, "mode": "number" },
+              function(count) { return formatCommentCount(count); }
+            );
+          }
+        }
+
+        // Počáteční načtení
+        loadHyvorCounts();
+
+        // Sleduj změny v DOM a reload komentáře při přidání nových článků
+        const observer = new MutationObserver(function(mutations) {
+          for (let mutation of mutations) {
+            if (mutation.addedNodes.length) {
+              // Zkontroluj, jestli se přidaly nové články s Hyvor elementy
+              for (let node of mutation.addedNodes) {
+                if (node.nodeType === 1 && node.querySelector('hyvor-talk-comment-count')) {
+                  setTimeout(loadHyvorCounts, 300);
+                  return; // Stačí jednou
+                }
+              }
+            }
+          }
+        });
+
+        // Sleduj pouze .gh-feed element
+        const feedElement = document.querySelector('.gh-feed');
+        if (feedElement) {
+          observer.observe(feedElement, { childList: true });
+        }
+        </script>
+
+</body>
+
+</html>

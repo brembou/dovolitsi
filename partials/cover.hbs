@@ -1,0 +1,246 @@
+{{#match @custom.introduction_area "!=" "Hide introduction area"}}
+    <section class="relative pt-10 pb-10 md:pt:16 md:mb-0 lg:pt-20 lg:pb-24">
+
+        <div class="container h-full">
+            <div class="items-center h-full row">
+                <div class="text-center col-12">
+
+
+                    {{#match @custom.introduction_area "==" "Image in the center text on the left and right"}}
+                        {{#if @site.icon}}
+                            <h1 class="flex items-center justify-center mb-2 md:mb-8 name max-sm:flex-col"
+                                data-aos="fade-up-sm">
+                                <!-- first name -->
+                                <span class="w-full text-center md:w-1/2 sm:text-right md:pr-28 font-display max-sm:order-2">{{@custom.name_on_the_left}}</span>
+
+                                <!-- image/desktop -->
+                                <span class="relative my-5 md:absolute md:my-0 max-sm:order-1">
+                                     <span class="mx-6 overflow-hidden rounded-full bg-slate-300 h-[150px] w-[150px] block">
+
+                                         <img data-aos="slide-up" data-aos-duration="500" data-aos-delay="150"
+                                              loading="lazy" width="150" height="150" class="mx-auto"
+                                              alt="{{@site.title}} {{t "image"}}" src="{{@site.icon}}">
+
+                                         <svg data-aos
+                                              class="absolute top-[-40px] right-[-30px] transition duration-900 delay-300 scale-0 rotate-[360deg] [&.aos-animate]:scale-100 [&.aos-animate]:rotate-[40deg]"
+                                              xmlns="http://www.w3.org/2000/svg" width="107" height="60"
+                                              viewBox="0 0 107 60" fill="none">
+                                             <path fill-rule="evenodd" clip-rule="evenodd"
+                                                   d="M42.1889 3.56288C42.2664 7.51436 46.8765 13.8677 50.0145 12.6668C51.3704 12.1244 51.3702 11.5433 49.8981 7.32069C46.3728 -2.71296 42.1114 0.386206 42.1889 3.56288ZM67.7573 12.5118C66.6726 15.5723 70.4304 16.1146 73.026 13.2866C75.6603 10.3811 78.4883 6.04226 79.9992 3.09802C81.665 0.270005 78.4108 -1.16337 75.699 1.16102C72.4836 3.87282 68.4933 10.3811 67.7573 12.5118ZM14.3737 10.1487C11.9718 11.1172 20.0297 21.1121 23.2839 21.1896C27.0804 21.267 27.3902 20.4148 24.7559 16.8894C20.6107 11.3109 17.1242 9.02522 14.3737 10.1487ZM50.7893 24.5212C49.3559 25.9546 47.6512 27.9303 46.9926 28.8601C41.3366 37.3054 41.2591 37.3829 38.6635 35.4072C32.6588 30.9133 22.7801 27.8529 24.7171 35.6783C25.9181 40.4046 29.4822 49.0436 30.412 51.9104C32.8139 59.4647 34.0923 60.7043 38.3537 59.6971C48.9297 57.1403 64.0384 57.0628 74.8468 59.5034C77.5199 60.1232 77.6748 59.8133 77.946 54.4285C78.4884 43.5425 84.7641 32.9278 84.7641 29.5187C84.7641 25.6834 77.5199 28.5502 67.6799 36.2594L66.6726 37.0342L65.2392 36.0657C62.295 34.09 60.8228 35.6396 62.4886 38.9325C63.8445 41.6056 64.968 42.4966 67.951 41.0632C69.6555 40.2497 72.0187 38.7 75.3504 36.3369C76.6675 35.4071 77.7523 34.7486 77.7523 34.8648C77.7523 35.4072 75.3891 45.557 75.3891 45.5957L69.5006 45.0922C64.813 44.8985 64.2707 47.3778 69.1132 48.1138C69.6168 48.1913 74.5756 48.8112 74.5756 48.8112C74.5756 48.8112 74.3819 50.9806 73.8395 52.2203C73.2584 53.4599 72.2899 53.7699 70.7016 53.2275C58.266 49.1211 38.005 54.1185 37.9663 54.1185C37.2302 54.2348 30.4895 36.4531 31.0319 35.9108C31.1094 35.8333 31.9228 36.3369 32.8525 37.0342C43.3511 44.666 44.4359 44.4336 51.3704 33.3152L54.6245 28.0853L55.9028 29.9836C59.6219 35.5234 64.8905 33.0828 61.9463 29.0151C60.9391 27.6592 59.2733 25.6447 56.6003 22.5067C55.3993 21.0734 53.6173 21.6932 50.7893 24.5212ZM101.19 23.9401C99.7954 24.7536 92.5122 31.7268 91.6599 33.044C89.8391 35.9495 93.6357 36.6081 97.0835 33.9738C101.112 30.9133 106.807 25.6447 106.807 24.9474C106.846 23.5527 103.088 22.8554 101.19 23.9401ZM5.23102 42.4966C10.8871 43.8912 14.1411 44.2399 15.4196 43.5426C17.5115 42.4191 16.5431 41.6055 11.5843 40.3659C11.1195 40.2496 6.5481 38.9712 3.41016 38.9712C1.16325 38.9712 -3.83413 40.2109 5.23102 42.4966Z"
+                                                   fill="#000000"/>
+                                         </svg>
+
+                                     </span>
+                                 </span>
+
+                                <style>
+                                    .typer {
+                                        position: relative;
+                                        display: inline-block;
+                                        /* nejdelší výraz v „znacích“ – nastavíme z JS */
+                                        --longest: 0;
+                                        --chars: 0;
+                                        min-width: calc(var(--longest) * 1ch);
+                                    }
+
+                                    .typer-caret {
+                                        position: absolute;
+                                        top: 0;
+                                        left: calc(var(--chars) * 1ch);
+                                        width: 1px;
+                                        height: 1.1em;
+                                        background: currentColor;
+                                        opacity: .7;
+                                        animation: caret-blink 1s steps(1, end) infinite;
+                                    }
+
+                                    @keyframes caret-blink {
+                                        50% {
+                                            opacity: 0
+                                        }
+                                    }
+
+                                    .typer-caret.is-hidden {
+                                        animation: none;
+                                        opacity: 0
+                                    }
+                                </style>
+
+                                <!-- last name -->
+                                <span class="w-full text-center md:w-1/2 sm:text-left md:pl-28 font-display max-sm:order-3">
+                                  <span id="typer-wrap" class="inline-block align-baseline">
+                                    <span id="typer-text" class="align-baseline"></span>
+                                  </span>
+                                  <noscript>zpomalit</noscript>
+                                </span>
+                            </h1>
+
+                            <script>
+                                (function () {
+                                    const phrases = ["zpomalit", "rozkvést", "riskovat", "zářit", "naslouchat", "tančit", "pečovat", "odpustit", "dýchat", "snít"];
+                                    const el = document.getElementById("typer-text");
+                                    if (!el) return;
+
+                                    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                                    if (reduce) {
+                                        el.textContent = phrases[0];
+                                        return;
+                                    }
+
+                                    const typeMs = 70, delMs = 40, holdMs = 900, preHoldMs = 220;
+
+                                    let p = 0, i = 0, del = false, loops = 0, stopping = false, finalIndex = null;
+
+                                    // 👇 helper: když je délka 0, nech v elementu NBSP, aby výška/řádek zůstal
+                                    const NBSP = "\u00A0";
+
+                                    function setTextLen(n, full) {
+                                        el.textContent = n > 0 ? full.slice(0, n) : NBSP;
+                                    }
+
+                                    // inicializace – ať tam není prázdno
+                                    el.textContent = NBSP;
+
+                                    function tick() {
+                                        const full = stopping ? phrases[finalIndex] : phrases[p];
+
+                                        if (!del) {
+                                            i++;
+                                            setTextLen(i, full);
+                                            if (i === full.length) {
+                                                if (stopping) {
+                                                    return;
+                                                }
+                                                setTimeout(() => {
+                                                    del = true;
+                                                    setTimeout(tick, preHoldMs);
+                                                }, holdMs);
+                                            } else {
+                                                setTimeout(tick, typeMs);
+                                            }
+                                        } else {
+                                            i--;
+                                            setTextLen(i, full);
+                                            if (i === 0) {
+                                                del = false;
+                                                p++;
+                                                if (p === phrases.length) {
+                                                    loops++;
+                                                    p = 0;
+                                                    if (loops >= 1) {
+                                                        finalIndex = Math.floor(Math.random() * phrases.length);
+                                                        stopping = true;
+                                                    }
+                                                }
+                                                setTimeout(tick, typeMs);
+                                            } else {
+                                                setTimeout(tick, delMs);
+                                            }
+                                        }
+                                    }
+
+                                    setTimeout(tick, 300);
+                                })();
+                            </script>
+
+                        {{else}}
+                            <h1 class="max-w-3xl m-auto text-5xl font-bold leading-snug font-display"
+                                data-aos="fade-up-sm">{{@custom.name_on_the_left}} {{@custom.name_on_the_right}}</h1>
+                        {{/if}}
+
+                    {{/match}}
+
+                    {{#match @custom.introduction_area "==" "Image on the top text below"}}
+
+                        <!-- image/desktop -->
+                        <span class="relative my-5 md:my-0 max-sm:order-1 w-[200px] inline-flex">
+                             <span class="block m-auto overflow-hidden rounded-full bg-slate-300 h-[150px] w-[150px]">
+
+                                 <img data-aos="slide-up" data-aos-duration="500" data-aos-delay="150" loading="lazy"
+                                      width="150" height="150" class="mx-auto" alt="{{@site.title}} {{t "image"}}"
+                                      src="{{@site.icon}}">
+
+                                 <svg data-aos
+                                      class="absolute top-[-40px] right-[-30px] transition duration-900 delay-300 scale-0 rotate-[360deg] [&.aos-animate]:scale-100 [&.aos-animate]:rotate-[40deg]"
+                                      xmlns="http://www.w3.org/2000/svg" width="107" height="60" viewBox="0 0 107 60"
+                                      fill="none">
+                                     <path fill-rule="evenodd" clip-rule="evenodd"
+                                           d="M42.1889 3.56288C42.2664 7.51436 46.8765 13.8677 50.0145 12.6668C51.3704 12.1244 51.3702 11.5433 49.8981 7.32069C46.3728 -2.71296 42.1114 0.386206 42.1889 3.56288ZM67.7573 12.5118C66.6726 15.5723 70.4304 16.1146 73.026 13.2866C75.6603 10.3811 78.4883 6.04226 79.9992 3.09802C81.665 0.270005 78.4108 -1.16337 75.699 1.16102C72.4836 3.87282 68.4933 10.3811 67.7573 12.5118ZM14.3737 10.1487C11.9718 11.1172 20.0297 21.1121 23.2839 21.1896C27.0804 21.267 27.3902 20.4148 24.7559 16.8894C20.6107 11.3109 17.1242 9.02522 14.3737 10.1487ZM50.7893 24.5212C49.3559 25.9546 47.6512 27.9303 46.9926 28.8601C41.3366 37.3054 41.2591 37.3829 38.6635 35.4072C32.6588 30.9133 22.7801 27.8529 24.7171 35.6783C25.9181 40.4046 29.4822 49.0436 30.412 51.9104C32.8139 59.4647 34.0923 60.7043 38.3537 59.6971C48.9297 57.1403 64.0384 57.0628 74.8468 59.5034C77.5199 60.1232 77.6748 59.8133 77.946 54.4285C78.4884 43.5425 84.7641 32.9278 84.7641 29.5187C84.7641 25.6834 77.5199 28.5502 67.6799 36.2594L66.6726 37.0342L65.2392 36.0657C62.295 34.09 60.8228 35.6396 62.4886 38.9325C63.8445 41.6056 64.968 42.4966 67.951 41.0632C69.6555 40.2497 72.0187 38.7 75.3504 36.3369C76.6675 35.4071 77.7523 34.7486 77.7523 34.8648C77.7523 35.4072 75.3891 45.557 75.3891 45.5957L69.5006 45.0922C64.813 44.8985 64.2707 47.3778 69.1132 48.1138C69.6168 48.1913 74.5756 48.8112 74.5756 48.8112C74.5756 48.8112 74.3819 50.9806 73.8395 52.2203C73.2584 53.4599 72.2899 53.7699 70.7016 53.2275C58.266 49.1211 38.005 54.1185 37.9663 54.1185C37.2302 54.2348 30.4895 36.4531 31.0319 35.9108C31.1094 35.8333 31.9228 36.3369 32.8525 37.0342C43.3511 44.666 44.4359 44.4336 51.3704 33.3152L54.6245 28.0853L55.9028 29.9836C59.6219 35.5234 64.8905 33.0828 61.9463 29.0151C60.9391 27.6592 59.2733 25.6447 56.6003 22.5067C55.3993 21.0734 53.6173 21.6932 50.7893 24.5212ZM101.19 23.9401C99.7954 24.7536 92.5122 31.7268 91.6599 33.044C89.8391 35.9495 93.6357 36.6081 97.0835 33.9738C101.112 30.9133 106.807 25.6447 106.807 24.9474C106.846 23.5527 103.088 22.8554 101.19 23.9401ZM5.23102 42.4966C10.8871 43.8912 14.1411 44.2399 15.4196 43.5426C17.5115 42.4191 16.5431 41.6055 11.5843 40.3659C11.1195 40.2496 6.5481 38.9712 3.41016 38.9712C1.16325 38.9712 -3.83413 40.2109 5.23102 42.4966Z"
+                                           fill="#000000"/>
+                                 </svg>
+
+                             </span>
+                         </span>
+
+                        <h1 class="max-w-3xl m-auto text-3xl font-bold leading-snug md:text-5xl font-display"
+                            data-aos="fade-up-sm">{{@custom.name_on_the_left}} {{@custom.name_on_the_right}}</h1>
+                    {{/match}}
+
+                    <!-- Site description -->
+                    {{#if @site.description}}
+                        <div class="mx-auto mt-2 font-normal macaw-description md:leading-relaxed md:mt-4 md:text-xl md:max-w-xl opacity-80 font-text"
+                             data-aos="fade-up-sm" data-aos-delay="100">
+                                    {{{@site.description}}}
+                        </div>
+                    {{/if}}
+
+                    <div class="mt-6 md:mt-10 macaw-actions">
+
+                        {{#if @site.members_enabled}}
+                            {{^if @member}}
+
+                                {{#match @custom.introduction_area_displays "Sign up form"}}
+
+                                    <div class="container w-full max-w-[550px] relative z-10 max-sm:p-0">
+                                                {{> "newsletter-form" label="homepage"}}
+                                    </div>
+
+                                {{/match}}
+
+                                {{#match @custom.introduction_area_displays "Portal links"}}
+                                    <div class="flex items-center justify-center w-[550px] relative z-10 m-auto">
+                                        {{#unless @member}}
+                                            {{#unless @site.members_invite_only}}
+                                                <a href="#/portal/signin" data-portal="signin"
+                                                   class="mr-4 text-sm uppercase font-display">{{t
+                                                        "Sign in"}}</a>
+                                                <a href="#/portal/signup" data-portal="signup"
+                                                   class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-7 h-[48px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button">{{t
+                                                        "Subscribe"}}</a>
+
+                                            {{else}}
+                                                <a href="#/portal/signin" data-portal="signin"
+                                                   class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-7 h-[48px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button">{{t
+                                                        "Sign in"}}</a>
+                                            {{/unless}}
+                                        {{else}}
+                                            <a href="#/portal/account" data-portal="account"
+                                               class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-7 h-[48px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button">{{t
+                                                    "Account"}}</a>
+                                        {{/unless}}
+                                    </div>
+                                {{/match}}
+
+                                {{#match @custom.introduction_area_displays "Search"}}
+                                    <form class="w-[450px] relative z-10 flex items-center m-auto">
+                                        <span class="absolute left-6">{{> "icons/search"}}</span>
+                                        <button class="h-[4.2rem] text-left w-full px-12 border-0 bg-white rounded-[2rem] shadow-sm ring-1 ring-inset ring-gray-300 text-gray-400 focus:ring-inset focus:ring-gray-400 sm:text-base sm:leading-6 outline-none"
+                                                data-ghost-search>{{t
+                                                "Search posts, tags and authors"}}</button>
+                                    </form>
+                                {{/match}}
+
+                            {{else}}
+                                <a class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-7 h-[48px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button"
+                                   href="#/portal/account">{{t "Account"}}</a>
+                            {{/if}}
+
+                        {{/if}}
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{{/match}}

@@ -1,0 +1,141 @@
+{{!< default}}
+
+{{#post}}
+
+    {{#if @custom.display_progress_bar}}
+        {{> "progress-bar"}}
+    {{/if}}
+
+    <article class="gh-article {{post_class}} mt-0">
+
+        <header class="container mb-3 text-center md:mb-8 gh-header">
+
+            <h1 class="max-w-md m-auto mb-2 text-3xl font-bold sm:leading-snug sm:text-3xl lg:leading-snug lg:text-3xl gh-title font-display lg:max-w-[550px]">{{title}}</h1>
+
+            {{#if custom_excerpt}}
+                <p class="max-w-lg mx-auto mb-4 font-normal md:mb-6 md:leading-relaxed md:mt-13 md:text-base lg:max-w-2xl opacity-80 font-text"
+                   data-aos="fade-in" data-aos-duration="500" data-aos-delay="150">{{custom_excerpt}}</p>
+            {{/if}}
+
+            {{!-- Meta data for post header --}}
+            <span class="flex flex-wrap items-center justify-center text-base leading-relaxed text-gray-600 md:leading-none font-display">
+                <span class="macaw-post-author">
+                    {{#foreach authors}}<a href="{{url}}"
+                                           class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
+                </span>
+                <time class="feed-date" datetime="{{date format="DD-MM-YYYY"}}">
+                    <span class="mx-2 bull">&bull;</span>
+                    {{date published_at format="DD. MMM YYYY"}}
+                </time>
+
+                <span class="visibility">
+                    <span class="mx-2 bull">&bull;</span>
+                    {{visibility}}
+                </span>
+
+                {{#if reading_time}}
+                    <div class="feed-length">
+                        <span class="mx-2 bull">&bull;</span>
+                        {{reading_time minute="Čtení na minutku" minutes="Čtení na % min"}}
+                    </div>
+                {{/if}}
+            </span>
+        </header>
+
+        {{!-- We check if the post has a feature image --}}
+        {{#if feature_image}}
+            <figure class="mt-2 mb-4 text-center md:mb-8 md:mt-10 gh-feature-image max-sm:p-0 max-w-[750px] m-auto"
+                    data-aos="fade-in" data-aos-duration="500" data-aos-delay="150">
+
+                <picture>
+                    <source srcset="{{img_url feature_image size="post-full-s-x2"}} 2x,{{img_url feature_image
+                                                                                                 size="post-full-s"}} 1x"
+                            media="(max-width: 420px)">
+                    <source srcset="{{img_url feature_image size="post-full-m-x2"}} 2x,{{img_url feature_image
+                                                                                                 size="post-full-m"}} 1x"
+                            media="(max-width: 768px)">
+                    <source srcset="{{img_url feature_image size="post-full-m-x2"}} 2x,{{img_url feature_image
+                                                                                                 size="post-full-m-x2"}} 1x"
+                            media="(max-width: 1024px)">
+                    <img srcset="{{img_url feature_image size="post-full-m-x2"}} 2x"
+                         src="{{img_url feature_image size="post-full-m"}}"
+                         alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                         class="max-sm:rounded-none max-sm:w-full rounded-3xl">
+
+                </picture>
+                {{#if feature_image_caption}}
+                    <figcaption>{{feature_image_caption}}</figcaption>
+                {{/if}}
+            </figure>
+        {{/if}}
+
+
+        {{!-- Content goes here --}}
+        <div class="relative prose sm:prose-lg prose-md prose-headings:font-display prose-headings:mt-0 prose-headings:mb-2 prose-p:mt-0 prose-p:mb-6 sm:prose-p:mb-10 md:prose-p:mb-12 lg:prose-p:mb-14 xl:prose-p:mb-14 prose-h5:font-bold prose-h6:font-bold prose-img:rounded-3xl prose-ul:mt-0 prose-ul:mb-6 sm:prose-ul:mb-10 md:prose-ul:mb-12 lg:prose-ul:mb-14 xl:prose-ul:mb-14 prose-ol:mt-0 prose-ol:mb-6 sm:prose-ol:mb-10 md:prose-ol:mb-12 lg:prose-ol:mb-14 xl:prose-ol:mb-14 prose-li:pl-0 prose-li:mt-0 prose-a:underline hover:prose-a:no-underline prose-hr:mt-0 prose-hr:mb-6 sm:prose-hr:mb-10 md:prose-hr:mb-12 lg:prose-hr:mb-14 xl:prose-hr:mb-14 prose-macaw gh-content gh-canvas max-w-none">
+
+
+            {{#if @custom.display_toc}}
+            <div class="mb-6 bg-gray-100 rounded-2xl">
+                <div class="px-10 py-8">
+                    <h4 class="mb-8 text-xl toc-heading font-display">Table of contents</h4>
+                    <div class="gh-toc font-display"></div>
+                </div>
+            </div>
+            {{/if}}
+
+
+            {{content}}
+
+            {{#if @custom.display_share}}
+
+            <div class="not-prose">
+
+                {{> "share"}}
+
+                </div>
+
+            {{/if}}
+
+            {{#if @custom.display_author_box}}
+            <div class="relative px-8 pb-8 md:p-10 overflow-hidden pt-[4.5rem] lg:px-20 lg:pt-20 lg:pb-16 mb-7 lg:mb-14 grad-bg rounded-3xl macaw-authors not-prose">
+                {{#foreach authors}}
+
+                    {{> "author"}}
+
+                {{/foreach}}
+                </div>
+            {{/if}}
+
+            {{#if comments}}
+            <section class="gh-post-comments">
+                {{comments}}
+            </section>
+            {{/if}}
+
+            {{#match @site.recommendations_enabled}}
+            <div class="mt-12 not-prose">
+
+                <h3 class="pb-2 mb-6 text-base font-bold leading-none tracking-widest text-gray-900 uppercase border-b featured-title font-display border-b-gray-200 ">{{t
+                            "Recommendations"}}</h3>
+
+                {{recommendations limit="2"}}
+            </div>
+            {{/match}}
+
+            <div class="macaw-post-sneak-peek fading">
+                {{{html}}}
+            </div>
+
+
+            {{> "content-cta"}}
+
+
+        </div>
+
+    </article>
+
+{{/post}}
+
+{{#if @custom.display_toc}}
+    {{> "toc"}}
+{{/if}}

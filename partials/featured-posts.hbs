@@ -1,0 +1,396 @@
+{{#match @custom.display_featured_posts "!=" "Hide"}}
+    {{#get "posts" include="tags,authors" filter="featured:true" limit=@custom.number_of_featured_posts as |featured|}}
+        {{#if featured}}
+            <div class="container mb-10 md:mb-16 lg:mb-20">
+                <div class="featured-wrapper {{#match @custom.display_featured_posts "==" "Slider"}}splide{{/match}}">
+
+                    <div class="relative px-2 py-2 overflow-hidden md:px-6 md:py-6 lg:px-16 lg:py-16 xl:px-[3.333rem] xl:py-18 grad-bg rounded-3xl {{#match
+                            @custom.display_featured_posts "==" "Slider"}}py-6 splide__track{{/match}}">
+
+                        <div class="{{#match @custom.display_featured_posts "=="
+                                             "Grid"}}grid grid-cols-1 gap-2 md:gap-6 lg:gap-14 xl:gap-[3.333rem] md:grid-cols-2{{/match}} {{#match
+                                @custom.display_featured_posts "==" "Slider"}}splide__list{{/match}}">
+
+                            {{#foreach featured}}
+                                <article
+                                        class="{{post_class}} relative group text-center rounded-3xl overflow-hidden bg-white/50 p-2 md:p-4 lg:p-8 hover:bg-white/80 duration-300 transition-colors {{#match
+                                                @custom.display_featured_posts "==" "Slider"}}splide__slide{{/match}}">
+                                    <div class="relative mb-4 overflow-hidden md:mb-5 rounded-3xl">
+                                        {{#if feature_image}}
+
+                                            <div class="absolute inset-0 z-30 flex flex-col justify-start p-4 pointer-events-none md:p-8">
+                                                <div class="flex items-end justify-end">
+                                                    <span class="text-white macaw-pill bg-white/25">{{t
+                                                            "Featured"}}</span>
+                                                </div>
+                                            </div>
+                                            <picture class="gh-card-picture">
+                                                <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url
+                                                        feature_image size="s"}} 1x" media="(max-width: 420px)">
+                                                <source srcset="{{img_url feature_image size="mx2"}} 2x,{{img_url
+                                                        feature_image size="m"}} 1x" media="(max-width: 768px)">
+                                                <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url
+                                                        feature_image size="s"}} 1x" media="(max-width: 1024px)">
+                                                <img srcset="{{img_url feature_image size="mx2"}} 2x"
+                                                     src="{{img_url feature_image size="m"}}" alt="{{#if
+                                                        feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                                                     class="object-cover w-full duration-700 rounded-3xl gh-card-image group-hover:scale-110 group-hover:-rotate-1 group-hover:brightness-95 bg-light/95" {{^if
+                                                        @first}}loading="lazy" {{/if}}>
+
+                                            </picture>
+                                        {{/if}}
+                                    </div>
+
+                                    <div class="px-1 lg:px-4">
+
+
+                                        {{#match @custom.featured_posts_meta_display "!=" "Hide all meta"}}
+                                            {{#match @custom.featured_posts_meta_display "!=" "Hide tags"}}
+                                                {{#match @custom.featured_posts_meta_display "!="
+                                                         "Hide tags and post access meta"}}
+
+                                                    <div class="flex flex-wrap items-center justify-center mb-4 space-x-5">
+                                                        {{#foreach tags}}
+                                                            <a class="macaw-pill bg-acc-before text-accent post-tag-{{slug}}"
+                                                               href="{{url}}" title="{{name}}">
+
+                                                                <svg class="h-1.5 w-1.5 fill-bg-acc ml-[-3px]"
+                                                                     viewBox="0 0 6 6" aria-hidden="true">
+                                                                    <circle cx="3" cy="3" r="3"></circle>
+                                                                </svg>
+                                                                {{name}}
+                                                            </a>
+                                                        {{/foreach}}
+                                                    </div>
+
+                                                {{/match}}
+                                            {{/match}}
+                                        {{/match}}
+
+
+
+
+                                        <h2 class="px-4 mb-4 text-2xl font-bold leading-tight transition-all duration-300 md:text-2xl lg:text-3xl group-hover:text-accent font-display">{{title}}</h2>
+
+
+                                        {{#match @custom.featured_posts_meta_display "!=" "Hide all meta"}}
+                                            <div class="relative z-10 flex flex-wrap items-center justify-center mb-2 text-sm text-gray-600 sm:mb-0 md:leading-none md:text-sm font-display macaw-post-meta">
+
+
+                                                {{#match @custom.featured_posts_meta_display "!=" "Hide author meta"}}
+
+                                                    {{#match @custom.featured_posts_meta_display "!="
+                                                             "Hide author and post access meta"}}
+
+                                                        {{#match @custom.featured_posts_meta_display "!="
+                                                                 "Hide author and date meta"}}
+                                                            <span class="macaw-post-author">
+                                                                {{#foreach authors}}<a href="{{url}}"
+                                                                                       class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
+                                                            </span>
+                                                        {{/match}}
+                                                    {{/match}}
+                                                {{/match}}
+
+                                                {{#match @custom.featured_posts_meta_display "!=" "Hide date meta"}}
+
+                                                    {{#match @custom.featured_posts_meta_display "!="
+                                                             "Hide date and post access meta"}}
+
+                                                        {{#match @custom.featured_posts_meta_display "!="
+                                                                 "Hide author and date meta"}}
+                                                            <span>
+                                                                <time class="feed-date"
+                                                                      datetime="{{date format="DD-MM-YYYY"}}">{{date
+                                                                        published_at format="DD. MMM YYYY"}}</time>
+                                                            </span>
+                                                        {{/match}}
+                                                    {{/match}}
+                                                {{/match}}
+
+                                                {{#match @custom.featured_posts_meta_display "!="
+                                                         "Hide post access meta"}}
+
+                                                    {{#match @custom.featured_posts_meta_display "!="
+                                                             "Hide author and post access meta"}}
+
+                                                        {{#match @custom.featured_posts_meta_display "!="
+                                                                 "Hide date and post access meta"}}
+
+                                                            {{#match @custom.featured_posts_meta_display "!="
+                                                                     "Hide tags and post access meta"}}
+
+                                                                <span class="visibility">
+                                                                    {{visibility}}
+                                                                </span>
+                                                            {{/match}}
+                                                        {{/match}}
+                                                    {{/match}}
+                                                {{/match}}
+
+                                                {{#if reading_time}}
+
+                                                    <div class="feed-length">
+                                                                {{reading_time minute="Čtení na minutku"
+                                                                               minutes="Čtení na % min"}}
+                                                    </div>
+                                                {{/if}}
+
+                                            </div>
+                                        {{/match}}
+
+                                    </div>
+
+                                    <a class="absolute top-0 left-0 w-full h-full" href={{url}} aria-label="{{title}}"
+                                       title="{{t "Read more about:"}} {{title}}"></a>
+
+                                </article>
+                            {{/foreach}}
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        {{/if}}
+    {{/get}}
+{{/match}}
+
+
+{{#match @custom.display_featured_posts "==" "Slider"}}
+    <style>
+        .splide__container {
+            box-sizing: border-box;
+            position: relative
+        }
+
+        .splide__list {
+            backface-visibility: hidden;
+            display: -ms-flexbox;
+            display: flex;
+            height: 100%;
+            margin: 0 !important;
+            padding: 0 !important;
+            transform-style: preserve-3d;
+        }
+
+        .splide.is-initialized:not(.is-active) .splide__list {
+            display: block
+        }
+
+        .splide:not(.is-overflow) .splide__pagination {
+            display: none
+        }
+
+        .splide__progress__bar {
+            width: 0
+        }
+
+        .splide {
+            position: relative;
+            visibility: hidden
+        }
+
+        .splide.is-initialized,
+        .splide.is-rendered {
+            visibility: visible
+        }
+
+        .splide__slide {
+            backface-visibility: hidden;
+            box-sizing: border-box;
+            -ms-flex-negative: 0;
+            flex-shrink: 0;
+            list-style-type: none !important;
+            margin: 0;
+            position: relative
+        }
+
+        .splide__slide img {
+            vertical-align: bottom
+        }
+
+        .splide__spinner {
+            animation: splide-loading 1s linear infinite;
+            border: 2px solid #999;
+            border-left-color: transparent;
+            border-radius: 50%;
+            bottom: 0;
+            contain: strict;
+            display: inline-block;
+            height: 20px;
+            left: 0;
+            margin: auto;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 20px
+        }
+
+        .splide__sr {
+            clip: rect(0 0 0 0);
+            border: 0;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px
+        }
+
+        .splide__toggle.is-active .splide__toggle__play,
+        .splide__toggle__pause {
+            display: none
+        }
+
+        .splide__toggle.is-active .splide__toggle__pause {
+            display: inline
+        }
+
+        .splide__track {
+            overflow: hidden;
+            position: relative;
+            z-index: 0
+        }
+
+        @keyframes splide-loading {
+            0% {
+                transform: rotate(0)
+            }
+
+            to {
+                transform: rotate(1turn)
+            }
+        }
+
+        .splide__track--draggable {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none
+        }
+
+        .splide__track--fade > .splide__list > .splide__slide {
+            margin: 0 !important;
+            opacity: 0;
+            z-index: 0
+        }
+
+        .splide__track--fade > .splide__list > .splide__slide.is-active {
+            opacity: 1;
+            z-index: 1
+        }
+
+        .splide__arrow {
+            -ms-flex-align: center;
+            align-items: center;
+            background: rgba(255, 255, 255, .5);
+            border: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            display: -ms-flexbox;
+            display: flex;
+            height: 4rem;
+            -ms-flex-pack: center;
+            justify-content: center;
+            opacity: .7;
+            padding: 0;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4rem;
+            z-index: 1;
+            box-shadow: rgba(0, 0, 0, .15) 0 4px 10px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .splide__arrow:hover {
+            background: rgba(255, 255, 255, .8);
+        }
+
+        .splide__arrow svg {
+            fill: currentColor;
+            height: 1.2rem;
+            width: 1.2rem
+        }
+
+        .splide__arrow:hover:not(:disabled) {
+            opacity: .9
+        }
+
+        .splide__arrow:disabled {
+            opacity: .3
+        }
+
+        .splide__arrow:focus-visible {
+            outline: 3px solid #0bf;
+            outline-offset: 3px
+        }
+
+        .splide__arrow--prev {
+            left: -2rem
+        }
+
+        .splide__arrow--prev svg {
+            transform: scaleX(-1)
+        }
+
+        .splide__arrow--next {
+            right: -2rem
+        }
+
+        .splide.is-focus-in .splide__arrow:focus {
+            outline: 3px solid #0bf;
+            outline-offset: 3px
+        }
+
+
+        .splide.is-focus-in .splide__pagination__page:focus {
+            outline: 3px solid #0bf;
+            outline-offset: 3px
+        }
+
+        .splide__progress__bar {
+            background: #ccc;
+            height: 3px
+        }
+
+        .splide__slide {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+        }
+
+        .splide__slide:focus {
+            outline: 0
+        }
+
+        .splide__slide,
+        .splide__track .post,
+        .splide__track .macaw-pill,
+        .splide__track .gh-card-picture {
+            -webkit-backface-visibility: visible;
+            backface-visibility: visible;
+            will-change: opacity;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .splide__arrow {
+                height: 2.6rem;
+                width: 2.6rem;
+            }
+
+            .splide__arrow svg {
+                height: 1rem;
+                width: 1rem
+            }
+
+            .splide__arrow--next {
+                right: -1.3rem
+            }
+
+            .splide__arrow--prev {
+                left: -1.3rem
+            }
+        }
+    </style>
+{{/match}}

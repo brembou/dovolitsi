@@ -1,0 +1,52 @@
+<form data-members-form="subscribe"
+      class="w-full max-w-[550px]"
+      data-aos="fade-up-sm"
+      data-aos-delay="200">
+
+    <div class="macaw-newsletter-form__fileds flex items-center relative">
+        <input data-members-label type="hidden" value="{{label}}">
+
+        <input data-members-email
+               type="email"
+               required
+               placeholder="{{t "Your email"}}"
+               class="h-[4.2rem] w-full px-4 md:px-8 border-0 bg-white text-black rounded-[2rem] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-gray-400 sm:text-base sm:leading-6 outline-none"
+               style="padding-right: 170px;">
+
+        <button type="submit"
+                class="font-display uppercase bg-acc text-white leading-none rounded-3xl px-6 h-[42px] tracking-wider flex items-center justify-center absolute right-4 text-sm hover:opacity-80 transition-opacity macaw-button">
+            <span class="default">{{t "Subscribe" }}</span>
+            <span class="submitting">{{t "Submitting..."}}</span>
+        </button>
+    </div>
+
+    <div class="macaw-success-message macaw-alert font-display bg-white text-green-700 p-4 rounded-xl font-bold flex items-center gap-2 shadow-lg mt-4 mb-8">
+        <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 20 20" aria-hidden="true">
+            <circle cx="10" cy="10" r="10" fill="#22c55e"/>
+            <path d="M6 10l3 3 5-5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round"/>
+        </svg>
+        {{t "Great! Please check your inbox and click the confirmation link."}}
+    </div>
+
+    <div class="macaw-error-message macaw-alert font-display bg-white text-red-700 p-4 rounded-xl font-bold flex items-center gap-2 shadow-lg mt-4 mb-8">
+        <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 20 20" aria-hidden="true">
+            <circle cx="10" cy="10" r="10" fill="#ef4444"/>
+            <path d="M7 13l6-6m0 6l-6-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round"/>
+        </svg>
+        {{t "Sorry, something went wrong. Please try again."}}
+    </div>
+
+    {{!-- Když je to footer, nic nezobrazuj --}}
+    {{#match source "=" "footer"}}
+    {{!-- prázdné --}}
+    {{else}}
+        <!-- Jemné doplnění důvěry a social proof -->
+        <div class="mt-8 sm:mt-3 text-sm text-gray-700 text-center leading-relaxed">
+            🌿 <strong>1x za měsíc</strong> si dáme nový důvod zase posedět pod třešní. Žádný spam.<br>
+            💌 Už více než <strong>200 žen</strong> <a href="/co-o-mne-rikaji/" style="text-decoration: underline;">si
+            tuto chvilku na lavičce dopřává</a>.
+        </div>
+    {{/match}}
+</form>

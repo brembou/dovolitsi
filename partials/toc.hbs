@@ -1,0 +1,85 @@
+<style>
+    /* kontejner TOC – reset čítače H2 */
+    .gh-toc {
+        margin: 1rem 0 0.5rem;
+        counter-reset: h2;
+    }
+
+    /* zrušíme defaultní odrážky a odsazení Tocbotu */
+    .gh-toc ol {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .gh-toc .toc-list,
+    .gh-toc .toc-listis-collapsible {
+        margin: 0.5rem 0 0;
+    }
+
+    .gh-toc .toc-list .toc-list {
+        padding-left: 25px;
+    }
+
+    .toc-list-item {
+        line-height: 1.2;
+    }
+
+    /* ----- H2 položky (přímí potomci) ----- */
+    /* každé <li> na úrovni 1 (H2) inkrementuje h2 a resetuje h3 */
+    .gh-toc > ol > li {
+        counter-increment: h2;
+        counter-reset: h3;
+        margin: 0.3em 0;
+    }
+
+    /* před text H2 vložíme číslo "1. ", "2. "… */
+    .gh-toc > ol > li::before {
+        content: counter(h2) ". ";
+        font-weight: bold;
+        margin-right: 0.3em;
+    }
+
+    /* ----- H3 položky (vnořené v H2) ----- */
+    /* každé <li> na úrovni 2 (H3) inkrementuje h3 */
+    .gh-toc > ol > li > ol > li {
+        counter-increment: h3;
+        margin: 0.2em 0 0.2em 0;
+    }
+
+    /* před text H3 vložíme "1.1 ", "1.2 "… */
+    .gh-toc > ol > li > ol > li::before {
+        content: counter(h2) "." counter(h3) ". ";
+        font-weight: bold;
+        margin-right: 0.3em;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.12.3/tocbot.min.js"></script>
+<script>
+    // Funkce pro inicializaci Tocbotu
+    function initToc() {
+        tocbot.init({
+            tocSelector: '.gh-toc',
+            contentSelector: '.gh-content',
+            headingSelector: 'h2, h3',
+            ignoreSelector: '.no-toc',
+            orderedList: true,
+            headingsOffset: 40,
+            scrollSmoothOffset: -40
+        });
+
+        // Kontrola, zda se obsah vygeneroval, pokud ne, skryjeme box
+        var tocDiv = document.querySelector('.gh-toc');
+        if (tocDiv && tocDiv.innerHTML.trim() === '') {
+            tocDiv.style.display = 'none';
+        }
+    }
+
+    // Spustíme to hned, jakmile je HTML připravené (nečekáme na obrázky)
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initToc);
+    } else {
+        initToc();
+    }
+</script>

@@ -1,0 +1,9 @@
+{{!-- This is main pagination file --}}
+{{#if pagination.next}}
+    <div class="pt-8 text-center border-t md:pt-10 lg:pt-14 border-t-gray-200">
+        <button class="inline-flex items-center justify-center px-8 text-sm h-[42px] leading-none tracking-wider text-white uppercase transition-opacity macaw-button font-display bg-acc rounded-3xl hover:opacity-80 gh-loadmore">{{t
+                "Load more" }}</button>
+    </div>
+{{else}}
+    <div class="gh-loadmore"></div>
+{{/if}}

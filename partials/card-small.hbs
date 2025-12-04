@@ -1,0 +1,47 @@
+<article class="post-card {{post_class}} py-4 md:py-4 lg:py-2 relative{{#unless access}} post-access-{{visibility}}{{/unless}}">
+    <div class="flex items-center w-full gap-x-4 group">
+
+        {{#if feature_image}}
+            <div class="w-24 mb-0">
+                <div class="relative overflow-hidden rounded-md">
+                    <img class="w-24 h-24 object-cover rounded-md"
+                        srcset="{{img_url feature_image size="s"}} 300w,
+                                {{img_url feature_image size="m"}} 600w"
+                        sizes="100px"
+                        src="{{img_url feature_image size="s"}}"
+                        alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                        loading="lazy"
+                    />
+                    {{#unless access}}
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/50 rounded-md text-white">
+                            {{> "icons/lock-mini"}}
+                        </div>
+                    {{/unless}}
+                </div>
+            </div>
+        {{/if}}
+
+        <div class="flex-1 m-0">
+            <h2 class="no-toc font-bold leading-tight transition-all duration-300 text-md md:leading-tight md:text-xl font-display group-hover:text-accent">
+                {{title}}
+            </h2>
+
+            <footer class="flex flex-wrap items-center mt-1 text-xs leading-tight text-gray-600 sm:text-sm font-display macaw-post-meta">
+                <time datetime="{{date format="YYYY-MM-DD"}}">{{date published_at format="DD. MMM YYYY"}}</time>
+                <span class="visibility">
+                    {{#match visibility}}
+                        {{#has visibility="public"}}{{t "Public"}}{{/has}}
+                        {{#has visibility="members"}}{{t "Members only"}}{{/has}}
+                        {{#has visibility="paid"}}{{t "Premium only"}}{{/has}}
+                    {{/match}}
+                </span>
+            </footer>
+        </div>
+
+        <span class="items-center hidden pr-4 text-sm font-normal transition-all duration-300 md:text-base gap-x-1 font-display group-hover:pr-0 md:flex w-[140px] justify-end">
+            {{reading_time minute="Čtení na 1 min" minutes="Čtení na % min"}} &#8594;
+        </span>
+
+        <a class="absolute top-0 left-0 w-full h-full z-10" href="{{url}}" aria-label="{{title}}"></a>
+    </div>
+</article>

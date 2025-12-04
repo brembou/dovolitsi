@@ -1,0 +1,35 @@
+{{!< default}}
+<div class="container {{#match @custom.post_list_display "!=" "Big list"}} max-w-[920px] {{/match}}">
+
+    <h2 class="pb-2 text-base font-bold leading-none tracking-widest text-gray-900 uppercase border-b featured-title font-display border-b-gray-200 {{#match @custom.post_list_display "!=" "Big list"}} mb-2 {{/match}}">{{t "Latest posts"}}</h2>
+
+    <div class="grid grid-cols-1 divide-y divide-solid gh-feed">
+
+        {{#foreach posts}}
+
+            {{#match @custom.post_list_display "==" "Big list"}}
+                {{> "card" }} {{!-- partials/card.hbs --}}
+            {{/match}}
+
+            {{#match @custom.post_list_display "==" "Small list"}}
+                {{> "card-small" }} {{!-- partials/card-small.hbs --}}
+            {{/match}}
+
+            {{#match @custom.post_list_display "==" "Minimal list"}}
+                {{> "card-minimal" }} {{!-- partials/card-minimal.hbs --}}
+            {{/match}}
+
+        {{/foreach}}
+
+    </div>
+
+    {{pagination}}
+
+    {{!-- If JS isn't enabled, fallback to standard pagination --}}
+    <noscript>
+        <div class="gh-pagination">
+            {{pagination}}
+        </div>
+    </noscript>
+
+</div>

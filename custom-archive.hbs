@@ -1,0 +1,76 @@
+{{!< default}}
+
+{{!-- This is a custom archive that shows posts by year --}}
+<div class="container">
+
+
+    <header class="pb-4 border-b gh-page-head border-b-gray-200 max-w-[920px] mx-auto">
+
+        {{#get "posts"}}
+            <span class="block mb-2 text-base font-bold tracking-wider text-accent">{{plural ../pagination.total empty="<span class='text-accent'>No Articles</span>" singular="<span class='text-accent'>%</span> Article" plural="<span class='text-accent'>%</span> Articles"}}</span>
+        {{/get}}
+
+        <h1 class="text-3xl font-bold leading-snug md:text-3xl lg:text-5xl font-display">{{t "Archive"}}</h1>
+
+    </header>
+
+    <div class="mx-auto max-w-[920px]">
+        <div class="flow-root">
+            <div class="grid grid-flow-row divide-y divide-slate-200 gh-feed">
+
+                {{#foreach posts visibility="all"}}
+                    <div class="pt-12 pb-2 text-xl font-bold leading-7 text-gray-950 sm:truncate sm:text-3xl sm:tracking-tight font-display" data-date="{{date format="YYYY"}}">{{date format="YYYY"}}</div>
+                    {{> "card-small" }}
+                {{/foreach}}
+
+            </div>
+
+            {{pagination}}
+
+        </div>
+
+    </div>
+
+    <style>
+        .gh-feed [data-date="2027"],
+        .gh-feed [data-date="2026"],
+        .gh-feed [data-date="2025"],
+        .gh-feed [data-date="2024"],
+        .gh-feed [data-date="2023"],
+        .gh-feed [data-date="2022"],
+        .gh-feed [data-date="2021"],
+        .gh-feed [data-date="2020"],
+        .gh-feed [data-date="2019"],
+        .gh-feed [data-date="2018"],
+        .gh-feed [data-date="2017"],
+        .gh-feed [data-date="2016"],
+        .gh-feed [data-date="2015"],
+        .gh-feed [data-date="2014"],
+        .gh-feed [data-date="2013"],
+        .gh-feed [data-date="2012"],
+        .gh-feed [data-date="2011"] {
+            display: block;
+        }
+
+        .gh-feed [data-date="2027"]+.post+[data-date="2027"],
+        .gh-feed [data-date="2026"]+.post+[data-date="2026"],
+        .gh-feed [data-date="2025"]+.post+[data-date="2025"],
+        .gh-feed [data-date="2024"]+.post+[data-date="2024"],
+        .gh-feed [data-date="2023"]+.post+[data-date="2023"],
+        .gh-feed [data-date="2022"]+.post+[data-date="2022"],
+        .gh-feed [data-date="2021"]+.post+[data-date="2021"],
+        .gh-feed [data-date="2020"]+.post+[data-date="2020"],
+        .gh-feed [data-date="2019"]+.post+[data-date="2019"],
+        .gh-feed [data-date="2018"]+.post+[data-date="2018"],
+        .gh-feed [data-date="2017"]+.post+[data-date="2017"],
+        .gh-feed [data-date="2016"]+.post+[data-date="2016"],
+        .gh-feed [data-date="2015"]+.post+[data-date="2015"],
+        .gh-feed [data-date="2014"]+.post+[data-date="2014"],
+        .gh-feed [data-date="2013"]+.post+[data-date="2013"],
+        .gh-feed [data-date="2012"]+.post+[data-date="2012"],
+        .gh-feed [data-date="2011"]+.post+[data-date="2011"] {
+            display: none;
+        }
+    </style>
+
+</div>

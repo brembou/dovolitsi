@@ -1,0 +1,263 @@
+{
+    "name": "macaw",
+    "description": "A Ghost Blog and Newsletter theme",
+    "demo": "https://macaw.iristhemes.com",
+    "version": "1.5.0",
+    "engines": {
+        "ghost": ">=5.0.0"
+    },
+    "license": "MIT",
+    "screenshots": {
+        "desktop": "assets/screenshot-desktop.jpg"
+    },
+    "scripts": {
+        "dev": "concurrently \"rollup -c --environment BUILD:development -w\" \"npx tailwindcss -i ./assets/css/index.css -o ./assets/built/index.css --watch\" ",
+        "build": "rollup -c --environment BUILD:production && npx tailwindcss -i ./assets/css/index.css -o ./assets/built/index.css --minify",
+        "format": "js-beautify --config=js-beautify.json partials/*.hbs *.hbs --templating=handlebars --type=html",
+        "zip": "npm run build && npm run format && bestzip macaw.zip assets/* partials/* *.hbs package.json js-beautify.json LICENSE README.md renovate.json rollup.config.js tailwind.config.js",
+        "test": "npx gscan .",
+        "pretest": "npm run build"
+    },
+    "author": {
+        "name": "Iris Themes",
+        "email": "support@iristhemes.com",
+        "url": "https://iristhemes.com/"
+    },
+    "gpm": {
+        "type": "theme",
+        "categories": [
+            "Blog",
+            "Newsletter"
+        ]
+    },
+    "keywords": [
+        "ghost",
+        "theme",
+        "ghost-theme"
+    ],
+    "browserslist": [
+        "defaults"
+    ],
+    "config": {
+        "posts_per_page": 6,
+        "image_sizes": {
+            "xs": {
+                "width": 100
+            },
+            "xsx2": {
+                "width": 200
+            },
+            "s": {
+                "width": 374,
+                "height": 249
+            },
+            "sx2": {
+                "width": 748,
+                "height": 498
+            },
+            "m": {
+                "width": 464,
+                "height": 309
+            },
+            "mx2": {
+                "width": 928,
+                "height": 618
+            },
+            "post-full-s": {
+                "width": 412
+            },
+            "post-full-s-x2": {
+                "width": 824
+            },
+            "post-full-m": {
+                "width": 750
+            },
+            "post-full-m-x2": {
+                "width": 1500
+            },
+            "post-full": {
+                "width": 1216
+            },
+            "post-full-x2": {
+                "width": 2432
+            }
+        },
+        "card_assets": true,
+        "custom": {
+            "navigation_layout": {
+                "type": "select",
+                "options": [
+                    "Wide",
+                    "Site wide"
+                ],
+                "default": "Site wide",
+                "group": "site-wide"
+            },
+            "header_action": {
+                "type": "select",
+                "options": [
+                    "Social and Search",
+                    "Portal links",
+                    "None"
+                ],
+                "default": "Social and Search",
+                "group": "site-wide"
+            },
+            "display_featured_posts": {
+                "type": "select",
+                "options": [
+                    "Grid",
+                    "Slider",
+                    "Hide"
+                ],
+                "default": "Grid",
+                "group": "homepage"
+            },
+            "featured_posts_meta_display": {
+                "type": "select",
+                "options": [
+                    "Hide all meta",
+                    "Show all meta",
+                    "Hide tags",
+                    "Hide author meta",
+                    "Hide date meta",
+                    "Hide post access meta",
+                    "Hide author and post access meta",
+                    "Hide date and post access meta",
+                    "Hide author and date meta",
+                    "Hide tags and post access meta"
+                ],
+                "default": "Show all meta",
+                "group": "homepage"
+            },
+            "number_of_featured_posts": {
+                "type": "text",
+                "default": "2",
+                "group": "homepage"
+            },
+            "introduction_area": {
+                "type": "select",
+                "options": [
+                    "Image in the center text on the left and right",
+                    "Image on the top text below",
+                    "Hide introduction area"
+                ],
+                "default": "Image in the center text on the left and right",
+                "group": "homepage"
+            },
+            "name_on_the_left": {
+                "type": "text",
+                "default": "Macaw",
+                "group": "homepage"
+            },
+            "name_on_the_right": {
+                "type": "text",
+                "default": "Ghost",
+                "group": "homepage"
+            },
+            "introduction_area_displays": {
+                "type": "select",
+                "options": [
+                    "Sign up form",
+                    "Portal links",
+                    "Search"
+                ],
+                "default": "Sign up form",
+                "group": "homepage"
+            },
+            "typography": {
+                "type": "select",
+                "options": [
+                    "System",
+                    "Ghost Fonts",
+                    "Tight",
+                    "Playful",
+                    "Elegant",
+                    "Kreon",
+                    "Quciksand",
+                    "Azeret"
+                ],
+                "default": "Elegant",
+                "group": "site-wide"
+            },
+            "display_author_box": {
+                "type": "boolean",
+                "default": true,
+                "group": "post"
+            },
+            "display_progress_bar": {
+                "type": "boolean",
+                "default": true,
+                "group": "post"
+            },
+            "progress_bar_action": {
+                "type": "select",
+                "options": [
+                    "None",
+                    "Next post",
+                    "Subscribe button"
+                ],
+                "default": "Next post",
+                "group": "post"
+            },
+            "display_toc": {
+                "type": "boolean",
+                "default": false,
+                "group": "post"
+            },
+            "display_share": {
+                "type": "boolean",
+                "default": true,
+                "group": "post"
+            },
+            "post_list_display": {
+                "type": "select",
+                "options": [
+                    "Big list",
+                    "Small list",
+                    "Minimal list"
+                ],
+                "default": "Big list",
+                "group": "site-wide"
+            },
+            "meta_display": {
+                "type": "select",
+                "options": [
+                    "Hide all meta",
+                    "Show all meta",
+                    "Hide tags",
+                    "Hide author meta",
+                    "Hide date meta",
+                    "Hide post access meta",
+                    "Hide author and post access meta",
+                    "Hide date and post access meta",
+                    "Hide author and date meta",
+                    "Hide tags and post access meta"
+                ],
+                "default": "Show all meta",
+                "group": "site-wide"
+            }
+        }
+    },
+    "devDependencies": {
+        "@babel/core": "^7.21.0",
+        "@babel/preset-env": "^7.20.2",
+        "@rollup/plugin-babel": "^6.0.3",
+        "@rollup/plugin-commonjs": "^25.0.4",
+        "@rollup/plugin-node-resolve": "^15.0.1",
+        "@rollup/plugin-terser": "^0.4.0",
+        "@tailwindcss/typography": "^0.5.10",
+        "@tryghost/shared-theme-assets": "latest",
+        "bestzip": "^2.2.1",
+        "concurrently": "^8.2.1",
+        "postcss": "^8.4.24",
+        "postcss-import": "^15.1.0",
+        "postcss-preset-env": "^8.0.1",
+        "rollup": "^3.18.0",
+        "rollup-plugin-livereload": "^2.0.5",
+        "rollup-plugin-multi-input": "^1.4.1",
+        "rollup-plugin-postcss": "^4.0.2",
+        "tailwindcss": "^3.3.3"
+    },
+    "type": "module"
+}

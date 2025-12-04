@@ -1,0 +1,61 @@
+{{!--
+    Content CTA actions
+--}}
+{{#if @site.members_enabled}}
+    {{^if @member}}
+        <aside class="relative px-2 py-4 overflow-hidden content-cta lg:px-14 lg:py-14 xl:pb-16 xl:pt-16 grad-bg rounded-3xl not-prose w-wide">
+            <div class="relative p-8 m-auto text-center rounded-3xl bg-white/50 max-w-content">
+
+                {{#has visibility="paid"}}
+                    <h4 class="mt-4 text-3xl font-bold leading-tight tracking-normal text-gray-900 font-display sm:text-4xl px-14 max-sm:px-0 max-sm:mt-0">
+                        {{t "Get instant access to the full library of posts"}}
+                    </h4>
+                    <p class="max-w-md mx-auto mt-4 mb-2 text-base font-normal leading-relaxed opacity-80">
+                        {{t "Sign up now and upgrade your account to read the post and get access to the full library of posts for paying subscribers only."}}
+                    </p>
+                    <a href="javascript:"
+                       class="inline-flex items-center justify-center px-8 macaw-button h-[50px] mt-4 text-sm leading-none tracking-wider text-white uppercase transition-opacity font-display bg-acc rounded-3xl hover:opacity-80"
+                       data-portal="signup">{{t "Reserve my seat"}}</a>
+                {{/has}}
+                {{#has visibility="members"}}
+                    <h4 class="mt-4 text-3xl font-bold leading-tight tracking-normal text-gray-900 font-display sm:text-4xl px-14 max-sm:px-0 max-sm:mt-0">
+                        Pokračování jen pro nás pod třešní 🍒
+                    </h4>
+                    <p class="max-w-md mx-auto mt-4 mb-2 text-base font-normal leading-relaxed opacity-80">
+                        Zbytek textu je pro mě příliš osobní. Nechávám ho tu pro ženy, <strong><a href="/co-o-mne-rikaji/" style="text-decoration: underline;">které si ke mně přisedly</a></strong> — ne pro ty, co jen prolétají okolo. Pod třešní si říkáme víc… i mezi sebou v komentářích.
+                    </p>
+                    <a href="javascript:"
+                       class="inline-flex items-center justify-center px-8 macaw-button h-[50px] mt-4 text-sm leading-none tracking-wider text-white uppercase transition-opacity font-display bg-acc rounded-3xl hover:opacity-80"
+                       data-portal="signup">CHCI SI PŘISEDNOUT A DOČÍST</a>
+                {{/has}}
+                {{#has visibility="tiers"}}
+                    <h4 class="mt-4 text-3xl font-bold leading-tight tracking-normal text-gray-900 font-display sm:text-4xl px-14 max-sm:px-0 max-sm:mt-0">
+                        {{t "Get instant access the full library of posts"}}
+                    </h4>
+                    <p class="max-w-md mx-auto mt-4 mb-2 text-base font-normal leading-relaxed opacity-80">
+                        {{t "Sign up now and upgrade your account to read the post and get access to the full library of posts for paying subscribers only."}}
+                    </p>
+
+                    <div class="mt-3 mb-4 macaw-reserved-for">
+                        <span class="max-w-xl text-sm leading-8 text-gray-500 macaw-lock">{{tiers prefix="Access with: "
+                                                                                                  lastSeparator=" + "}}</span>
+                    </div>
+
+                    <a href="javascript:"
+                       class="inline-flex items-center justify-center px-8 macaw-button h-[50px] mt-4 text-sm leading-none tracking-wider text-white uppercase transition-opacity font-display bg-acc rounded-3xl hover:opacity-80"
+                       data-portal="signup">{{t "Reserve my seat"}}</a>
+
+                {{/has}}
+                <p class="mt-1 mb-0 text-sm leading-6 text-gray-500 font-display"><a
+                        href="javascript:" data-portal="signin"
+                        class="text-sm leading-8 text-gray-500 underline gh-portal-open hover:no-underline">Přihlaš se</a>, jestli už tu jsi jako doma.</p>
+            </div>
+
+        </aside>
+
+    {{else}}
+        <a class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-6 h-[38px] tracking-wider flex items-center justify-center text-xs hover:opacity-80 transition-opacity macaw-button"
+           href="#/portal/account">{{t "Account"}}</a>
+    {{/if}}
+
+{{/if}}

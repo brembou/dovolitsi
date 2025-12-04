@@ -1,0 +1,154 @@
+{{!--
+Re-usable card for linking to posts
+--}}
+
+<article class="post-card {{post_class}} py-8 md:py-8 lg:py-16 big-card">
+    <div class="relative flex flex-col-reverse w-full gh-card-link gap-x-14 group md:flex-row">
+
+        <div class="{{#if feature_image}}w-full md:w-3/5{{else}}w-full{{/if}} md:pb-7 macaw-card-content">
+
+
+            {{#match @custom.meta_display "!=" "Hide all meta"}}
+                {{#match @custom.meta_display "!=" "Hide tags"}}
+                    {{#match @custom.meta_display "!=" "Hide tags and post access meta"}}
+                        <div class="flex flex-wrap items-center justify-start mb-4 space-x-2.5">
+
+                            {{#foreach tags}}
+                                <a class="macaw-pill bg-acc-before text-accent post-tag-{{slug}}" href="{{url}}"
+                                   title="{{name}}">
+
+                                    <svg class="h-1.5 w-1.5 fill-bg-acc ml-[-3px]" viewBox="0 0 6 6" aria-hidden="true">
+                                        <circle cx="3" cy="3" r="3"></circle>
+                                    </svg>
+                                    {{name}}
+                                </a>
+                            {{/foreach}}
+
+                            {{#if featured}}
+                                <span class="text-gray-900 macaw-pill bg-gray-400/25">{{t "Featured"}}</span>
+                            {{/if}}
+                        </div>
+                    {{/match}}
+                {{/match}}
+            {{/match}}
+
+
+            <h2 class="mb-2 text-3xl font-bold transition-all duration-300 sm:mb-4 md:pr-0 xl:pr-24 md:text-3xl lg:text-card font-display group-hover:text-accent ">{{title}}</h2>
+
+            <p class="mb-4 overflow-hidden text-base leading-relaxed text-gray-700 opacity-85 text-ellipsis md:pr-0 lg:pr-24">{{excerpt
+                    characters="150"}}</p>
+
+
+            {{#match @custom.meta_display "!=" "Hide all meta"}}
+                <div class="relative z-10 flex flex-wrap items-center justify-start text-sm leading-tight text-gray-600 lg:absolute lg:bottom-0 lg:left-0 sm:text-md font-display macaw-post-meta">
+
+
+                    {{#match @custom.meta_display "!=" "Hide author meta"}}
+
+                        {{#match @custom.meta_display "!=" "Hide author and post access meta"}}
+
+                            {{#match @custom.meta_display "!=" "Hide author and date meta"}}
+
+                                <span class="macaw-post-author">
+                                    {{#foreach authors}}<a href="{{url}}"
+                                                           class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
+                                </span>
+
+                            {{/match}}
+
+                        {{/match}}
+
+                    {{/match}}
+
+                    {{#match @custom.meta_display "!=" "Hide date meta"}}
+
+                        {{#match @custom.meta_display "!=" "Hide date and post access meta"}}
+
+                            {{#match @custom.meta_display "!=" "Hide author and date meta"}}
+                                <time class="feed-date" datetime="{{date format="DD-MM-YYYY"}}">{{date published_at
+                                                                                                       format="DD. MMM YYYY"}}</time>
+                            {{/match}}
+                        {{/match}}
+                    {{/match}}
+
+
+                    {{#match @custom.meta_display "!=" "Hide post access meta"}}
+
+                        {{#match @custom.meta_display "!=" "Hide author and post access meta"}}
+
+                            {{#match @custom.meta_display "!=" "Hide date and post access meta"}}
+
+                                {{#match @custom.meta_display "!=" "Hide tags and post access meta"}}
+
+                                    <span class="visibility">
+                                        {{visibility}}
+                                    </span>
+
+                                {{/match}}
+
+                            {{/match}}
+
+                        {{/match}}
+                    {{/match}}
+
+                    <!--                   {{comment_count
+                            empty="Žádný komentář. Budeš první?"
+                            singular="komentář. Přidáš i ten svůj?"
+                            plural="komentáře/ů. Máš k tomu co říct?"
+                            autowrap="span"
+                            count=false
+                            title=""
+                            class="hide-number"
+                    }}-->
+
+                    <span class="hide-number">
+                      <hyvor-talk-comment-count page-id="{{id}}" mode="number"></hyvor-talk-comment-count>
+                    </span>
+
+                </div>
+            {{/match}}
+        </div>
+
+        {{#if feature_image}}
+            <div class="w-auto md:w-2/5 md:max-h-[309px] mb-4 lg:mb-0">
+                <div class="relative overflow-hidden rounded-3xl">
+                    <picture class="gh-card-picture">
+                        <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image size="s"}} 1x"
+                                media="(max-width: 420px)">
+                        <source srcset="{{img_url feature_image size="mx2"}} 2x,{{img_url feature_image size="m"}} 1x"
+                                media="(max-width: 768px)">
+                        <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image size="s"}} 1x"
+                                media="(max-width: 1024px)">
+                        <img srcset="{{img_url feature_image size="mx2"}} 2x" src="{{img_url feature_image size="m"}}"
+                             alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                             class="duration-700 gh-card-image rounded-3xl" {{^if @first}}loading="lazy" {{/if}}>
+
+                    </picture>
+
+                    <span class="absolute z-10 flex items-center text-sm font-normal text-white transition-opacity duration-200 delay-100 md:text-base opacity-1 sm:opacity-0 gap-x-1 font-display bottom-6 right-6 md:bottom-6 md:right-6 lg:bottom-8 lg:right-10 group-hover:opacity-100">{{reading_time
+                            minute="Čtení na minutku" minutes="Čtení na % min"}} &#8594;</span>
+                    <span class="absolute top-0 left-0 w-full h-full transition-opacity duration-300 pointer-events-none opacity-1 sm:opacity-0 bg-overlay group-hover:opacity-100 z-1"></span>
+
+                    {{#unless access}}
+                        <div class="gh-card-membership-overlay">
+                            {{#has visibility="members"}}
+                                {{t "Members only"}}
+                            {{/has}}
+                            {{#has visibility="paid"}}
+                                {{t "Premium only"}}
+                            {{/has}}
+                            {{#has visibility="tiers"}}
+                                {{t "Premium only"}}
+                            {{/has}}
+                        </div>
+
+                        {{> "icons/lock"}}
+                    {{/unless}}
+                </div>
+            </div>
+        {{/if}}
+
+        <a class="absolute top-0 left-0 w-full h-full" href={{url}} aria-label="{{title}}"
+           title="{{t "Read more about:"}} {{title}}"></a>
+    </div>
+</article>

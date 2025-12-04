@@ -1,0 +1,17 @@
+{{!--
+Re-usable card for linking to posts
+--}}
+
+<article class="post-card {{post_class}} py-4 md:py-3 lg:py-4 relative">
+    <div class="flex flex-col justify-between w-full gh-card-link gap-x-14 group md:flex-row">
+
+        <h2 class="no-toc font-bold transition-all duration-300 text-md md:text-lg font-display group-hover:text-accent">{{title}}</h2>
+
+        <span class="flex items-center pr-4 text-sm font-normal transition-all duration-300 md:text-base gap-x-1 font-display group-hover:pr-0 w-[240px] md:justify-end">
+            {{reading_time minute="Čtení na minutku" minutes="Čtení na % min"}} &#8594;
+        </span>
+
+        <a class="absolute top-0 left-0 w-full h-full" href={{url}} aria-label="{{title}}"
+           title="{{t "Read more about:"}} {{title}}" data-rel="recommended"></a>
+    </div>
+</article>

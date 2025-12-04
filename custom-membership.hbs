@@ -1,0 +1,125 @@
+{{!< default}}
+{{#page}}
+
+    {{!-- This is a custom page that displays all the membership tiers --}}
+
+    <div class="relative pb-10 sm:pb-12 xl:pt-6 xl:pb-16 macaw-section-bg macaw-archive-title">
+
+        <div class="max-w-2xl px-3 mx-auto lg:max-w-7xl sm:px-6 lg:px-6 max-lg:text-center">
+
+            <div class="max-w-lg m-auto text-center">
+
+
+                {{#get "posts"}}
+                    <span class="text-base font-bold tracking-wider text-accent">{{t "Explore"}}</span>
+                {{/get}}
+
+                <h1 class="mt-4 text-3xl font-bold font-display text-gray-950 sm:text-6xl">{{title}}</h1>
+                {{#if excerpt}}
+                    <div class="max-w-3xl m-auto mt-2 text-base leading-7">{{excerpt}}</div>
+                {{/if}}
+
+
+            </div>
+
+            <div class="mt-10 text-lg leading-8 macaw-top-actions">
+                <div class="macaw-toggle-btn">
+                    <span id="month" class="text-right macaw-monthly-label">{{t "Monthly"}}</span>
+                    <label class="switch">
+                        <input type="checkbox" id="checbox" onclick="check()" checked="">
+                        <span class="rounded-full slider bg-slate-300"></span>
+                    </label>
+                    <span id="annual" class="text-left macaw-annual-label active">{{t "Annually"}}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    {{!-- Begining of the tiers listing --}}
+
+    <main class="px-4 pb-10 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+
+        <div class="flex flex-col max-w-md gap-5 mx-auto lg:gap-10 isolate lg:mx-0 lg:max-w-none macaw-tiers lg:flex-row">
+
+            {{#get "tiers" include="monthly_price,yearly_price,benefits" limit="all" as |tiers|}}
+                {{#foreach tiers}}
+                    <div class="flex-1 w-full p-6 bg-white lg:max-w-md rounded-3xl xl:p-6 ring-1 ring-gray-200 macaw-checkout-plan">
+
+                        <div class="flex items-center justify-between gap-x-4">
+
+                            <h3 class="text-3xl font-display font-bold leading-8 mb-2 text-gray-950 {{#match type "paid"}}macaw-plan-paid{{/match}}">
+                                {{name}}
+                            </h3>
+                        </div>
+
+                        <span class="mt-4">{{description}}</span>
+
+                        {{#if monthly_price}}
+                            <span class="flex items-baseline mt-6 macaw-monthly-price gap-x-1">
+                                <span class="text-5xl font-bold tracking-tight text-gray-950">{{price currency=currency}}{{price monthly_price}}</span>
+                                <span class="text-base font-semibold leading-6 text-gray-600">{{t "/month"}}</span>
+                            </span>
+                        {{/if}}
+
+                        {{#if yearly_price}}
+                            <span class="flex items-baseline mt-6 macaw-yearly-price gap-x-1">
+                                <span class="text-5xl font-bold tracking-tight text-gray-950">{{price currency=currency}}{{price yearly_price}}</span>
+                                <span class="text-base font-semibold leading-6 text-gray-600">{{t "/year"}}</span>
+                            </span>
+                        {{/if}}
+
+
+                        {{#match type "free"}}
+                            {{#if @member}}
+                                <a class="inline-flex items-center w-full mt-6 justify-center px-8 text-sm h-[42px] leading-none tracking-wider text-white uppercase transition-opacity macaw-button font-display bg-acc rounded-3xl hover:opacity-80 disabled" href="/signup">{{t "Current Plan"}}</a>
+                            {{else}}
+                                <a class="inline-flex items-center w-full mt-6 justify-center px-8 text-sm h-[42px] leading-none tracking-wider text-white uppercase transition-opacity macaw-button font-display bg-acc rounded-3xl hover:opacity-80" href="javascript:void(0)" data-portal="signin">{{t "Signup for free"}}</a>
+                            {{/if}}
+                        {{/match}}
+                        {{#if monthly_price}}
+                            <a class="inline-flex items-center w-full mt-6 justify-center px-8 text-sm h-[42px] leading-none tracking-wider text-white uppercase transition-opacity macaw-button font-display bg-acc rounded-3xl hover:opacity-80 price-btn-monthly" href="javascript:void(0)" data-portal="signup/{{id}}/monthly">{{t "Sign up now"}}</a>
+                        {{/if}}
+                        {{#if yearly_price}}
+                            <a class="inline-flex items-center w-full mt-6 justify-center px-8 text-sm h-[42px] leading-none tracking-wider text-white uppercase transition-opacity macaw-button font-display bg-acc rounded-3xl hover:opacity-80 price-btn-annually" href="javascript:void(0)" data-portal="signup/{{id}}/yearly">{{t "Sign up now"}}</a>
+                        {{/if}}
+
+                        {{#if benefits}}
+                            <ul class="mt-4 space-y-3 text-base leading-6 xl:mt-6">
+                                {{#foreach benefits as |benefit|}}
+                                    <li class="flex gap-x-3"><svg class="flex-none w-5 h-6 text-accent" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"></path>
+                                        </svg>{{benefit}}</li>
+                                {{/foreach}}
+                            </ul>
+                        {{/if}}
+
+                    </div>
+                {{/foreach}}
+            {{/get}}
+
+        </div>
+
+
+        {{!-- Adding content from a page here --}}
+
+        <section class="mt-8 prose gh-content gh-canvas prose-neutral max-w-none md:prose-lg">
+
+            {{content}}
+
+        </section>
+
+{{/page}}
+
+</main>
+
+<script>
+    function check() {
+        var checkBox = document.getElementById("checbox");
+        var tiersBox = document.getElementsByClassName("macaw-tiers");
+
+        tiersBox[0].classList.toggle('macaw-active');
+
+    }
+</script>
