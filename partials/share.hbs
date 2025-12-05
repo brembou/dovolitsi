@@ -1,52 +1,27 @@
-<div class="mt-10 mb-12 py-6 md:mt-0 md:mb-6 md:py-0 lg:mb-10 macaw-share__post" data-aos="fade-in"
-     data-aos-duration="300" data-aos-delay="130">
+<div class="mt-10 mb-12 py-6 md:mt-0 md:mb-6 md:py-0 lg:mb-10 macaw-share__post" data-aos="fade-in" data-aos-duration="300" data-aos-delay="130">
 
     {{!-- Mobil 4 sloupce, od md 3 (WhatsApp skryjeme) --}}
     <div class="grid grid-cols-4 gap-2 overflow-hidden text-center lg:gap-5 md:grid-cols-3 not-prose">
 
         {{!-- Web Share - nativní sdílení (Messenger, WhatsApp, atd.) --}}
-        <button
-                type="button"
-                class="min-h-[46px] rounded-2xl relative flex flex-col items-center justify-center p-2 overflow-hidden transition-colors md:p-6 bg-acc-before lg:rounded-3xl"
-                id="js-webshare"
-                data-share="webshare"
-                aria-label="{{t "Share"}}"
-                title="{{t "Share"}}">
+        <button type="button" class="min-h-[46px] rounded-2xl relative flex flex-col items-center justify-center p-2 overflow-hidden transition-colors md:p-6 bg-acc-before lg:rounded-3xl" id="js-webshare" data-share="webshare" aria-label="{{t "Share"}}" title="{{t "Share"}}">
             <span class="fill-gray-950">{{> "icons/share"}}</span>
         </button>
 
         {{!-- Facebook share (lehký sharer, bez SDK) --}}
-        <a class="min-h-[46px] rounded-2xl relative flex flex-col items-center justify-center p-2 overflow-hidden transition-colors md:p-6 bg-acc-before lg:rounded-3xl"
-           href="https://www.facebook.com/sharer/sharer.php?u={{encode (url absolute='true')}}"
-        target="_blank" rel="noopener noreferrer nofollow"
-        aria-label="{{t "Share on Facebook"}}"
-        title="{{t "Share on Facebook"}}"
-        data-share="facebook">
-        <span class="fill-gray-950">{{> "icons/facebook"}}</span>
+        <a class="min-h-[46px] rounded-2xl relative flex flex-col items-center justify-center p-2 overflow-hidden transition-colors md:p-6 bg-acc-before lg:rounded-3xl" href="https://www.facebook.com/sharer/sharer.php?u={{encode (url absolute='true')}}" target="_blank" rel="noopener noreferrer nofollow" aria-label="{{t "Share on Facebook"}}" title="{{t "Share on Facebook"}}" data-share="facebook">
+            <span class="fill-gray-950">{{> "icons/facebook"}}</span>
         </a>
 
         {{!-- WhatsApp - zobraz jen na mobilech --}}
-        <a class="min-h-[46px] rounded-2xl relative flex flex-col items-center justify-center p-2 overflow-hidden transition-colors md:p-6 bg-acc-before lg:rounded-3xl md:hidden"
-           href="https://api.whatsapp.com/send?text={{encode title}}%20{{encode (url absolute='true')}}"
-        target="_blank" rel="noopener noreferrer nofollow"
-        aria-label="{{t "Share on WhatsApp"}}"
-        title="{{t "Share on WhatsApp"}}"
-        data-share="whatsapp">
-        <span class="fill-gray-950">{{> "icons/whatsapp"}}</span>
+        <a class="min-h-[46px] rounded-2xl relative flex flex-col items-center justify-center p-2 overflow-hidden transition-colors md:p-6 bg-acc-before lg:rounded-3xl md:hidden" href="https://api.whatsapp.com/send?text={{encode title}}%20{{encode (url absolute='true')}}" target="_blank" rel="noopener noreferrer nofollow" aria-label="{{t "Share on WhatsApp"}}" title="{{t "Share on WhatsApp"}}" data-share="whatsapp">
+            <span class="fill-gray-950">{{> "icons/whatsapp"}}</span>
         </a>
 
         {{!-- Kopírovat odkaz --}}
-        <button
-                type="button"
-                class="min-h-[46px] rounded-2xl relative flex flex-col items-center justify-center p-2 overflow-hidden transition-colors md:p-6 bg-acc-before lg:rounded-3xl"
-                id="js-copylink"
-                data-share="copy"
-                data-url="{{url absolute='true'}}"
-                aria-label="{{t "Copy URL"}}"
-                title="{{t "Copy URL"}}">
+        <button type="button" class="min-h-[46px] rounded-2xl relative flex flex-col items-center justify-center p-2 overflow-hidden transition-colors md:p-6 bg-acc-before lg:rounded-3xl" id="js-copylink" data-share="copy" data-url="{{url absolute='true'}}" aria-label="{{t "Copy URL"}}" title="{{t "Copy URL"}}">
             <span class="fill-gray-950">{{> "icons/copy"}}</span>
-            <span class="absolute hidden text-base leading-none text-gray-900 uppercase font-display"
-                  id="js-copylink-toast">
+            <span class="absolute hidden text-base leading-none text-gray-900 uppercase font-display" id="js-copylink-toast">
                 {{t "Link copied"}}
             </span>
         </button>
@@ -55,7 +30,7 @@
 </div>
 
 <script>
-    (function () {
+    (function() {
         const absUrl = "{{url absolute='true'}}";
         const title = "{{encode title}}";
 
@@ -68,14 +43,14 @@
             }
             wsBtn.addEventListener('click', async () => {
                 try {
-                    await navigator.share({title: document.title, url: absUrl});
+                    await navigator.share({ title: document.title, url: absUrl });
                     if (window.gtag) gtag('event', 'share', {
                         method: 'webshare',
                         content_type: 'article',
                         item_id: location.pathname
                     });
-                } catch (_) {
                 }
+                catch (_) {}
             });
         }
 
@@ -95,8 +70,8 @@
                         content_type: 'article',
                         item_id: location.pathname
                     });
-                } catch (_) {
                 }
+                catch (_) {}
             });
         }
 
@@ -135,4 +110,3 @@
         });
     })();
 </script>
-

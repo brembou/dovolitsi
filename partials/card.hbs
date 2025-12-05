@@ -14,8 +14,7 @@ Re-usable card for linking to posts
                         <div class="flex flex-wrap items-center justify-start mb-4 space-x-2.5">
 
                             {{#foreach tags}}
-                                <a class="macaw-pill bg-acc-before text-accent post-tag-{{slug}}" href="{{url}}"
-                                   title="{{name}}">
+                                <a class="macaw-pill bg-acc-before text-accent post-tag-{{slug}}" href="{{url}}" title="{{name}}">
 
                                     <svg class="h-1.5 w-1.5 fill-bg-acc ml-[-3px]" viewBox="0 0 6 6" aria-hidden="true">
                                         <circle cx="3" cy="3" r="3"></circle>
@@ -50,8 +49,7 @@ Re-usable card for linking to posts
                             {{#match @custom.meta_display "!=" "Hide author and date meta"}}
 
                                 <span class="macaw-post-author">
-                                    {{#foreach authors}}<a href="{{url}}"
-                                                           class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
+                                    {{#foreach authors}}<a href="{{url}}" class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
                                 </span>
 
                             {{/match}}
@@ -102,7 +100,7 @@ Re-usable card for linking to posts
                     }}-->
 
                     <span class="hide-number">
-                      <hyvor-talk-comment-count page-id="{{id}}" mode="number"></hyvor-talk-comment-count>
+                        <hyvor-talk-comment-count page-id="{{id}}" mode="number"></hyvor-talk-comment-count>
                     </span>
 
                 </div>
@@ -113,15 +111,10 @@ Re-usable card for linking to posts
             <div class="w-auto md:w-2/5 md:max-h-[309px] mb-4 lg:mb-0">
                 <div class="relative overflow-hidden rounded-3xl">
                     <picture class="gh-card-picture">
-                        <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image size="s"}} 1x"
-                                media="(max-width: 420px)">
-                        <source srcset="{{img_url feature_image size="mx2"}} 2x,{{img_url feature_image size="m"}} 1x"
-                                media="(max-width: 768px)">
-                        <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image size="s"}} 1x"
-                                media="(max-width: 1024px)">
-                        <img srcset="{{img_url feature_image size="mx2"}} 2x" src="{{img_url feature_image size="m"}}"
-                             alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
-                             class="duration-700 gh-card-image rounded-3xl" {{^if @first}}loading="lazy" {{/if}}>
+                        <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image size="s"}} 1x" media="(max-width: 420px)">
+                        <source srcset="{{img_url feature_image size="mx2"}} 2x,{{img_url feature_image size="m"}} 1x" media="(max-width: 768px)">
+                        <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image size="s"}} 1x" media="(max-width: 1024px)">
+                        <img srcset="{{img_url feature_image size="mx2"}} 2x" src="{{img_url feature_image size="m"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="duration-700 gh-card-image rounded-3xl" {{^if @first}}loading="lazy" {{/if}}>
 
                     </picture>
 
@@ -148,7 +141,6 @@ Re-usable card for linking to posts
             </div>
         {{/if}}
 
-        <a class="absolute top-0 left-0 w-full h-full" href={{url}} aria-label="{{title}}"
-           title="{{t "Read more about:"}} {{title}}"></a>
+        <a class="absolute top-0 left-0 w-full h-full" href={{url}} aria-label="{{title}}" title="{{t "Read more about:"}} {{title}}"></a>
     </div>
 </article>

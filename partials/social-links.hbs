@@ -3,25 +3,21 @@
     <ul class="inline-flex items-center navbar macaw-social">
         {{#if @site.facebook}}
             <li class="inline-flex items-center duration-300 hover:opacity-75 transition-op">
-                <a href="https://facebook.com/{{@site.facebook}}"
-                   class="px-2 py-3 transition-opacity duration-300 hover:opacity-80"
-                   title="{{t "Follow me on Facebook"}}">
+                <a href="https://facebook.com/{{@site.facebook}}" class="px-2 py-3 transition-opacity duration-300 hover:opacity-80" title="{{t "Follow me on Facebook"}}">
                     {{> "icons/facebook"}}
                 </a>
             </li>
         {{/if}}
         {{#if @site.twitter}}
             <li class="inline-flex items-center duration-300 hover:opacity-75 transition-op">
-                <a href="https://twitter.com/{{@site.twitter}}"
-                   class="px-2 py-3 transition-opacity duration-300 hover:opacity-80" title="{{t "Follow me on X"}}">
+                <a href="https://twitter.com/{{@site.twitter}}" class="px-2 py-3 transition-opacity duration-300 hover:opacity-80" title="{{t "Follow me on X"}}">
                     {{> "icons/twitter"}}
                 </a>
             </li>
         {{/if}}
         {{#if showSearch}}
             <li class="inline-flex items-center duration-300 hover:opacity-75 transition-op">
-                <a href="#" data-ghost-search class="px-2 py-3 transition-opacity duration-300 hover:opacity-80"
-                   title="{{t "Search the website"}}">
+                <a href="#" data-ghost-search class="px-2 py-3 transition-opacity duration-300 hover:opacity-80" title="{{t "Search the website"}}">
                     {{> "icons/search"}}
                 </a>
             </li>

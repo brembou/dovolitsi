@@ -6,8 +6,7 @@
             <div class="grid grid-cols-1 gap-2 md:gap-6 lg:gap-14 xl:gap-[3.333rem] md:grid-cols-2 splide__list">
 
                 {{#foreach featured}}
-                    <article
-                            class="{{post_class}} relative group text-center rounded-3xl overflow-hidden bg-white/50 p-2 md:p-4 lg:p-8 hover:bg-white/80 duration-300 transition-colors splide__slide">
+                    <article class="{{post_class}} relative group text-center rounded-3xl overflow-hidden bg-white/50 p-2 md:p-4 lg:p-8 hover:bg-white/80 duration-300 transition-colors splide__slide">
                         <div class="relative mb-4 overflow-hidden md:mb-5 rounded-3xl">
                             {{#if feature_image}}
 
@@ -18,18 +17,12 @@
                                 </div>
                                 <picture class="gh-card-picture">
                                     <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image
-                                                                                                      size="s"}} 1x"
-                                            media="(max-width: 420px)">
+                                                                                                      size="s"}} 1x" media="(max-width: 420px)">
                                     <source srcset="{{img_url feature_image size="mx2"}} 2x,{{img_url feature_image
-                                                                                                      size="m"}} 1x"
-                                            media="(max-width: 768px)">
+                                                                                                      size="m"}} 1x" media="(max-width: 768px)">
                                     <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image
-                                                                                                      size="s"}} 1x"
-                                            media="(max-width: 1024px)">
-                                    <img srcset="{{img_url feature_image size="mx2"}} 2x"
-                                         src="{{img_url feature_image size="m"}}"
-                                         alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
-                                         class="object-cover w-full duration-700 rounded-3xl gh-card-image group-hover:scale-110 group-hover:-rotate-1 group-hover:brightness-95 bg-light/95" {{^if
+                                                                                                      size="s"}} 1x" media="(max-width: 1024px)">
+                                    <img srcset="{{img_url feature_image size="mx2"}} 2x" src="{{img_url feature_image size="m"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="object-cover w-full duration-700 rounded-3xl gh-card-image group-hover:scale-110 group-hover:-rotate-1 group-hover:brightness-95 bg-light/95" {{^if
                                             @first}}loading="lazy" {{/if}}>
 
                                 </picture>
@@ -40,11 +33,9 @@
 
                             <div class="flex flex-wrap items-center justify-center mb-4 space-x-5">
                                 {{#foreach tags}}
-                                    <a class="macaw-pill bg-acc-before text-accent post-tag-{{slug}}" href="{{url}}"
-                                       title="{{name}}">
+                                    <a class="macaw-pill bg-acc-before text-accent post-tag-{{slug}}" href="{{url}}" title="{{name}}">
 
-                                        <svg class="h-1.5 w-1.5 fill-bg-acc ml-[-3px]" viewBox="0 0 6 6"
-                                             aria-hidden="true">
+                                        <svg class="h-1.5 w-1.5 fill-bg-acc ml-[-3px]" viewBox="0 0 6 6" aria-hidden="true">
                                             <circle cx="3" cy="3" r="3"></circle>
                                         </svg>
                                         {{name}}
@@ -57,8 +48,7 @@
 
                             <div class="relative z-10 flex flex-wrap items-center justify-center mb-2 text-sm text-gray-600 sm:mb-0 md:leading-none md:text-sm font-display">
                                 <span class="macaw-post-author">
-                                    {{#foreach authors}}<a href="{{url}}"
-                                                           class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
+                                    {{#foreach authors}}<a href="{{url}}" class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
                                 </span>
                                 <span>
                                     <span class="mx-2 bull">&bull;</span>
@@ -75,7 +65,7 @@
                                 {{#if reading_time}}
                                     <span class="mx-2 bull">&bull;</span>
                                     <div class="feed-length">
-                                                {{reading_time minute="Čtení na minutku" minutes="Čtení na % min"}}
+                                        {{reading_time minute="Čtení na minutku" minutes="Čtení na % min"}}
                                     </div>
                                 {{/if}}
 
@@ -83,8 +73,7 @@
 
                         </div>
 
-                        <a class="absolute top-0 left-0 w-full h-full" href={{url}} aria-label="{{title}}"
-                           title="{{t "Read more about:"}} {{title}}"></a>
+                        <a class="absolute top-0 left-0 w-full h-full" href={{url}} aria-label="{{title}}" title="{{t "Read more about:"}} {{title}}"></a>
 
                     </article>
                 {{/foreach}}

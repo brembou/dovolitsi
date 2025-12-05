@@ -27,14 +27,14 @@
 
     /* ----- H2 položky (přímí potomci) ----- */
     /* každé <li> na úrovni 1 (H2) inkrementuje h2 a resetuje h3 */
-    .gh-toc > ol > li {
+    .gh-toc>ol>li {
         counter-increment: h2;
         counter-reset: h3;
         margin: 0.3em 0;
     }
 
     /* před text H2 vložíme číslo "1. ", "2. "… */
-    .gh-toc > ol > li::before {
+    .gh-toc>ol>li::before {
         content: counter(h2) ". ";
         font-weight: bold;
         margin-right: 0.3em;
@@ -42,13 +42,13 @@
 
     /* ----- H3 položky (vnořené v H2) ----- */
     /* každé <li> na úrovni 2 (H3) inkrementuje h3 */
-    .gh-toc > ol > li > ol > li {
+    .gh-toc>ol>li>ol>li {
         counter-increment: h3;
         margin: 0.2em 0 0.2em 0;
     }
 
     /* před text H3 vložíme "1.1 ", "1.2 "… */
-    .gh-toc > ol > li > ol > li::before {
+    .gh-toc>ol>li>ol>li::before {
         content: counter(h2) "." counter(h3) ". ";
         font-weight: bold;
         margin-right: 0.3em;
@@ -79,7 +79,8 @@
     // Spustíme to hned, jakmile je HTML připravené (nečekáme na obrázky)
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initToc);
-    } else {
+    }
+    else {
         initToc();
     }
 </script>

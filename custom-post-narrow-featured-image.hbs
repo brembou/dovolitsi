@@ -13,15 +13,13 @@
             <h1 class="max-w-md m-auto mb-2 text-3xl font-bold sm:leading-snug sm:text-3xl lg:leading-snug lg:text-3xl gh-title font-display lg:max-w-[550px]">{{title}}</h1>
 
             {{#if custom_excerpt}}
-                <p class="max-w-lg mx-auto mb-4 font-normal md:mb-6 md:leading-relaxed md:mt-13 md:text-base lg:max-w-2xl opacity-80 font-text"
-                   data-aos="fade-in" data-aos-duration="500" data-aos-delay="150">{{custom_excerpt}}</p>
+                <p class="max-w-lg mx-auto mb-4 font-normal md:mb-6 md:leading-relaxed md:mt-13 md:text-base lg:max-w-2xl opacity-80 font-text" data-aos="fade-in" data-aos-duration="500" data-aos-delay="150">{{custom_excerpt}}</p>
             {{/if}}
 
             {{!-- Meta data for post header --}}
             <span class="flex flex-wrap items-center justify-center text-base leading-relaxed text-gray-600 md:leading-none font-display">
                 <span class="macaw-post-author">
-                    {{#foreach authors}}<a href="{{url}}"
-                                           class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
+                    {{#foreach authors}}<a href="{{url}}" class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
                 </span>
                 <time class="feed-date" datetime="{{date format="DD-MM-YYYY"}}">
                     <span class="mx-2 bull">&bull;</span>
@@ -44,23 +42,16 @@
 
         {{!-- We check if the post has a feature image --}}
         {{#if feature_image}}
-            <figure class="mt-2 mb-4 text-center md:mb-8 md:mt-10 gh-feature-image max-sm:p-0 max-w-[750px] m-auto"
-                    data-aos="fade-in" data-aos-duration="500" data-aos-delay="150">
+            <figure class="mt-2 mb-4 text-center md:mb-8 md:mt-10 gh-feature-image max-sm:p-0 max-w-[750px] m-auto" data-aos="fade-in" data-aos-duration="500" data-aos-delay="150">
 
                 <picture>
                     <source srcset="{{img_url feature_image size="post-full-s-x2"}} 2x,{{img_url feature_image
-                                                                                                 size="post-full-s"}} 1x"
-                            media="(max-width: 420px)">
+                                                                                                 size="post-full-s"}} 1x" media="(max-width: 420px)">
                     <source srcset="{{img_url feature_image size="post-full-m-x2"}} 2x,{{img_url feature_image
-                                                                                                 size="post-full-m"}} 1x"
-                            media="(max-width: 768px)">
+                                                                                                 size="post-full-m"}} 1x" media="(max-width: 768px)">
                     <source srcset="{{img_url feature_image size="post-full-m-x2"}} 2x,{{img_url feature_image
-                                                                                                 size="post-full-m-x2"}} 1x"
-                            media="(max-width: 1024px)">
-                    <img srcset="{{img_url feature_image size="post-full-m-x2"}} 2x"
-                         src="{{img_url feature_image size="post-full-m"}}"
-                         alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
-                         class="max-sm:rounded-none max-sm:w-full rounded-3xl">
+                                                                                                 size="post-full-m-x2"}} 1x" media="(max-width: 1024px)">
+                    <img srcset="{{img_url feature_image size="post-full-m-x2"}} 2x" src="{{img_url feature_image size="post-full-m"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="max-sm:rounded-none max-sm:w-full rounded-3xl">
 
                 </picture>
                 {{#if feature_image_caption}}
@@ -75,12 +66,12 @@
 
 
             {{#if @custom.display_toc}}
-            <div class="mb-6 bg-gray-100 rounded-2xl">
-                <div class="px-10 py-8">
-                    <h4 class="mb-8 text-xl toc-heading font-display">Table of contents</h4>
-                    <div class="gh-toc font-display"></div>
+                <div class="mb-6 bg-gray-100 rounded-2xl">
+                    <div class="px-10 py-8">
+                        <h4 class="mb-8 text-xl toc-heading font-display">Table of contents</h4>
+                        <div class="gh-toc font-display"></div>
+                    </div>
                 </div>
-            </div>
             {{/if}}
 
 
@@ -88,38 +79,38 @@
 
             {{#if @custom.display_share}}
 
-            <div class="not-prose">
+                <div class="not-prose">
 
-                {{> "share"}}
+                    {{> "share"}}
 
                 </div>
 
             {{/if}}
 
             {{#if @custom.display_author_box}}
-            <div class="relative px-8 pb-8 md:p-10 overflow-hidden pt-[4.5rem] lg:px-20 lg:pt-20 lg:pb-16 mb-7 lg:mb-14 grad-bg rounded-3xl macaw-authors not-prose">
-                {{#foreach authors}}
+                <div class="relative px-8 pb-8 md:p-10 overflow-hidden pt-[4.5rem] lg:px-20 lg:pt-20 lg:pb-16 mb-7 lg:mb-14 grad-bg rounded-3xl macaw-authors not-prose">
+                    {{#foreach authors}}
 
-                    {{> "author"}}
+                        {{> "author"}}
 
-                {{/foreach}}
+                    {{/foreach}}
                 </div>
             {{/if}}
 
             {{#if comments}}
-            <section class="gh-post-comments">
-                {{comments}}
-            </section>
+                <section class="gh-post-comments">
+                    {{comments}}
+                </section>
             {{/if}}
 
             {{#match @site.recommendations_enabled}}
-            <div class="mt-12 not-prose">
+                <div class="mt-12 not-prose">
 
-                <h3 class="pb-2 mb-6 text-base font-bold leading-none tracking-widest text-gray-900 uppercase border-b featured-title font-display border-b-gray-200 ">{{t
+                    <h3 class="pb-2 mb-6 text-base font-bold leading-none tracking-widest text-gray-900 uppercase border-b featured-title font-display border-b-gray-200 ">{{t
                             "Recommendations"}}</h3>
 
-                {{recommendations limit="2"}}
-            </div>
+                    {{recommendations limit="2"}}
+                </div>
             {{/match}}
 
             <div class="macaw-post-sneak-peek fading">

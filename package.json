@@ -250,6 +250,7 @@
         "@tryghost/shared-theme-assets": "latest",
         "bestzip": "^2.2.1",
         "concurrently": "^8.2.1",
+        "js-beautify": "^1.15.4",
         "postcss": "^8.4.24",
         "postcss-import": "^15.1.0",
         "postcss-preset-env": "^8.0.1",
