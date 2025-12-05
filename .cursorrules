@@ -1,0 +1,143 @@
+# Cursor Rules for Dovolitsi Ghost Theme
+
+## Project Overview
+This is a Ghost CMS theme project called "Dovolitsi" (based on Macaw theme). It uses Handlebars templates, Tailwind CSS, and modern JavaScript with Rollup bundling.
+
+## Technology Stack
+- **Templating**: Handlebars (.hbs files)
+- **Styling**: Tailwind CSS 3.x with custom configuration
+- **JavaScript**: ES6+ modules, bundled with Rollup
+- **Build Tools**: Rollup, Tailwind CLI, js-beautify
+- **Localization**: Czech (cs.json)
+
+## File Structure
+- `*.hbs` - Main Handlebars templates (default.hbs, index.hbs, post.hbs, etc.)
+- `partials/` - Reusable Handlebars partials
+- `assets/css/` - Source CSS files (compiled to assets/built/)
+- `assets/js/` - Source JavaScript files (compiled to assets/built/)
+- `assets/js/lib/` - Third-party JavaScript libraries
+- `locales/` - Translation files
+- `tailwind.config.js` - Tailwind CSS configuration
+- `rollup.config.js` - Rollup bundler configuration
+
+## Coding Standards
+
+### Handlebars Templates
+- Use Handlebars syntax: `{{variable}}`, `{{#if condition}}`, `{{#each items}}`
+- Use Ghost-specific helpers: `@site`, `@custom`, `{{#match}}`, etc.
+- Maintain proper indentation (4 spaces as per js-beautify.json)
+- Use semantic HTML5 elements
+- Include proper accessibility attributes (aria-labels, alt texts)
+- Comment complex template logic with `{{!-- comment --}}`
+- Use partials for reusable components (located in `partials/`)
+
+### CSS / Tailwind
+- Prefer Tailwind utility classes over custom CSS
+- Use Tailwind's responsive prefixes: `sm:`, `md:`, `lg:`, `xl:`, `2xl:`
+- Custom CSS should be in `assets/css/index.css` with proper organization
+- Follow the existing CSS structure:
+  1. Local component imports
+  2. Typography settings
+  3. Header
+  4. Footer
+  5. Theme utils
+  6. Content grid
+  7. Cards
+  8. Card captions
+  9. Post content
+  10. Responsive tweaks
+- Use CSS custom properties (variables) for theme values
+- Maintain mobile-first responsive design approach
+
+### JavaScript
+- Use ES6+ features (arrow functions, const/let, template literals, destructuring)
+- Use ES6 modules: `import`/`export`
+- Follow the existing code style in `assets/js/index.js`
+- Use IIFE pattern for main scripts: `(() => { ... })()`
+- Prefer `const` over `let`, avoid `var`
+- Use meaningful variable names with descriptive suffixes (e.g., `headerRef`, `navRef`)
+- Add comments for complex logic sections
+- Handle events properly with cleanup when needed
+- Use modern DOM APIs (querySelector, addEventListener, etc.)
+
+### Code Formatting
+- Run `npm run format` before committing to format Handlebars files
+- Follow js-beautify.json configuration (4 spaces, preserve newlines)
+- Maintain consistent indentation throughout the project
+
+## Development Workflow
+- Use `npm run dev` for development (watch mode with livereload)
+- Use `npm run build` for production builds
+- Use `npm run test` to validate theme with gscan
+- Use `npm run zip` to create distribution package
+- Always test changes in a local Ghost instance
+- Ensure compatibility with Ghost >=5.0.0
+
+## Ghost Theme Best Practices
+- Use Ghost's built-in helpers and context variables
+- Respect Ghost's image sizing configuration in package.json
+- Follow Ghost theme structure conventions
+- Test theme with gscan before deployment
+- Ensure all custom options are properly defined in package.json config
+- Use proper Ghost template hierarchy (default.hbs, index.hbs, post.hbs, etc.)
+
+## Localization
+- Czech language support is in `locales/cs.json`
+- Use `{{t "key"}}` for translations in templates
+- Maintain consistency with existing translation keys
+
+## Performance Considerations
+- Minimize custom JavaScript - use Rollup bundling
+- Optimize Tailwind CSS output (use purge/content configuration)
+- Use lazy loading for images where appropriate
+- Minimize external font loading (respect typography settings)
+- Ensure built assets are minified for production
+
+## Accessibility
+- Use semantic HTML elements
+- Include proper ARIA labels and roles
+- Ensure keyboard navigation works
+- Maintain proper heading hierarchy
+- Include alt text for images
+- Ensure sufficient color contrast
+
+## Browser Support
+- Support modern browsers (as per browserslist: "defaults")
+- Test responsive design on mobile, tablet, and desktop
+- Ensure graceful degradation for older browsers
+
+## Comments and Documentation
+- Use clear, descriptive comments for complex logic
+- Comment Handlebars template sections when needed
+- Document custom JavaScript functions
+- Maintain inline documentation for configuration options
+
+## Common Patterns
+
+### Adding a new partial
+- Create file in `partials/` directory
+- Use descriptive name with `.hbs` extension
+- Include in templates with `{{> partial-name}}`
+
+### Adding custom CSS
+- Add to appropriate section in `assets/css/index.css`
+- Prefer Tailwind utilities when possible
+- Use CSS custom properties for theme values
+
+### Adding JavaScript functionality
+- Add to `assets/js/index.js` or create new module
+- Import in index.js if creating separate module
+- Use modern ES6+ syntax
+- Ensure proper event handling and cleanup
+
+### Modifying Tailwind configuration
+- Edit `tailwind.config.js`
+- Extend theme rather than replacing defaults
+- Test that changes compile correctly
+
+## Notes
+- The project uses Czech language for some comments and content
+- Theme is based on Macaw but customized for "Dovolitsi"
+- Google Tag Manager is conditionally loaded (not on localhost)
+- Theme supports multiple typography options and customizations
+
