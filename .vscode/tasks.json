@@ -1,30 +1,16 @@
 {
     "version": "2.0.0",
     "tasks": [
-        // 1. Úkol pro spuštění Ghost Serveru
+        // 1. Úkol pro spuštění Ghost Serveru (POPŘEDÍ RUN MODE)
         {
-            "label": "Start Ghost Server",
+            "label": "Start Ghost Server (Run)",
             "type": "shell",
-            "command": "cd ~/Projects/ghost-local-server && ghost start",
+            "command": "bash -c \"cd ~/Projects/ghost-local-server && ghost run\"", 
             "group": "build",
-            "isBackground": true,
-            "problemMatcher": {
-                "pattern": {
-                    "regexp": ".*",
-                    "file": 1,
-                    "location": 2,
-                    "message": 3
-                },
-                "background": {
-                    "activeOnStart": true,
-                    // Změňte tuto zprávu, pokud se liší!
-                    "beginsPattern": ".*Ghost is running in the background!.*", 
-                    "endsPattern": ".*"
-                }
-            },
             "presentation": {
                 "reveal": "always",
-                "panel": "new"
+                "panel": "new",
+                "close": false 
             }
         },
         // 2. Úkol pro spuštění Kompilátoru šablony (Watcher)
@@ -33,17 +19,18 @@
             "type": "npm",
             "script": "dev",
             "isBackground": true,
-            "problemMatcher": "$tsc-watch", // Používá standardní watcher matcher
+            "problemMatcher": "$tsc-watch",
             "presentation": {
                 "reveal": "always",
-                "panel": "new"
+                "panel": "new",
+                "close": false
             }
         },
         // 3. Složený úkol (Compound Task) pro spuštění obou najednou
         {
             "label": "Start Dev Environment",
             "dependsOn": [
-                "Start Ghost Server",
+                "Start Ghost Server (Run)",
                 "Start Theme Watcher"
             ],
             "group": {
