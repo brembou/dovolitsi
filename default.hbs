@@ -24,8 +24,12 @@
             <!-- End Google Tag Manager -->
         {{/match}}
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{!-- Basic meta - advanced meta is output with {ghost_head} below --}}
+        <title>{{meta_title}}</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2250%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2290%22>🍒</text></svg>">
 
         {{!-- Check font options  if the System is set then do not load Google Fonts --}}
@@ -59,10 +63,13 @@
         {{/match}}
         {{!-- Check fonts end --}}
 
-        {{!-- Main stylesheet --}}
-        <link rel="stylesheet" href="{{asset "built/index.css"}}">
-        {{!-- Main JS file --}}
-        <script src="{{asset "built/index.js"}}" defer></script>
+        {{!-- Preload scripts for better performance --}}
+        <link rel="preload" as="style" href="{{asset "built/index.css"}}" />
+        <link rel="preload" as="script" href="{{asset "built/index.js"}}" />
+
+        {{!-- Theme assets - use the {asset} helper to reference styles & scripts,
+        this will take care of caching and cache-busting automatically --}}
+        <link rel="stylesheet" type="text/css" href="{{asset "built/index.css"}}" />
         {{!-- Performance: preconnect for external third-parties - pouze v produkci --}}
         {{#match @site.url "!=" "http://localhost:2368"}}
             <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -71,7 +78,6 @@
             <link rel="dns-prefetch" href="https://talk.hyvor.com">
         {{/match}}
 
-        <title>{{meta_title}}</title>
         {{!-- Additional Check to make load more pagination work --}}
         <script>
             var site_url = '{{ @site.url }}',
@@ -101,8 +107,9 @@
             </style>
         {{/if}}
 
+        {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
+        it should always be the last tag before the closing head tag --}}
         {{ghost_head}}
-        {{!-- Outputs important meta data and settings, should always be in <head> --}}
 
     </head>
     {{!-- Here we check for font options and add addtional CSS classes --}}
@@ -186,10 +193,10 @@
 
         </div>
 
-        {{ghost_foot}}
-        {{!-- Outputs important scripts - should always be included before closing body tag --}}
+        {{!-- Main JS file - loaded with defer for better performance --}}
+        <script src="{{asset "built/index.js"}}" defer></script>
 
-        {{!-- We check if we are on post and load post js - addtional JS optimization --}}
+        {{!-- We check if we are on post and load post js - additional JS optimization --}}
         {{#is "post"}}
             <script src="{{asset "built/post.js"}}" defer></script>
         {{/is}}
@@ -251,6 +258,9 @@
                 }
             </script>
         {{/match}}
+
+        {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}
+        {{ghost_foot}}
 
     </body>
 
