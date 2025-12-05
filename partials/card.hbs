@@ -69,15 +69,6 @@ Re-usable card for linking to posts
                         {{/match}}
                     {{/match}}
 
-
-                    {{#match @custom.meta_display "!=" "Hide post access meta"}}
-
-                        {{#match @custom.meta_display "!=" "Hide author and post access meta"}}
-
-                            {{#match @custom.meta_display "!=" "Hide date and post access meta"}}
-
-                                {{#match @custom.meta_display "!=" "Hide tags and post access meta"}}
-
                                     <span class="visibility">
                                         {{#has visibility="public"}}
                                             {{t "Public"}}
@@ -90,22 +81,6 @@ Re-usable card for linking to posts
                                         {{/has}}
                                     </span>
 
-                                {{/match}}
-
-                            {{/match}}
-
-                        {{/match}}
-                    {{/match}}
-
-                    <!--                   {{comment_count
-                            empty="Žádný komentář. Budeš první?"
-                            singular="komentář. Přidáš i ten svůj?"
-                            plural="komentáře/ů. Máš k tomu co říct?"
-                            autowrap="span"
-                            count=false
-                            title=""
-                            class="hide-number"
-                    }}-->
 
                     <span class="hide-number">
                         <hyvor-talk-comment-count page-id="{{id}}" mode="number"></hyvor-talk-comment-count>
