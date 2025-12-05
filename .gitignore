@@ -1,3 +1,13 @@
 !/node_modules/
 /node_modules/
 .gitignore
+
+# Kompilovane soubory a cache
+assets/built/*
+.vscode/*
+
+*.zip
+
+# Logy a temporalni soubory
+npm-debug.log
+/assets/built/index.css
