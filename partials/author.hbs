@@ -60,14 +60,14 @@
             </p>
 
             <!-- Sociální sítě s ikonou + textem -->
-            <div class="flex flex-wrap justify-center gap-6">
+            <div class="flex flex-wrap justify-center items-center gap-6">
                 {{#if facebook}}
                     <a href="https://www.facebook.com/{{facebook}}" target="_blank" rel="noopener noreferrer"
                        class="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-acc-before transition">
-                        <span>Facebook</span>&nbsp;|&nbsp;&nbsp;&nbsp;
+                        <span>Facebook</span>
                     </a>
                 {{/if}}
-
+                {{#if facebook}}{{#if instagram}}<span class="text-gray-400">|</span>{{/if}}{{/if}}
                 {{#if instagram}}
                     <a href="https://www.instagram.com/{{instagram}}" target="_blank" rel="noopener noreferrer"
                        class="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-acc-before transition">
