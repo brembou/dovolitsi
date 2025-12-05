@@ -1,0 +1,39 @@
+name: Deploy Ghost Theme
+
+# Spustí se při každém pushi na hlavní větev
+on:
+  push:
+    branches:
+      - master # Zkontrolujte, zda je název vaší hlavní větve 'master' nebo 'main'
+
+jobs:
+  deploy:
+    # Používá standardní runner pro spuštění skriptu
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        # Stáhne kód z repozitáře
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        # Nastaví Node.js verzi potřebnou pro Ghost/Rollup
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' 
+
+      - name: Install Dependencies and Build Production ZIP
+        # Nainstaluje závislosti a spustí náš skript 'npm run zip'
+        # Skript 'zip' zajistí produkční build a vytvoření souboru macaw.zip
+        run: |
+          npm install
+          npm run zip 
+
+      - name: Deploy Theme to Ghost
+        # Používá oficiální akci pro nahrání šablony na Ghost
+        uses: TryGhost/action-deploy-theme@v1
+        with:
+          # Název ZIP souboru, který vytvořil 'npm run zip'
+          zip-file: macaw2.zip 
+          # Využívá tajné proměnné, které jste vytvořil na GitHubu
+          api-url: ${{ secrets.GHOST_ADMIN_API_URL }}
+          api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
