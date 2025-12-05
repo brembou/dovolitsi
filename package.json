@@ -14,7 +14,7 @@
         "dev": "concurrently \"rollup -c --environment BUILD:development -w\" \"npx tailwindcss -i ./assets/css/index.css -o ./assets/built/index.css --watch\" ",
         "build": "rollup -c --environment BUILD:production && npx tailwindcss -i ./assets/css/index.css -o ./assets/built/index.css --minify",
         "format": "js-beautify --config=js-beautify.json partials/*.hbs *.hbs --templating=handlebars --type=html",
-        "zip": "npm run build && npm run format && bestzip macaw1.zip assets/* partials/* *.hbs package.json js-beautify.json LICENSE README.md renovate.json rollup.config.js tailwind.config.js",
+        "zip": "npm run build && npm run format && bestzip macaw1.zip assets/* partials/* *.hbs locales/* package.json js-beautify.json LICENSE README.md renovate.json rollup.config.js tailwind.config.js",
         "test": "npx gscan .",
         "pretest": "npm run build"
     },
