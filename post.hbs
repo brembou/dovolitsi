@@ -263,7 +263,7 @@
                         <h2 class="no-toc pb-2 mb-6 text-base font-bold leading-none tracking-widest text-gray-900 uppercase border-b featured-title font-display border-b-gray-200">
                             Vybrala jsem pro tebe…
                         </h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 gh-feed">
+                        <div class="grid grid-cols-1 gap-6 gh-feed" aria-label="Doporučené články">
                             {{#get "posts" limit="3" order="random" as |randoms|}}
                                 {{#foreach randoms}}
                                     {{> "card-small" lazyLoad=true}}
