@@ -79,7 +79,15 @@ Re-usable card for linking to posts
                                 {{#match @custom.meta_display "!=" "Hide tags and post access meta"}}
 
                                     <span class="visibility">
-                                        {{visibility}}
+                                        {{#has visibility="public"}}
+                                            {{t "Public"}}
+                                        {{/has}}
+                                        {{#has visibility="members"}}
+                                            {{t "Members only"}}
+                                        {{/has}}
+                                        {{#has visibility="premium"}}
+                                            {{t "Premium only"}}
+                                        {{/has}}
                                     </span>
 
                                 {{/match}}
