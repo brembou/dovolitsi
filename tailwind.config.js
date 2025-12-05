@@ -6,6 +6,11 @@ export default {
             center: true,
         },
         extend: {
+            colors: {
+                slate: {
+                    900: 'rgb(196 101 66)',
+                },
+            },
             container: {
                 screens: {
                     '2xl': '1280px'

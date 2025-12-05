@@ -1254,17 +1254,6 @@ figcaption a:hover{
     font-family: var(--font-display);
 }
 
-.gh-card-access-icon {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    fill: #fff;
-    opacity: 0.8;
-}
-}
-
 input:checked + .slider {
   background-color: var(--ghost-accent-color);
 }
@@ -1297,4 +1286,74 @@ input:checked + .slider:before {
   transition: 0.4s;
   width: 26px;
   border-radius: 50%;
+}
+
+/* Vlastní CSS úpravy - develop.css
+/* ---------------------------------------------------------- */
+#PDI_container16122033 .pds-box .pds-links {
+    display: none;
+}
+
+/* 1. Nastavení prostoru nad článkem */
+.divide-y> :not([hidden])~ :not([hidden]) {
+    border: none !important;
+    height: auto !important;
+    margin-top: 100px !important;
+    /* Vzdušná mezera */
+    padding-top: 0 !important;
+    position: relative;
+    overflow: visible !important;
+}
+
+/* 2. LINKA (s dírou uprostřed) */
+.divide-y> :not([hidden])~ :not([hidden])::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+
+    /* Gradient vytváří linku, která je uprostřed 70px průhledná */
+    background: linear-gradient(to right,
+            #e2e8f0 0%,
+            #e2e8f0 calc(50% - 35px),
+            transparent calc(50% - 35px),
+            transparent calc(50% + 35px),
+            #e2e8f0 calc(50% + 35px),
+            #e2e8f0 100%);
+    z-index: 1;
+}
+
+/* 3. NOVÁ TŘEŠEŇ (detailní ilustrace) */
+.divide-y> :not([hidden])~ :not([hidden])::after {
+    content: "";
+    position: absolute;
+
+    top: -55px;
+    /* Lehce výš, aby seděla opticky na lince */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    /* Velikost nové ikonky (je detailnější, snese větší rozměr) */
+    width: 36px;
+    height: 36px;
+
+    /* Tvůj SVG obrázek přebarvený na #9D2235 */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128' style='enable-background:new 0 0 128 128' xml:space='preserve'%3E%3Cpath style='fill:%239D2235' d='M119.695 62.05c-3.244-2.577-7.298-3.581-11.725-2.896h-.002c-3.069.472-6.204 1.715-9.286 3.673-1.327.815-2.263 1.353-3.071 1.713-6.534-9.007-23.623-34.001-24.242-49.703 3.511-3.474 5.825-5.564 5.928-5.656l-3.701-4.13c-.741.664-7.667 6.923-15.892 15.965-7.841-4.421-18.344-5.93-29.108-4.078-11.264 1.94-21.075 7.232-26.914 14.521a1.361 1.361 0 0 0-.279 1.083c.066.384.291.727.625.927 7.942 4.916 18.958 6.622 30.222 4.681 5.563-.958 10.766-2.74 15.317-5.169-10.003 12.754-19.085 27.818-19.32 40.648a36.104 36.104 0 0 1-2.155-.816c-8.253-3.571-16.14-2.661-20.884 2.482C1.08 79.775-.606 87.01.193 96.802l.025.208c2.247 14.187 15.635 25.822 29.843 25.939l.285.002c16.066-.002 29.643-11.19 31.654-26.282.753-9.779-.962-17-5.096-21.464-2.814-3.038-6.668-4.645-11.147-4.645-3.105 0-6.394.753-9.737 2.219-.894.376-1.629.677-2.262.907.234-17.217 19.818-40.431 32.642-53.804 2.765 14.802 14.545 33.454 22.245 44.439-3.454-.875-6.715-1.096-9.69-.639-4.448.684-8.026 2.868-10.344 6.316-3.401 5.055-3.968 12.463-1.688 22.018l.056.202c3.979 12.429 16.723 21.379 29.565 21.377 1.293 0 2.589-.09 3.876-.278 16.023-2.329 27.879-15.516 27.573-30.829-.743-9.778-3.534-16.654-8.298-20.438zM38.209 77.874c2.637-1.157 5.248-1.769 7.549-1.769 2.935 0 5.316.964 7.078 2.867 2.998 3.239 4.257 9.21 3.654 17.117-1.63 12.189-12.846 21.316-26.143 21.316l-.238-.002c-11.389-.094-22.536-9.773-24.397-21.159-.641-8.015.596-13.958 3.574-17.191 1.764-1.914 4.154-2.883 7.107-2.883 2.285 0 4.878.599 7.538 1.749 2.809 1.163 4.999 1.883 7.233 1.883 2.292 0 4.175-.722 7.045-1.928zm61.415 29.956c-11.29 1.639-23.758-6.233-27.331-17.204-1.85-7.824-1.533-13.886.921-17.534 1.451-2.159 3.666-3.48 6.587-3.93 2.255-.345 4.91-.148 7.714.583 2.957.722 5.228 1.103 7.437.762 2.267-.348 4.018-1.348 6.67-2.979 2.43-1.543 4.917-2.544 7.19-2.895 2.914-.443 5.403.146 7.434 1.759 3.455 2.744 5.605 8.456 6.21 16.359.245 12.37-9.57 23.151-22.832 25.079zm-87.43-13.254c.708 4.434 3.32 9.133 7.34 13.093l-2.596 2.632c-4.576-4.509-7.566-9.938-8.412-15.285-.363-4.349-.13-8.152.675-11.447l3.592.877c-.711 2.909-.913 6.317-.599 10.13z'/%3E%3C/svg%3E");
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.gh-card-access-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #fff;
+    opacity: 0.8;
 }
