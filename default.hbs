@@ -2,6 +2,8 @@
 <html lang="{{@site.locale}}">
 
     <head>
+        {{!-- Google Tag Manager - pouze v produkci (ne localhost) --}}
+        {{#match @site.url "!=" "http://localhost:2368"}}
         <!-- Google Tag Manager -->
         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -9,6 +11,7 @@
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-552ZK5N5');</script>
         <!-- End Google Tag Manager -->
+        {{/match}}
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,11 +52,14 @@
         <link rel="stylesheet" href="{{asset "built/index.css"}}">
         {{!-- Main JS file --}}
         <script src="{{asset "built/index.js"}}" defer></script>
-        {{!-- Performance: preconnect for external third-parties --}}
+        {{!-- Performance: preconnect for external third-parties - pouze v produkci --}}
+        {{#match @site.url "!=" "http://localhost:2368"}}
         <link rel="preconnect" href="https://www.googletagmanager.com">
         <link rel="dns-prefetch" href="https://www.googletagmanager.com">
         <link rel="preconnect" href="https://talk.hyvor.com">
         <link rel="dns-prefetch" href="https://talk.hyvor.com">
+        {{/match}}
+
         <title>{{meta_title}}</title>
         {{!-- Additional Check to make load more pagination work --}}
         <script>
@@ -92,10 +98,13 @@
 
     <body class="{{body_class}} relative website-banner {{#match @custom.typography "!=" "Ghost Fonts"}}{{#match @custom.typography "System"}}is-font-system{{/match}}{{#match @custom.typography "Tight"}}is-font-tight{{/match}} {{#match @custom.typography "Playful"}}is-font-playful{{/match}}{{#match @custom.typography "Elegant"}}is-font-elegant{{/match}}{{#match @custom.typography "Kreon"}}is-font-kreon{{/match}}{{#match @custom.typography "Quciksand"}}is-font-quicksand{{/match}}{{#match @custom.typography "Azeret"}}is-font-azeret{{/match}}{{else}}gh-ghost-fonts{{/match}} {{#unless @site.cover_image}} cover-inactive{{/unless}}">
 
+        {{!-- Google Tag Manager (noscript) - pouze v produkci --}}
+        {{#match @site.url "!=" "http://localhost:2368"}}
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-552ZK5N5"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
+        {{/match}}
 
         <div class="relative gh-viewport">
 
@@ -186,6 +195,8 @@
             {{/is}}
         {{/match}}
 
+        {{!-- Hyvor komentáře - pouze v produkci --}}
+        {{#match @site.url "!=" "http://localhost:2368"}}
         <script src="https://talk.hyvor.com/embed/comment-counts.js"></script>
         <script>
         // Sdílená funkce pro formátování počtu komentářů
@@ -230,6 +241,7 @@
           observer.observe(feedElement, { childList: true });
         }
         </script>
+        {{/match}}
 
 </body>
 
