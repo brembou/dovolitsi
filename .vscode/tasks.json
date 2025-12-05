@@ -1,0 +1,56 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        // 1. Úkol pro spuštění Ghost Serveru
+        {
+            "label": "Start Ghost Server",
+            "type": "shell",
+            "command": "cd ~/Projects/ghost-local-server && ghost start",
+            "group": "build",
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": ".*",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                },
+                "background": {
+                    "activeOnStart": true,
+                    // Změňte tuto zprávu, pokud se liší!
+                    "beginsPattern": ".*Ghost is running in the background!.*", 
+                    "endsPattern": ".*"
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        // 2. Úkol pro spuštění Kompilátoru šablony (Watcher)
+        {
+            "label": "Start Theme Watcher",
+            "type": "npm",
+            "script": "dev",
+            "isBackground": true,
+            "problemMatcher": "$tsc-watch", // Používá standardní watcher matcher
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        // 3. Složený úkol (Compound Task) pro spuštění obou najednou
+        {
+            "label": "Start Dev Environment",
+            "dependsOn": [
+                "Start Ghost Server",
+                "Start Theme Watcher"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
