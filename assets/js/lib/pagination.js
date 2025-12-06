@@ -85,13 +85,13 @@ const pagination = (isInfinite, done, isMasonry = false) => {
                 },
                 function(count, el) {
                   if (count === 0) {
-                    return "Žádný komentář. Budeš první?";
+                    return "Žádný komentář.";
                   } else if (count === 1) {
-                    return count + " komentář. Přidáš i ten svůj?";
+                    return count + " komentář.";
                   } else if (count >= 2 && count <= 4) {
-                    return count + " komentáře. Máš k tomu co říct?";
+                    return count + " komentáře.";
                   } else {
-                    return count + " komentářů. Máš k tomu co říct?";
+                    return count + " komentářů.";
                   }
                 }
               );

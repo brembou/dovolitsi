@@ -3,11 +3,11 @@
 .gitignore
 
 # Kompilovane soubory a cache
-assets/built/*
+assets/built/
 .vscode/*
 
 *.zip
 
 # Logy a temporalni soubory
 npm-debug.log
-/assets/built/index.css
+/assets/js/lib/pagination.js
