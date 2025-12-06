@@ -1,14 +1,3 @@
 node_modules
-assets/built/*
-.vscode/*
 *.zip
 npm-debug.log
-/assets/built/index.css
-
-# Logy a temporalni soubory
-npm-debug.log
-/assets/built/index.css
-
-# Kompilovane soubory a cache
-assets/built/*
-.vscode/*

@@ -1,11 +1,11 @@
 {
     "version": "2.0.0",
     "tasks": [
-        // 1. Úkol pro spuštění Ghost Serveru (POPŘEDÍ RUN MODE)
+        // 1. Úkol pro spuštění Ghost Serveru (DEVELOPMENT MODE)
         {
             "label": "Start Ghost Server (Run)",
             "type": "shell",
-            "command": "bash -c \"cd ~/Projects/ghost-local-server && ghost run\"", 
+            "command": "bash -c \"cd ~/Projects/ghost-local-server && ghost run --development\"", 
             "group": "build",
             "presentation": {
                 "reveal": "always",

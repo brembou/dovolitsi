@@ -8,41 +8,50 @@ import babel from '@rollup/plugin-babel';
 // Minifies the bundle
 import terser from '@rollup/plugin-terser';
 
-// Development: Enables a livereload server that watches for changes to CSS, JS, and Handlbars files
 import { resolve } from "path";
 
 
 
 // Rollup configuration
 export default defineConfig(async (env) => {
-    const isDevelopment = env.BUILD === 'development';
+    // Společné pluginy
+    const basePlugins = [
+        commonjs(),
+        nodeResolve(),
+        babel({ babelHelpers: 'bundled' })
+    ];
     
-    // Dynamicky načteme livereload plugin POUZE v development módu
-    const livereload = isDevelopment 
-        ? (await import('rollup-plugin-livereload')).default 
-        : null;
-    
-    return {
-        input: 'assets/js/index.js',
-        output: {
-            dir: "assets/built",
-            sourcemap: true,
-            format: 'iife',
-            // Tady se spouští minifikace (terser)
-            plugins: [terser()] 
+    // Vytvoříme samostatnou konfiguraci pro každý vstupní soubor
+    return [
+        {
+            input: 'assets/js/index.js',
+            output: {
+                file: 'assets/built/index.js',
+                sourcemap: true,
+                format: 'iife',
+                plugins: [terser()] 
+            },
+            plugins: basePlugins
         },
-        plugins: [
-            commonjs(),
-            nodeResolve(),
-            babel({ babelHelpers: 'bundled' }),
-            // Livereload plugin se přidá POUZE v development módu
-            livereload && livereload({
-                watch: [
-                    'assets/built', // Sleduje kompilovaný CSS/JS
-                    '*.hbs',        // Sleduje index.hbs, post.hbs atd.
-                    'partials/**'   // Sleduje partials složku
-                ]
-            })
-        ].filter(Boolean) // Odstraní false/null hodnoty z pole pluginů
-    };
+        {
+            input: 'assets/js/post.js',
+            output: {
+                file: 'assets/built/post.js',
+                sourcemap: true,
+                format: 'iife',
+                plugins: [terser()] 
+            },
+            plugins: basePlugins // Ostatní konfigurace bez livereload
+        },
+        {
+            input: 'assets/js/slider.js',
+            output: {
+                file: 'assets/built/slider.js',
+                sourcemap: true,
+                format: 'iife',
+                plugins: [terser()] 
+            },
+            plugins: basePlugins // Ostatní konfigurace bez livereload
+        }
+    ];
 })

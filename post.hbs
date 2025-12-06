@@ -94,7 +94,8 @@
 
                 {{/if}}
 
-
+                {{!-- Hyvor komentáře - pouze v produkci --}}
+                {{#match @site.url "!=" "http://localhost:2368"}}
                 <section class="gh-post-comments" id="ghost-comments">
                     <!--{{comments}}-->
                     <div id="comments"></div>
@@ -103,7 +104,7 @@
                     <script>
                         const comments = document.createElement('hyvor-talk-comments');
                         comments.setAttribute('website-id', 14402);
-                        comments.setAttribute('page-id', "{{ comment_id }}");
+                        comments.setAttribute('page-id', "{{id}}");
                         {{#if @member}}
                         comments.setAttribute('sso-user', JSON.stringify({
                             timestamp: Math.floor(Date.now() / 1000),
@@ -171,6 +172,7 @@
                         //console.log('🎯 Hyvor Talk tracking inicializován');
                     </script>
                 </section>
+                {{/match}}
 
             {{else}}
 
