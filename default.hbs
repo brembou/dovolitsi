@@ -218,10 +218,10 @@
             <script>
                 // Sdílená funkce pro formátování počtu komentářů
                 function formatCommentCount(count) {
-                    if (count === 0) return "Žádný komentář. Budeš první?";
-                    if (count === 1) return count + " komentář. Přidáš i ten svůj?";
-                    if (count >= 2 && count <= 4) return count + " komentáře. Máš k tomu co říct?";
-                    return count + " komentářů. Máš k tomu co říct?";
+                    if (count === 0) return "Žádný komentář.";
+                    if (count === 1) return count + " komentář.";
+                    if (count >= 2 && count <= 4) return count + " komentáře.";
+                    return count + " komentářů.";
                 }
 
                 // Funkce pro načtení/reload Hyvor
