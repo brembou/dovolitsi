@@ -1367,3 +1367,24 @@ input:checked + .slider:before {
 html:not(.no-js) .js-pagination {
     display: block;
 }
+
+/* Ghost Recommendations styling */
+.recommendations,
+.recommendation {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.recommendations {
+    grid-template-columns: 1fr !important;
+}
+
+/* Website cover background - default fallback */
+.grad-bg:before {
+    background: var(--ghost-accent-color);
+    opacity: 0.2;
+}
+
+.navbar .indicator::before {
+    background: var(--ghost-accent-color);
+}

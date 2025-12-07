@@ -20,17 +20,29 @@ import { pagination } from "./lib/pagination";
 
     // =========================== Start of Header =========================== //
 
+    // Constants
+    const SCROLL_THRESHOLD = 50;
+    const INDICATOR_ANIMATION_DELAY = 280;
+
     // Header indicator position state
     const headerRef = document.querySelector(".header");
+    if (!headerRef) return; // Early exit if header doesn't exist
+
     const navRef = headerRef.querySelector(".navbar");
+    if (!navRef) return;
+
     const linkRef = navRef.querySelectorAll("a");
-    const activeLinkRef = navRef.querySelector(".nav-current") === null ? navRef.querySelectorAll("li:first-child")[0]: navRef.querySelector(".nav-current");
+    const navCurrent = navRef.querySelector(".nav-current");
+    const firstNavItem = navRef.querySelector("li:first-child");
+    const activeLinkRef = navCurrent || firstNavItem;
     const navIndicatorRef = headerRef.querySelector(".indicator");
     const hideOnScrollRef = headerRef.querySelectorAll(".hideOnScroll");
     let indicatorPosition = null;
     const navbar = document.querySelector(".navbar");
+    if (!navbar) return;
 
     const navTogglerRef = headerRef.querySelector(".navToggler");
+    if (!navTogglerRef) return;
 
     // Function to set indicator position
     const setIndicatorPosition = (left, width) => {
@@ -41,36 +53,49 @@ import { pagination } from "./lib/pagination";
 
     // Update indicator position when active link changes
     window.addEventListener("load", () => {
-      if (activeLinkRef) {
+      if (activeLinkRef && navIndicatorRef) {
         setIndicatorPosition(activeLinkRef.offsetLeft, activeLinkRef.offsetWidth);
       }
-      setTimeout(() => {
-        navIndicatorRef.style.opacity = 1;
-        navIndicatorRef.style.transform = "scaleX(1)";
-      }, 280);
+      if (navIndicatorRef) {
+        setTimeout(() => {
+          navIndicatorRef.style.opacity = 1;
+          navIndicatorRef.style.transform = "scaleX(1)";
+        }, INDICATOR_ANIMATION_DELAY);
+      }
     });
 
     // Handle mouse leave event
     const handleLinkMouseLeave = () => {
-      if (activeLinkRef) {
+      if (activeLinkRef && navIndicatorRef) {
         setIndicatorPosition(activeLinkRef.offsetLeft, activeLinkRef.offsetWidth);
       }
-      navbar.classList.remove("nav-hover");
+      if (navbar) {
+        navbar.classList.remove("nav-hover");
+      }
     };
-    navRef.addEventListener("mouseleave", handleLinkMouseLeave);
+    if (navRef) {
+      navRef.addEventListener("mouseleave", handleLinkMouseLeave);
+    }
 
     // Handle mouse enter event
     const handleLinkMouseEnter = (event) => {
       const link = event.currentTarget;
-      setIndicatorPosition(link.offsetLeft, link.offsetWidth);
-      navbar.classList.add("nav-hover");
+      if (navIndicatorRef) {
+        setIndicatorPosition(link.offsetLeft, link.offsetWidth);
+      }
+      if (navbar) {
+        navbar.classList.add("nav-hover");
+      }
     };
 
     // Handle link click event
+    let currentActiveLinkRef = activeLinkRef;
     const handleLinkClick = (event) => {
       const link = event.currentTarget;
-      activeLinkRef = link;
-      setIndicatorPosition(link.offsetLeft, link.offsetWidth);
+      currentActiveLinkRef = link;
+      if (navIndicatorRef) {
+        setIndicatorPosition(link.offsetLeft, link.offsetWidth);
+      }
     };
 
     linkRef.forEach((link) => {
@@ -79,20 +104,23 @@ import { pagination } from "./lib/pagination";
     });
 
     // Update Header element position on Scroll
+    const scrollHandlers = [];
     hideOnScrollRef.forEach((element) => {
       const handleScroll = () => {
-        window.scrollY > 50
-          ? element.classList.add("scrolled")
-          : element.classList.remove("scrolled");
+        if (window.scrollY > SCROLL_THRESHOLD) {
+          element.classList.add("scrolled");
+        } else {
+          element.classList.remove("scrolled");
+        }
       };
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      scrollHandlers.push({ element, handler: handleScroll });
     });
 
     // Open-Close Mobile Nav state
     let mobileNavOpen = false;
-    const html = document.documentElement;
     const toggleMobileNav = () => {
+      if (!headerRef) return;
       mobileNavOpen = !mobileNavOpen;
       if (mobileNavOpen) {
         headerRef.classList.add("navOpen");
@@ -100,11 +128,13 @@ import { pagination } from "./lib/pagination";
         headerRef.classList.remove("navOpen");
       }
     };
-    navTogglerRef.addEventListener("click", toggleMobileNav);
+    if (navTogglerRef) {
+      navTogglerRef.addEventListener("click", toggleMobileNav);
+    }
 
 
     // Get all the list items
-    var listItems = document.querySelectorAll('.navbar .nav li');
+    const listItems = document.querySelectorAll('.navbar .nav li');
 
     // Add event listeners to each list item
     listItems.forEach(function(item) {
@@ -119,14 +149,15 @@ import { pagination } from "./lib/pagination";
         });
     });
 // Event listener for window resize
+let resizeTimeout;
 window.addEventListener("resize", () => {
-    // Additional code...
-  setTimeout(() => {
-    if (activeLinkRef) {
-      setIndicatorPosition(activeLinkRef.offsetLeft, activeLinkRef.offsetWidth);
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    if (currentActiveLinkRef && navIndicatorRef) {
+      setIndicatorPosition(currentActiveLinkRef.offsetLeft, currentActiveLinkRef.offsetWidth);
     }
-}, 280);
-});
+  }, INDICATOR_ANIMATION_DELAY);
+}, { passive: true });
 
  // Change Header background color on scroll
  window.addEventListener("load", () => {
@@ -137,6 +168,8 @@ window.addEventListener("resize", () => {
     let headerVisible = true;
 
     const handleScroll = () => {
+      if (!headerRef) return;
+      
       const currentScrollTop = document.documentElement.scrollTop;
 
       if (currentScrollTop > lastScrollTop) {
@@ -160,6 +193,8 @@ window.addEventListener("resize", () => {
 
     const observer = new IntersectionObserver(
       (entries) => {
+        if (!headerRef || entries.length === 0) return;
+        
         const isIntersecting = entries[0].isIntersecting;
 
         // Update header visibility based on intersection
@@ -178,7 +213,7 @@ window.addEventListener("resize", () => {
     }
 
     // Add a scroll event listener to handle changes not captured by IntersectionObserver
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
   });
 
 })();

@@ -21,6 +21,11 @@ following a broken link
 
 </div>
 
+{{!-- Plausible analytics tracking - only if available --}}
 <script>
-    document.addEventListener('DOMContentLoaded', function() { plausible('404'); });
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof plausible !== 'undefined') {
+            plausible('404');
+        }
+    });
 </script>

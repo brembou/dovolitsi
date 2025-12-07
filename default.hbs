@@ -32,14 +32,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2250%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2290%22>🍒</text></svg>">
 
-        {{!-- Check font options  if the System is set then do not load Google Fonts --}}
+        {{!-- Check font options - load Google Fonts only if not System or Ghost Fonts --}}
         {{#match @custom.typography "!=" "Ghost Fonts"}}
             {{#match @custom.typography "!=" "System"}}
-
-                {{#match @custom.typography "!=" "System"}}
-                    <link rel="preconnect" href="https://fonts.googleapis.com">
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-                {{/match}}
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
                 {{#match @custom.typography "Tight"}}
                     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
@@ -61,7 +58,6 @@
                 {{/match}}
             {{/match}}
         {{/match}}
-        {{!-- Check fonts end --}}
 
         {{!-- Preload scripts for better performance --}}
         <link rel="preload" as="style" href="{{asset "built/index.css"}}" />
@@ -94,17 +90,6 @@
                     background: url({{@site.cover_image}}) no-repeat top center;
                 }
             </style>
-        {{else}}
-            <style>
-                .grad-bg:before {
-                    background: var(--ghost-accent-color);
-                    opacity: .2;
-                }
-
-                .navbar .indicator::before {
-                    background: var(--ghost-accent-color);
-                }
-            </style>
         {{/if}}
 
         {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
@@ -114,7 +99,7 @@
     </head>
     {{!-- Here we check for font options and add addtional CSS classes --}}
 
-    <body class="{{body_class}} relative website-banner {{#match @custom.typography "!=" "Ghost Fonts"}}{{#match @custom.typography "System"}}is-font-system{{/match}}{{#match @custom.typography "Tight"}}is-font-tight{{/match}} {{#match @custom.typography "Playful"}}is-font-playful{{/match}}{{#match @custom.typography "Elegant"}}is-font-elegant{{/match}}{{#match @custom.typography "Kreon"}}is-font-kreon{{/match}}{{#match @custom.typography "Quciksand"}}is-font-quicksand{{/match}}{{#match @custom.typography "Azeret"}}is-font-azeret{{/match}}{{else}}gh-ghost-fonts{{/match}} {{#unless @site.cover_image}} cover-inactive{{/unless}}">
+    <body class="{{body_class}} relative website-banner {{#match @custom.typography "!=" "Ghost Fonts"}}{{#match @custom.typography "System"}}is-font-system{{/match}}{{#match @custom.typography "Tight"}}is-font-tight{{/match}} {{#match @custom.typography "Playful"}}is-font-playful{{/match}}{{#match @custom.typography "Elegant"}}is-font-elegant{{/match}}{{#match @custom.typography "Kreon"}}is-font-kreon{{/match}}{{#match @custom.typography "Quicksand"}}is-font-quicksand{{/match}}{{#match @custom.typography "Azeret"}}is-font-azeret{{/match}}{{else}}gh-ghost-fonts{{/match}} {{#unless @site.cover_image}} cover-inactive{{/unless}}">
 
         {{!-- Google Tag Manager (noscript) - pouze v produkci --}}
         {{#match @site.url "!=" "http://localhost:2368"}}
