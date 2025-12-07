@@ -11,7 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const images = document.querySelectorAll('.kg-image-card img, .kg-gallery-card img');
     if (images.length > 0) {
         images.forEach(setupLightbox);
-        // FsLightbox se inicializuje automaticky pomocí data-fslightbox atributů
+        // Inicializace FsLightbox po nastavení obrázků - refreshFsLightbox znovu projde všechny odkazy
+        setTimeout(() => {
+            if (typeof window.refreshFsLightbox === 'function') {
+                window.refreshFsLightbox();
+            }
+        }, 100);
     }
 
     function initializeClipboard(button) {
