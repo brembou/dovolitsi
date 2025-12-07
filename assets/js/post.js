@@ -11,10 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const images = document.querySelectorAll('.kg-image-card img, .kg-gallery-card img');
     if (images.length > 0) {
         images.forEach(setupLightbox);
-        // Initialize FsLightbox after images are set up
-        if (typeof FsLightbox !== 'undefined') {
-            FsLightbox.props.sources = Array.from(images).map(img => img.src);
-        }
+        // FsLightbox se inicializuje automaticky pomocí data-fslightbox atributů
     }
 
     function initializeClipboard(button) {
