@@ -1379,16 +1379,6 @@ html:not(.no-js) .js-pagination {
     grid-template-columns: 1fr !important;
 }
 
-/* Website cover background - default fallback */
-.grad-bg:before {
-    background: var(--ghost-accent-color);
-    opacity: 0.2;
-}
-
-.navbar .indicator::before {
-    background: var(--ghost-accent-color);
-}
-
 /* Newsletter form inline styles moved to CSS */
 .macaw-newsletter-form__fileds input[data-members-email] {
     padding-right: 170px;
