@@ -68,7 +68,7 @@ body.is-font-elegant {
 body.is-font-kreon {
     --font-display: 'Kreon', sans-serif;
 }
-body.is-font-quciksand {
+body.is-font-quicksand {
     --font-display: 'Quicksand', sans-serif;
 }
 body.is-font-azeret {
@@ -1387,4 +1387,59 @@ html:not(.no-js) .js-pagination {
 
 .navbar .indicator::before {
     background: var(--ghost-accent-color);
+}
+
+/* Newsletter form inline styles moved to CSS */
+.macaw-newsletter-form__fileds input[data-members-email] {
+    padding-right: 170px;
+}
+
+/* Inline link styles moved to CSS */
+a[style*="text-decoration: underline"] {
+    text-decoration: underline;
+}
+
+a[style*="font-weight: 600"] {
+    font-weight: 600;
+}
+
+/* Custom archive date filtering styles */
+.gh-feed [data-date="2027"],
+.gh-feed [data-date="2026"],
+.gh-feed [data-date="2025"],
+.gh-feed [data-date="2024"],
+.gh-feed [data-date="2023"],
+.gh-feed [data-date="2022"],
+.gh-feed [data-date="2021"],
+.gh-feed [data-date="2020"],
+.gh-feed [data-date="2019"],
+.gh-feed [data-date="2018"],
+.gh-feed [data-date="2017"],
+.gh-feed [data-date="2016"],
+.gh-feed [data-date="2015"],
+.gh-feed [data-date="2014"],
+.gh-feed [data-date="2013"],
+.gh-feed [data-date="2012"],
+.gh-feed [data-date="2011"] {
+    display: block;
+}
+
+.gh-feed [data-date="2027"]+.post+[data-date="2027"],
+.gh-feed [data-date="2026"]+.post+[data-date="2026"],
+.gh-feed [data-date="2025"]+.post+[data-date="2025"],
+.gh-feed [data-date="2024"]+.post+[data-date="2024"],
+.gh-feed [data-date="2023"]+.post+[data-date="2023"],
+.gh-feed [data-date="2022"]+.post+[data-date="2022"],
+.gh-feed [data-date="2021"]+.post+[data-date="2021"],
+.gh-feed [data-date="2020"]+.post+[data-date="2020"],
+.gh-feed [data-date="2019"]+.post+[data-date="2019"],
+.gh-feed [data-date="2018"]+.post+[data-date="2018"],
+.gh-feed [data-date="2017"]+.post+[data-date="2017"],
+.gh-feed [data-date="2016"]+.post+[data-date="2016"],
+.gh-feed [data-date="2015"]+.post+[data-date="2015"],
+.gh-feed [data-date="2014"]+.post+[data-date="2014"],
+.gh-feed [data-date="2013"]+.post+[data-date="2013"],
+.gh-feed [data-date="2012"]+.post+[data-date="2012"],
+.gh-feed [data-date="2011"]+.post+[data-date="2011"] {
+    display: none;
 }

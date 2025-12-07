@@ -9,26 +9,40 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const images = document.querySelectorAll('.kg-image-card img, .kg-gallery-card img');
-    images.forEach(setupLightbox);
-
-    refreshFsLightbox();
+    if (images.length > 0) {
+        images.forEach(setupLightbox);
+        // Initialize FsLightbox after images are set up
+        if (typeof FsLightbox !== 'undefined') {
+            FsLightbox.props.sources = Array.from(images).map(img => img.src);
+        }
+    }
 
     function initializeClipboard(button) {
-        new ClipboardJS(button);
+        try {
+            new ClipboardJS(button);
 
-        button.addEventListener('click', function (event) {
-            event.preventDefault();
-            button.classList.add('copy-is-active');
-            setTimeout(() => {
-                button.classList.remove('copy-is-active');
-            }, 3000);
-        });
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                button.classList.add('copy-is-active');
+                setTimeout(() => {
+                    button.classList.remove('copy-is-active');
+                }, 3000);
+            });
+        } catch (error) {
+            console.warn('Clipboard initialization failed:', error);
+        }
     }
 
     function setupLightbox(image) {
-        const wrapper = createLightboxWrapper(image.src);
-        image.parentNode.insertBefore(wrapper, image.parentNode.firstChild);
-        wrapper.appendChild(image);
+        if (!image || !image.parentNode) return;
+        
+        try {
+            const wrapper = createLightboxWrapper(image.src);
+            image.parentNode.insertBefore(wrapper, image.parentNode.firstChild);
+            wrapper.appendChild(image);
+        } catch (error) {
+            console.warn('Lightbox setup failed:', error);
+        }
     }
 
     function createLightboxWrapper(src) {

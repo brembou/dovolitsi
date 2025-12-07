@@ -104,7 +104,6 @@ import { pagination } from "./lib/pagination";
     });
 
     // Update Header element position on Scroll
-    const scrollHandlers = [];
     hideOnScrollRef.forEach((element) => {
       const handleScroll = () => {
         if (window.scrollY > SCROLL_THRESHOLD) {
@@ -114,7 +113,6 @@ import { pagination } from "./lib/pagination";
         }
       };
       window.addEventListener("scroll", handleScroll, { passive: true });
-      scrollHandlers.push({ element, handler: handleScroll });
     });
 
     // Open-Close Mobile Nav state

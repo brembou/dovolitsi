@@ -97,7 +97,7 @@ Re-usable card for linking to posts
                         <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image size="s"}} 1x" media="(max-width: 420px)">
                         <source srcset="{{img_url feature_image size="mx2"}} 2x,{{img_url feature_image size="m"}} 1x" media="(max-width: 768px)">
                         <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image size="s"}} 1x" media="(max-width: 1024px)">
-                        <img srcset="{{img_url feature_image size="mx2"}} 2x" src="{{img_url feature_image size="m"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="duration-700 gh-card-image rounded-3xl" {{^if @first}}loading="lazy" {{/if}}>
+                        <img srcset="{{img_url feature_image size="mx2"}} 2x" src="{{img_url feature_image size="m"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="duration-700 gh-card-image rounded-3xl" {{#if @first}}fetchpriority="high" {{else}}loading="lazy" {{/if}} decoding="async">
 
                     </picture>
 
@@ -124,6 +124,6 @@ Re-usable card for linking to posts
             </div>
         {{/if}}
 
-        <a class="absolute top-0 left-0 w-full h-full" href={{url}} aria-label="{{title}}" title="{{t "Read more about:"}} {{title}}"></a>
+        <a class="absolute top-0 left-0 w-full h-full" href="{{url}}" aria-label="{{title}}" title="{{t "Read more about:"}} {{title}}"></a>
     </div>
 </article>

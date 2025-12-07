@@ -75,14 +75,14 @@
                             {{#if @member}}
                                 <a class="inline-flex items-center w-full mt-6 justify-center px-8 text-sm h-[42px] leading-none tracking-wider text-white uppercase transition-opacity macaw-button font-display bg-acc rounded-3xl hover:opacity-80 disabled" href="/signup">{{t "Current Plan"}}</a>
                             {{else}}
-                                <a class="inline-flex items-center w-full mt-6 justify-center px-8 text-sm h-[42px] leading-none tracking-wider text-white uppercase transition-opacity macaw-button font-display bg-acc rounded-3xl hover:opacity-80" href="javascript:void(0)" data-portal="signin">{{t "Signup for free"}}</a>
+                                <a class="inline-flex items-center w-full mt-6 justify-center px-8 text-sm h-[42px] leading-none tracking-wider text-white uppercase transition-opacity macaw-button font-display bg-acc rounded-3xl hover:opacity-80" href="#/portal/signin" data-portal="signin">{{t "Signup for free"}}</a>
                             {{/if}}
                         {{/match}}
                         {{#if monthly_price}}
-                            <a class="inline-flex items-center w-full mt-6 justify-center px-8 text-sm h-[42px] leading-none tracking-wider text-white uppercase transition-opacity macaw-button font-display bg-acc rounded-3xl hover:opacity-80 price-btn-monthly" href="javascript:void(0)" data-portal="signup/{{id}}/monthly">{{t "Sign up now"}}</a>
+                            <a class="inline-flex items-center w-full mt-6 justify-center px-8 text-sm h-[42px] leading-none tracking-wider text-white uppercase transition-opacity macaw-button font-display bg-acc rounded-3xl hover:opacity-80 price-btn-monthly" href="#/portal/signup/{{id}}/monthly" data-portal="signup/{{id}}/monthly">{{t "Sign up now"}}</a>
                         {{/if}}
                         {{#if yearly_price}}
-                            <a class="inline-flex items-center w-full mt-6 justify-center px-8 text-sm h-[42px] leading-none tracking-wider text-white uppercase transition-opacity macaw-button font-display bg-acc rounded-3xl hover:opacity-80 price-btn-annually" href="javascript:void(0)" data-portal="signup/{{id}}/yearly">{{t "Sign up now"}}</a>
+                            <a class="inline-flex items-center w-full mt-6 justify-center px-8 text-sm h-[42px] leading-none tracking-wider text-white uppercase transition-opacity macaw-button font-display bg-acc rounded-3xl hover:opacity-80 price-btn-annually" href="#/portal/signup/{{id}}/yearly" data-portal="signup/{{id}}/yearly">{{t "Sign up now"}}</a>
                         {{/if}}
 
                         {{#if benefits}}

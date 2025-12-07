@@ -51,7 +51,7 @@
                                                                                                  size="post-full-m"}} 1x" media="(max-width: 768px)" />
                     <source srcset="{{img_url feature_image size="post-full-x2"}} 2x,{{img_url feature_image
                                                                                                size="post-full"}} 1x" media="(max-width: 1024px)" />
-                    <img srcset="{{img_url feature_image size="post-full-x2"}} 2x" src="{{img_url feature_image size="post-full"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="w-full max-sm:rounded-none max-sm:w-full rounded-3xl" />
+                    <img srcset="{{img_url feature_image size="post-full-x2"}} 2x" src="{{img_url feature_image size="post-full"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="w-full max-sm:rounded-none max-sm:w-full rounded-3xl" decoding="async" fetchpriority="high" />
 
                 </picture>
                 {{#if feature_image_caption}}
@@ -121,55 +121,53 @@
 
                         // 1. Nový komentář
                         comments.addEventListener('comment:published', function(e) {
-                            //console.log('✅ Komentář publikován:', e.detail);
-
-                            window.dataLayer.push({
-                                'event': 'hyvor_comment',
-                                'comment_id': e.detail.id || '',
-                                'article_url': window.location.href,
-                                'article_title': document.title
-                            });
+                            if (window.dataLayer) {
+                                window.dataLayer.push({
+                                    'event': 'hyvor_comment',
+                                    'comment_id': e.detail.id || '',
+                                    'article_url': window.location.href,
+                                    'article_title': document.title
+                                });
+                            }
                         });
 
                         // 2. Hodnocení komentáře (upvote/downvote)
                         comments.addEventListener('comment:voted', function(e) {
-                            //console.log('✅ Komentář hodnocen:', e.detail);
-
-                            window.dataLayer.push({
-                                'event': 'hyvor_vote',
-                                'comment_id': e.detail.comment?.id || '',
-                                'vote_type': e.detail.vote || '',
-                                'article_url': window.location.href
-                            });
+                            if (window.dataLayer) {
+                                window.dataLayer.push({
+                                    'event': 'hyvor_vote',
+                                    'comment_id': e.detail.comment?.id || '',
+                                    'vote_type': e.detail.vote || '',
+                                    'article_url': window.location.href
+                                });
+                            }
                         });
 
-                        // 3. REAKCE (emoji) - OPRAVENÁ CESTA!
+                        // 3. REAKCE (emoji)
                         comments.addEventListener('reaction', function(e) {
-                            //console.log('✅ Reakce přidána:', e.detail);
-
-                            window.dataLayer.push({
-                                'event': 'hyvor_reaction',
-                                'reaction_type': e.detail.type || '', // 'superb' | 'love' | 'wow' | 'sad' | 'laugh' | 'angry'
-                                'article_url': window.location.href,
-                                'article_title': document.title
-                            });
+                            if (window.dataLayer) {
+                                window.dataLayer.push({
+                                    'event': 'hyvor_reaction',
+                                    'reaction_type': e.detail.type || '', // 'superb' | 'love' | 'wow' | 'sad' | 'laugh' | 'angry'
+                                    'article_url': window.location.href,
+                                    'article_title': document.title
+                                });
+                            }
                         });
 
                         // 4. HODNOCENÍ (rating/hvězdičky) - pokud používáte
                         comments.addEventListener('rating', function(e) {
-                            //console.log('✅ Hodnocení přidáno:', e.detail);
-
-                            window.dataLayer.push({
-                                'event': 'hyvor_rating',
-                                'rating_value': e.detail.rating || 0,
-                                'rating_count': e.detail.count || 0,
-                                'rating_average': e.detail.average || 0,
-                                'article_url': window.location.href,
-                                'article_title': document.title
-                            });
+                            if (window.dataLayer) {
+                                window.dataLayer.push({
+                                    'event': 'hyvor_rating',
+                                    'rating_value': e.detail.rating || 0,
+                                    'rating_count': e.detail.count || 0,
+                                    'rating_average': e.detail.average || 0,
+                                    'article_url': window.location.href,
+                                    'article_title': document.title
+                                });
+                            }
                         });
-
-                        //console.log('🎯 Hyvor Talk tracking inicializován');
                     </script>
                 </section>
                 {{/match}}
