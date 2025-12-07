@@ -5,7 +5,7 @@
         <header class="pb-4 border-b gh-page-head border-b-gray-200 {{#match @custom.post_list_display "!=" "Big list"}} mb-6 {{/match}}">
             <br><br><br><br>
             <h1 class="mb-1 text-3xl font-bold leading-snug lg:mb-3 md:text-3xl lg:text-5xl font-display">
-                Téma z pod třešně: {{name}}
+                {{name}}
             </h1>
 
             <p class="font-normal md:leading-relaxed md:mt-13 text-md md:text-lg md:max-w-xl opacity-80">
@@ -39,9 +39,12 @@
 
     </div>
 
-    {{pagination}}
+    {{!-- Pagination pro JS uživatele - skryje se, pokud JS není dostupný --}}
+    <div class="js-pagination">
+        {{pagination}}
+    </div>
 
-    {{!-- If JS isn't enabled, fallback to standard pagination --}}
+    {{!-- Fallback pagination pro uživatele bez JS --}}
     <noscript>
         <div class="gh-pagination">
             {{pagination}}

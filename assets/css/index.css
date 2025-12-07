@@ -1357,3 +1357,13 @@ input:checked + .slider:before {
     color: #fff;
     opacity: 0.8;
 }
+
+/* Pagination - skryje JS pagination pro crawly a uživatele bez JS */
+.js-pagination {
+    display: none;
+}
+
+/* Zobrazí JS pagination, pokud JS je dostupný (třída se přidá pomocí JS) */
+html:not(.no-js) .js-pagination {
+    display: block;
+}

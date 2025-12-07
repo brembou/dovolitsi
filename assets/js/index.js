@@ -3,6 +3,9 @@ import { pagination } from "./lib/pagination";
 
 (() => {
 
+    // Odstranění no-js třídy pro zobrazení JS funkcionalit
+    document.documentElement.classList.remove('no-js');
+
     // =========================== Start of AOS =========================== //
     aosJS.init({
         once: true,
