@@ -1443,3 +1443,11 @@ a[style*="font-weight: 600"] {
 .recommended-posts .post-card img {
     transition: transform 0.7s ease;
 }
+
+.recommended-posts .post-card picture {
+    margin-top: 0 !important;
+}
+
+.recommended-posts .post-card .gh-card-picture {
+    margin-top: 0 !important;
+}
