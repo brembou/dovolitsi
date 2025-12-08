@@ -78,11 +78,6 @@ Recommended post card with large image and full excerpt
                     {{#match @custom.meta_display "!=" "Hide date meta"}}
                         {{#match @custom.meta_display "!=" "Hide date and post access meta"}}
                             {{#match @custom.meta_display "!=" "Hide author and date meta"}}
-                                {{#match @custom.meta_display "!=" "Hide author meta"}}
-                                    {{#match @custom.meta_display "!=" "Hide author and post access meta"}}
-                                        <span class="mx-2">&bull;</span>
-                                    {{/match}}
-                                {{/match}}
                                 <time class="feed-date" datetime="{{date format="DD-MM-YYYY"}}">
                                     {{date published_at format="DD. MMM YYYY"}}
                                 </time>
@@ -91,29 +86,16 @@ Recommended post card with large image and full excerpt
                     {{/match}}
 
                     {{#has visibility="public"}}
-                        <span class="mx-2">&bull;</span>
                         <span class="visibility text-green-600">{{t "Public"}}</span>
-                        <span class="mx-2">&bull;</span>
-                    {{else}}
-                        {{#has visibility="members"}}
-                            <span class="mx-2">&bull;</span>
-                            <span class="visibility text-accent">{{t "Members only"}}</span>
-                            <span class="mx-2">&bull;</span>
-                        {{else}}
-                            {{#has visibility="paid"}}
-                                <span class="mx-2">&bull;</span>
-                                <span class="visibility text-accent">{{t "Premium only"}}</span>
-                                <span class="mx-2">&bull;</span>
-                            {{else}}
-                                {{#has visibility="tiers"}}
-                                    <span class="mx-2">&bull;</span>
-                                    <span class="visibility text-accent">{{t "Premium only"}}</span>
-                                    <span class="mx-2">&bull;</span>
-                                {{else}}
-                                    <span class="mx-2">&bull;</span>
-                                {{/has}}
-                            {{/has}}
-                        {{/has}}
+                    {{/has}}
+                    {{#has visibility="members"}}
+                        <span class="visibility text-accent">{{t "Members only"}}</span>
+                    {{/has}}
+                    {{#has visibility="paid"}}
+                        <span class="visibility text-accent">{{t "Premium only"}}</span>
+                    {{/has}}
+                    {{#has visibility="tiers"}}
+                        <span class="visibility text-accent">{{t "Premium only"}}</span>
                     {{/has}}
 
                     <span class="hide-number">
