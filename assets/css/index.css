@@ -1102,7 +1102,7 @@ figcaption a:hover{
         padding: 0;
     }
     .gh-head-brand img{
-        max-width: 100px;
+        max-width: 300px;
     }
     .gh-content blockquote,
     .gh-canvas .kg-callout-card, .gh-canvas>pre{
