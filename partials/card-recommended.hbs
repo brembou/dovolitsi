@@ -1,0 +1,119 @@
+{{!--
+Recommended post card with large image and full excerpt
+--}}
+
+<article class="post-card {{post_class}} relative{{#unless access}} post-access-{{visibility}}{{/unless}}">
+    <div class="relative flex flex-col w-full overflow-hidden rounded-3xl bg-white group transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+        
+        {{#if feature_image}}
+            <div class="relative w-full overflow-hidden aspect-[16/10] md:aspect-[16/9]">
+                <div class="absolute inset-0">
+                    <picture class="gh-card-picture">
+                        <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image size="s"}} 1x" media="(max-width: 420px)">
+                        <source srcset="{{img_url feature_image size="mx2"}} 2x,{{img_url feature_image size="m"}} 1x" media="(max-width: 768px)">
+                        <source srcset="{{img_url feature_image size="post-full-m-x2"}} 2x,{{img_url feature_image size="post-full-m"}} 1x" media="(max-width: 1024px)">
+                        <img srcset="{{img_url feature_image size="post-full-x2"}} 2x" src="{{img_url feature_image size="post-full-m"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="w-full h-full object-cover duration-700 transition-transform group-hover:scale-105" loading="lazy" decoding="async">
+                    </picture>
+                    
+                    {{#unless access}}
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/50 z-10">
+                            <div class="text-center text-white">
+                                {{> "icons/lock"}}
+                                <p class="mt-2 text-sm font-display uppercase tracking-wider">
+                                    {{#has visibility="members"}}{{t "Members only"}}{{/has}}
+                                    {{#has visibility="paid"}}{{t "Premium only"}}{{/has}}
+                                    {{#has visibility="tiers"}}{{t "Premium only"}}{{/has}}
+                                </p>
+                            </div>
+                        </div>
+                    {{/unless}}
+                </div>
+            </div>
+        {{/if}}
+
+        <div class="flex flex-col flex-1 p-6 md:p-8">
+            {{#match @custom.meta_display "!=" "Hide all meta"}}
+                {{#match @custom.meta_display "!=" "Hide tags"}}
+                    {{#match @custom.meta_display "!=" "Hide tags and post access meta"}}
+                        <div class="flex flex-wrap items-center justify-start mb-4 space-x-2.5">
+                            {{#foreach tags}}
+                                <a class="macaw-pill bg-acc-before text-accent post-tag-{{slug}}" href="{{url}}" title="{{name}}">
+                                    <svg class="h-1.5 w-1.5 fill-bg-acc ml-[-3px]" viewBox="0 0 6 6" aria-hidden="true">
+                                        <circle cx="3" cy="3" r="3"></circle>
+                                    </svg>
+                                    {{name}}
+                                </a>
+                            {{/foreach}}
+
+                            {{#if featured}}
+                                <span class="text-gray-900 macaw-pill bg-gray-400/25">{{t "Featured"}}</span>
+                            {{/if}}
+                        </div>
+                    {{/match}}
+                {{/match}}
+            {{/match}}
+
+            <h2 class="mb-3 text-2xl font-bold leading-tight transition-colors duration-300 md:text-3xl font-display group-hover:text-accent">
+                {{title}}
+            </h2>
+
+            {{#if excerpt}}
+                <p class="mb-4 text-base leading-relaxed text-gray-700 opacity-85 md:text-lg">
+                    {{excerpt}}
+                </p>
+            {{/if}}
+
+            {{#match @custom.meta_display "!=" "Hide all meta"}}
+                <footer class="flex flex-wrap items-center mt-auto text-sm leading-tight text-gray-600 sm:text-md font-display macaw-post-meta">
+                    {{#match @custom.meta_display "!=" "Hide author meta"}}
+                        {{#match @custom.meta_display "!=" "Hide author and post access meta"}}
+                            {{#match @custom.meta_display "!=" "Hide author and date meta"}}
+                                <span class="macaw-post-author">
+                                    {{#foreach authors}}<a href="{{url}}" class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
+                                </span>
+                            {{/match}}
+                        {{/match}}
+                    {{/match}}
+
+                    {{#match @custom.meta_display "!=" "Hide date meta"}}
+                        {{#match @custom.meta_display "!=" "Hide date and post access meta"}}
+                            {{#match @custom.meta_display "!=" "Hide author and date meta"}}
+                                <time class="feed-date" datetime="{{date format="DD-MM-YYYY"}}">
+                                    <span class="mx-2">&bull;</span>
+                                    {{date published_at format="DD. MMM YYYY"}}
+                                </time>
+                            {{/match}}
+                        {{/match}}
+                    {{/match}}
+
+                    <span class="visibility">
+                        {{#has visibility="public"}}
+                            <span class="mx-2">&bull;</span>
+                            <span class="text-green-600">{{t "Public"}}</span>
+                        {{/has}}
+                        {{#has visibility="members"}}
+                            <span class="mx-2">&bull;</span>
+                            <span class="text-accent">{{t "Members only"}}</span>
+                        {{/has}}
+                        {{#has visibility="paid"}}
+                            <span class="mx-2">&bull;</span>
+                            <span class="text-accent">{{t "Premium only"}}</span>
+                        {{/has}}
+                        {{#has visibility="tiers"}}
+                            <span class="mx-2">&bull;</span>
+                            <span class="text-accent">{{t "Premium only"}}</span>
+                        {{/has}}
+                    </span>
+
+                    <span class="hide-number">
+                        <span class="mx-2">&bull;</span>
+                        <a href="{{url}}#ghost-comments-root"><hyvor-talk-comment-count page-id="{{id}}" mode="number"></hyvor-talk-comment-count></a>
+                    </span>
+                </footer>
+            {{/match}}
+        </div>
+
+        <a class="absolute top-0 left-0 w-full h-full z-10" href="{{url}}" aria-label="{{title}}" title="{{t "Read more about:"}} {{title}}"></a>
+    </div>
+</article>
+
