@@ -186,14 +186,14 @@
 
             <div class="mt-12"></div>
 
-            <div class="bg-gray-100 rounded-2xl p-8" style="padding: 2rem;">
+            <div class="mt-12 md:mt-16">
                 {{#is "post"}}
-                    <h2 class="no-toc pb-2 mb-6 text-base font-bold leading-none tracking-widest text-gray-900 uppercase border-b featured-title font-display border-b-gray-200">
+                    <h2 class="no-toc pb-3 mb-8 text-base font-bold leading-none tracking-widest text-gray-900 uppercase border-b featured-title font-display border-b-gray-200">
                         Nestačilo? Ještě si přečti o…
                     </h2>
 
                     {{!-- GRID: články pod sebou (1 sloupec) --}}
-                    <div class="grid grid-cols-1 gap-6 gh-feed" aria-label="Doporučené články">
+                    <div class="grid grid-cols-1 gap-6 md:gap-8 gh-feed recommended-posts" aria-label="Doporučené články">
 
                         {{!-- ==========================================================
                               SLOT 1: VIP ČLÁNEK (Hledá POUZE v 'members' obsahu)
@@ -202,7 +202,7 @@
                         {{#get "posts" filter="id:-{{id}}+visibility:members" limit="1" order="random" as |vip|}}
                             {{#if vip}}
                                 {{#foreach vip}}
-                                    {{> "card-small" lazyLoad=true}}
+                                    {{> "card-recommended"}}
                                 {{/foreach}}
                             {{else}}
                                 {{!-- FALLBACK PRO SLOT 1:
@@ -211,13 +211,13 @@
                                       abychom snížili šanci na duplicitu s těmi vedle. --}}
                                 {{#get "posts" filter="id:-{{id}}+visibility:public+featured:true" limit="1" order="random" as |fallbackVip|}}
                                     {{#foreach fallbackVip}}
-                                        {{> "card-small" lazyLoad=true}}
+                                        {{> "card-recommended"}}
                                     {{/foreach}}
                             {{else}}
                                 {{!-- Poslední záchrana: prostě náhodný veřejný --}}
                                 {{#get "posts" filter="id:-{{id}}+visibility:public" limit="1" order="random" as |lastResort|}}
                                     {{#foreach lastResort}}
-                                        {{> "card-small" lazyLoad=true}}
+                                        {{> "card-recommended"}}
                                     {{/foreach}}
                                 {{/get}}
                                 {{/get}}
@@ -236,13 +236,13 @@
                                 {{#match pagination.total ">=" 2}}
                                     {{!-- Máme dostatek souvisejících --}}
                                     {{#foreach related}}
-                                        {{> "card-small" lazyLoad=true}}
+                                        {{> "card-recommended"}}
                                     {{/foreach}}
                         {{else}}
                             {{!-- Máme jich málo -> Raději načteme 2 náhodné VEŘEJNÉ --}}
                             {{#get "posts" filter="id:-{{../id}}+visibility:public" limit="2" order="random" as |randoms|}}
                                 {{#foreach randoms}}
-                                    {{> "card-small" lazyLoad=true}}
+                                    {{> "card-recommended"}}
                                 {{/foreach}}
                             {{/get}}
                                 {{/match}}
@@ -251,7 +251,7 @@
                             {{!-- Nemáme tagy -> Načteme 2 náhodné VEŘEJNÉ --}}
                             {{#get "posts" filter="id:-{{id}}+visibility:public" limit="2" order="random" as |randoms|}}
                                 {{#foreach randoms}}
-                                    {{> "card-small" lazyLoad=true}}
+                                    {{> "card-recommended"}}
                                 {{/foreach}}
                             {{/get}}
                         {{/if}}
@@ -260,13 +260,13 @@
 
                     {{else}}
                         {{!-- PAGE (Statická stránka): Jednoduchý mix --}}
-                        <h2 class="no-toc pb-2 mb-6 text-base font-bold leading-none tracking-widest text-gray-900 uppercase border-b featured-title font-display border-b-gray-200">
+                        <h2 class="no-toc pb-3 mb-8 text-base font-bold leading-none tracking-widest text-gray-900 uppercase border-b featured-title font-display border-b-gray-200">
                             Vybrala jsem pro tebe…
                         </h2>
-                        <div class="grid grid-cols-1 gap-6 gh-feed" aria-label="Doporučené články">
+                        <div class="grid grid-cols-1 gap-6 md:gap-8 gh-feed recommended-posts" aria-label="Doporučené články">
                             {{#get "posts" limit="3" order="random" as |randoms|}}
                                 {{#foreach randoms}}
-                                    {{> "card-small" lazyLoad=true}}
+                                    {{> "card-recommended"}}
                                 {{/foreach}}
                             {{/get}}
                         </div>

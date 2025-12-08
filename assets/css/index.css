@@ -1433,3 +1433,13 @@ a[style*="font-weight: 600"] {
 .gh-feed [data-date="2011"]+.post+[data-date="2011"] {
     display: none;
 }
+
+/* Recommended posts section - UX improvements
+/* ---------------------------------------------------------- */
+.recommended-posts .post-card {
+    @apply mb-0;
+}
+
+.recommended-posts .post-card img {
+    transition: transform 0.7s ease;
+}
