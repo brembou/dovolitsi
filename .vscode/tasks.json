@@ -1,34 +1,73 @@
 {
     "version": "2.0.0",
     "tasks": [
-        // 1. Úkol pro spuštění Ghost Serveru (DEVELOPMENT MODE)
+        // 1. Úkol pro spuštění Ghost Serveru
         {
             "label": "Start Ghost Server (Run)",
             "type": "shell",
-            "command": "bash -c \"cd ~/Projects/ghost-local-server && ghost run --development\"", 
+            // OPRAVA: Nahrazeno '~' za '/home/brembou'
+            "command": "bash -c \"cd /home/brembou/projects/ghost-blog && /home/brembou/.local/bin/mise x -- ghost restart && /home/brembou/.local/bin/mise x -- ghost log -f\"",
             "group": "build",
+            "isBackground": true,
             "presentation": {
                 "reveal": "always",
-                "panel": "new",
-                "close": false 
+                "panel": "dedicated",
+                "group": "Ghost"
+            },
+            "problemMatcher": {
+                "owner": "ghost",
+                "fileLocation": ["relative", "${workspaceFolder}"],
+                "pattern": {
+                    "regexp": "^.*Running.*$",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Restarting Ghost",
+                    "endsPattern": "Ghost is running"
+                }
             }
         },
         // 2. Úkol pro spuštění Kompilátoru šablony (Watcher)
         {
             "label": "Start Theme Watcher",
-            "type": "npm",
-            "script": "dev",
+            "type": "shell",
+            // OPRAVA:
+            // 1. Použito 'bash -c' pro jistotu
+            // 2. Absolutní cesta k 'mise' (/home/brembou/...)
+            // 3. Spouští se v aktuálním adresáři projektu (protože tento soubor je v .vscode uvnitř šablony)
+            "command": "bash -c \"/home/brembou/.local/bin/mise x -- npm run dev\"",
             "isBackground": true,
-            "problemMatcher": "$tsc-watch",
+            "group": "build",
             "presentation": {
                 "reveal": "always",
-                "panel": "new",
-                "close": false
+                "panel": "dedicated",
+                "group": "Ghost"
+            },
+            "problemMatcher": {
+                "owner": "typescript",
+                "pattern": [
+                    {
+                        "regexp": "^([^\\s].*)\\((\\d+|\\d+,\\d+|\\d+,\\d+,\\d+,\\d+)\\):\\s+(error|warning|info)\\s+(TS\\d+)\\s*:\\s*(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "severity": 3,
+                        "code": 4,
+                        "message": 5
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": ".*",
+                    "endsPattern": "Watching for changes|Built"
+                }
             }
         },
-        // 3. Složený úkol (Compound Task) pro spuštění obou najednou
+        // 3. Hlavní spouštěč
         {
-            "label": "Start Dev Environment",
+            "label": "🚀 START DEV ENVIRONMENT",
             "dependsOn": [
                 "Start Ghost Server (Run)",
                 "Start Theme Watcher"
@@ -37,6 +76,13 @@
                 "kind": "build",
                 "isDefault": true
             },
+            "problemMatcher": []
+        },
+        // 4. Stop Task
+        {
+            "label": "🛑 STOP ALL",
+            "type": "shell",
+            "command": "bash -c \"cd /home/brembou/projects/ghost-blog && /home/brembou/.local/bin/mise x -- ghost stop\"",
             "problemMatcher": []
         }
     ]
