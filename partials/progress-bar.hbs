@@ -18,7 +18,7 @@
             {{#if @site.members_enabled}}
                 {{^if @member}}
                     <form data-members-form="subscribe">
-                        <span class="block mb-1 mr-4 text-xs text-gray-600 md:leading-none font-display">{{t
+                        <span class="block mb-1 mr-4 text-sm text-gray-600 md:leading-none font-display">{{t
                                 "Receive latest posts"}}</span>
 
                         <div class="relative z-10 w-full text-left max-sm:p-0">
@@ -27,7 +27,7 @@
                                 <input data-members-label type="hidden" value="From homepage">
                                 <input data-members-email type="email" required placeholder="{{t "Your email"}}" class="h-[40px] w-[400px] px-4 md:px-4 border-0 bg-white rounded-[2rem] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-gray-400 sm:text-sm sm:leading-6 outline-none">
 
-                                <button type="submit" class="font-display uppercase bg-acc text-white leading-none rounded-3xl px-4 h-[28px] tracking-wider flex items-center justify-center absolute right-2 text-xs hover:opacity-80 transition-opacity macaw-button">
+                                <button type="submit" class="font-display uppercase bg-acc text-white leading-none rounded-3xl px-4 h-[28px] tracking-wider flex items-center justify-center absolute right-2 text-sm hover:opacity-80 transition-opacity macaw-button">
                                     <span class="default">{{t "Subscribe" }}</span>
                                     <span class="submitting">{{t "Submitting..."}}</span>
                                 </button>

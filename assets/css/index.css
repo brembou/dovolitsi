@@ -155,7 +155,7 @@ body.gh-ghost-fonts .header .nav li a{
 }
 
 .macaw-pill{
-    @apply inline-flex items-center gap-x-1.5 text-xs tracking-wider uppercase backdrop-blur-lg font-display px-4 leading-none rounded-full;
+    @apply inline-flex items-center gap-x-1.5 text-sm tracking-wider uppercase backdrop-blur-lg font-display px-4 leading-none rounded-full;
     @apply h-7;
 }
 .is-font-elegant .macaw-pill{
@@ -186,7 +186,7 @@ body.is-font-azeret .lg\:text-3xl{
 }
 body.is-font-azeret .md\:text-sm{
     line-height: 1.2;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
 }
 
 /* AOS settings
@@ -918,7 +918,7 @@ figcaption a:hover{
 
 .copy-is-active .hidden {
     display: flex;
-    font-size: 0.7rem;
+    font-size: 0.875rem;
 }
 
 .copy-is-active svg {
@@ -1007,7 +1007,7 @@ figcaption a:hover{
     color: var(--tw-prose-body);
 }
 .gh-content form label{
-    @apply mb-2 text-xs font-normal tracking-wider uppercase font-display;
+    @apply mb-2 text-sm font-normal tracking-wider uppercase font-display;
     opacity: .85;
 }
 
