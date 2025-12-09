@@ -1,0 +1,16 @@
+{{!-- Portal Links for Cover/Introduction Area --}}
+{{!-- Sign in as text link, Subscribe as button --}}
+
+{{#if @site.members_enabled}}
+    {{#unless @member}}
+        {{#unless @site.members_invite_only}}
+            <a href="#/portal/signin" data-portal="signin" class="mr-4 text-sm uppercase font-display">{{t "Sign in"}}</a>
+            <a href="#/portal/signup" data-portal="signup" class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-7 h-[48px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button">{{t "Subscribe"}}</a>
+        {{else}}
+            <a href="#/portal/signin" data-portal="signin" class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-7 h-[48px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button">{{t "Sign in"}}</a>
+        {{/unless}}
+    {{else}}
+        <a href="#/portal/account" data-portal="account" class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-7 h-[48px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button">{{t "Account"}}</a>
+    {{/unless}}
+{{/if}}
+
