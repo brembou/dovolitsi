@@ -422,7 +422,9 @@ button.gh-search-icon{
         margin: 0;
         padding: 0;
         margin-top: auto;
-        margin-bottom: auto;
+        margin-bottom: 0;
+        /* Add padding-bottom to prevent content from being hidden behind sticky mobile-actions */
+        padding-bottom: 120px;
     }
     
     .mobile-search-icon {
@@ -484,10 +486,13 @@ button.gh-search-icon{
         width: auto;
     }
     
-    /* Position mobile actions at the bottom */
+    /* Position mobile actions at the bottom - always visible like Casper theme */
     .navOpen .navbar .mobile-actions {
+        position: sticky;
+        bottom: 0;
         width: 100%;
-        margin-top: 0;
+        margin-top: auto;
+        margin-bottom: 0;
         padding-top: 1.5rem;
         padding-bottom: 2rem;
         display: flex;
@@ -496,6 +501,15 @@ button.gh-search-icon{
         justify-content: center;
         background-color: #FFF;
         flex-shrink: 0;
+        z-index: 10;
+        /* Shadow to separate from scrollable content above */
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Ensure mobile-portal-links inside mobile-actions is always visible */
+    .navOpen .navbar .mobile-actions .mobile-portal-links {
+        display: block;
+        width: 100%;
     }
     
     .navToggler {
