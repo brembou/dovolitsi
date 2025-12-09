@@ -2,10 +2,31 @@
 {{#match @custom.header_action "!=" "None"}}
 
     {{#match @custom.header_action "Social and Search"}}
+        {{!-- Desktop version with search --}}
         {{> "social-links" showSearch=true}}
+        {{!-- Mobile version without search (search icon is in top-left corner) --}}
+        <div class="block lg:hidden mobile-social-links">
+            <ul class="inline-flex items-center">
+                {{#if @site.facebook}}
+                    <li class="inline-flex items-center duration-300 hover:opacity-75 transition-op">
+                        <a href="https://facebook.com/{{@site.facebook}}" class="px-2 py-3 transition-opacity duration-300 hover:opacity-80" title="{{t "Follow me on Facebook"}}">
+                            {{> "icons/facebook"}}
+                        </a>
+                    </li>
+                {{/if}}
+                {{#if @site.twitter}}
+                    <li class="inline-flex items-center duration-300 hover:opacity-75 transition-op">
+                        <a href="https://twitter.com/{{@site.twitter}}" class="px-2 py-3 transition-opacity duration-300 hover:opacity-80" title="{{t "Follow me on X"}}">
+                            {{> "icons/twitter"}}
+                        </a>
+                    </li>
+                {{/if}}
+            </ul>
+        </div>
     {{/match}}
 
     {{#match @custom.header_action "Portal links"}}
+        {{!-- Desktop version --}}
         <div class="hidden lg:flex items-center justify-end hideOnScroll lg:[&.scrolled]:opacity-0 lg:[&.scrolled]:translate-x-8 w-1/4 transition-all duration-300">
             {{#unless @member}}
                 {{#unless @site.members_invite_only}}
@@ -21,6 +42,54 @@
             {{else}}
                 <a href="#/portal/account" data-portal="account" class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-6 h-[38px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button">{{t
                         "Account"}}</a>
+            {{/unless}}
+        </div>
+        {{!-- Mobile version with Sign in and Subscribe buttons --}}
+        <div class="block lg:hidden mobile-portal-links">
+            {{#unless @member}}
+                {{#unless @site.members_invite_only}}
+                    <a href="#/portal/signin" data-portal="signin" class="block w-full text-center mb-3 text-sm font-display uppercase text-gray-900 hover:text-accent transition-colors duration-300">{{t "Sign in"}}</a>
+                {{else}}
+                    <a href="#/portal/signin" data-portal="signin" class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-6 h-[48px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button w-full">{{t "Sign in"}}</a>
+                {{/unless}}
+            {{else}}
+                <a href="#/portal/account" data-portal="account" class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-6 h-[48px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button w-full">{{t "Account"}}</a>
+            {{/unless}}
+        </div>
+    {{/match}}
+
+    {{#match @custom.header_action "Search and Portal links"}}
+        {{!-- Desktop version --}}
+        <div class="hidden lg:flex items-center justify-end hideOnScroll lg:[&.scrolled]:opacity-0 lg:[&.scrolled]:translate-x-8 w-1/4 transition-all duration-300 gap-x-2">
+            {{!-- Search icon --}}
+            <a href="#" data-ghost-search class="px-2 py-3 transition-opacity duration-300 hover:opacity-80" title="{{t "Search the website"}}">
+                {{> "icons/search"}}
+            </a>
+
+            {{!-- Portal links --}}
+            {{#unless @member}}
+                {{#unless @site.members_invite_only}}
+                    <a href="#/portal/signup" data-portal="signup" class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-6 h-[38px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button">{{t
+                            "Subscribe"}}</a>
+                {{else}}
+                    <a href="#/portal/signin" data-portal="signin" class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-6 h-[38px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button">{{t
+                            "Sign in"}}</a>
+                {{/unless}}
+            {{else}}
+                <a href="#/portal/account" data-portal="account" class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-6 h-[38px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button">{{t
+                        "Account"}}</a>
+            {{/unless}}
+        </div>
+        {{!-- Mobile version with Sign in and Subscribe buttons --}}
+        <div class="block lg:hidden mobile-portal-links">
+            {{#unless @member}}
+                {{#unless @site.members_invite_only}}
+                    <a href="#/portal/signin" data-portal="signin" class="block w-full text-center mb-3 text-sm font-display uppercase text-gray-900 hover:text-accent transition-colors duration-300">{{t "Sign in"}}</a>
+                {{else}}
+                    <a href="#/portal/signin" data-portal="signin" class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-6 h-[48px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button w-full">{{t "Sign in"}}</a>
+                {{/unless}}
+            {{else}}
+                <a href="#/portal/account" data-portal="account" class="gh-button font-display uppercase bg-acc text-white leading-none rounded-3xl px-6 h-[48px] tracking-wider flex items-center justify-center text-sm hover:opacity-80 transition-opacity macaw-button w-full">{{t "Account"}}</a>
             {{/unless}}
         </div>
     {{/match}}

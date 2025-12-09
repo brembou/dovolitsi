@@ -132,6 +132,18 @@
                         <!-- navbar -->
                         <nav class="navbar">
                             <span class="indicator"></span>
+                            {{!-- Mobile menu logo (only visible when menu is open) --}}
+                            <div class="mobile-menu-logo">
+                                <div class="gh-head-brand">
+                                    <a class="text-2xl lg:text-4xl gh-head-logo" href="{{@site.url}}">
+                                        {{#if @site.logo}}
+                                            <img src="{{@site.logo}}" alt="{{@site.title}}" loading="lazy" decoding="async">
+                                        {{else}}
+                                            {{@site.title}}
+                                        {{/if}}
+                                    </a>
+                                </div>
+                            </div>
                             {{navigation}}
                             <div class="block lg:hidden mobile-actions px-[22px]">
                                 {{> "header-actions"}}
@@ -142,9 +154,22 @@
                         {{!-- Navigation overlay --}}
                         <div class="navOverlay"></div>
 
+                        {{!-- Mobile search icon in top left corner (only visible when menu is open) --}}
+                        {{#match @custom.header_action "Social and Search"}}
+                            <a href="#" data-ghost-search class="mobile-search-icon fixed top-4 left-4 z-50 lg:hidden px-3 py-3 transition-opacity duration-300 hover:opacity-80" title="{{t "Search the website"}}">
+                                {{> "icons/search"}}
+                            </a>
+                        {{/match}}
+                        {{#match @custom.header_action "Search and Portal links"}}
+                            <a href="#" data-ghost-search class="mobile-search-icon fixed top-4 left-4 z-50 lg:hidden px-3 py-3 transition-opacity duration-300 hover:opacity-80" title="{{t "Search the website"}}">
+                                {{> "icons/search"}}
+                            </a>
+                        {{/match}}
+
                         <!-- toggle mobile-nav -->
-                        <button type="button" aria-label="Toggle Mobile Navigation" class="navToggler">
+                        <button type="button" aria-label="Toggle Mobile Navigation" class="navToggler flex items-center gap-2">
                             {{> "icons/burger"}}
+                            <span class="text-sm font-display">{{t "Menu"}}</span>
                             {{> "icons/close"}}
                         </button>
 

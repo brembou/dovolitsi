@@ -98,6 +98,7 @@
                 "options": [
                     "Social and Search",
                     "Portal links",
+                    "Search and Portal links",
                     "None"
                 ],
                 "default": "Social and Search",

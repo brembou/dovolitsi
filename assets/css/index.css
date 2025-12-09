@@ -150,6 +150,17 @@ body.is-font-azeret .prose h6{
     font-family: var(--font-display);
 }
 
+/* Větší horní odsazení pro h2 nadpisy v článcích - vzdušnější design */
+.prose.prose-macaw :where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+    margin-top: 3.5rem;
+}
+
+@media (min-width: 768px) {
+    .prose.prose-macaw :where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+        margin-top: 4.5rem;
+    }
+}
+
 body.gh-ghost-fonts .header .nav li a{
     padding-top: .65rem;
 }
@@ -289,6 +300,7 @@ button.gh-search-icon{
     transition-duration: 400ms;
 }
 
+
 .header .nav{
     display: flex;
 }
@@ -331,6 +343,11 @@ button.gh-search-icon{
     padding-bottom: 0.5rem;
     opacity: 1;
 }
+
+/* Hide mobile menu logo on desktop */
+.mobile-menu-logo {
+    display: none !important;
+}
 }
 
 .navOpen .navbar{
@@ -339,6 +356,248 @@ button.gh-search-icon{
     --tw-scale-y: 1;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     opacity: 1;
+}
+
+@media (max-width: 1023px) {
+    .navbar{
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100vh;
+        transform-origin: center;
+        --tw-scale-x: 1;
+        --tw-scale-y: 1;
+        transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+        overflow-y: auto;
+        border-radius: 0;
+        border-width: 0;
+        background-color: #FFF;
+        padding: 0;
+        --tw-backdrop-blur: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+    
+    /* Block body scroll when menu is open */
+    body.navOpen,
+    html.navOpen {
+        overflow: hidden !important;
+        height: 100%;
+        position: fixed;
+        width: 100%;
+    }
+    
+    .navOpen .navbar {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0;
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100vh !important;
+        min-height: 100vh;
+        z-index: 30;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    
+    /* Center navigation items vertically and horizontally in the available space */
+    .navOpen .navbar .nav,
+    .navOpen .navbar ul.nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    
+    .mobile-search-icon {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    
+    .header.navOpen .mobile-search-icon {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    
+    /* Hide search icon in mobile menu (it's in top-left corner instead) */
+    .mobile-actions [data-ghost-search],
+    .mobile-social-links [data-ghost-search] {
+        display: none !important;
+    }
+    
+    /* Hide mobile portal links when menu is closed */
+    .mobile-portal-links {
+        display: none;
+    }
+    
+    /* Show mobile portal links only when menu is open */
+    .navOpen .navbar .mobile-portal-links {
+        display: block;
+    }
+    
+    /* Mobile menu logo - hidden by default */
+    .mobile-menu-logo {
+        display: none;
+    }
+    
+    /* Show mobile menu logo only on mobile when menu is open */
+    .navOpen .navbar .mobile-menu-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding-top: 2rem;
+        padding-bottom: 1rem;
+        flex-shrink: 0;
+        order: -1;
+    }
+    
+    .navOpen .navbar .mobile-menu-logo .gh-head-brand {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .navOpen .navbar .mobile-menu-logo .gh-head-logo {
+        text-align: center;
+    }
+    
+    .navOpen .navbar .mobile-menu-logo img {
+        max-height: 60px;
+        width: auto;
+    }
+    
+    /* Position mobile actions at the bottom */
+    .navOpen .navbar .mobile-actions {
+        width: 100%;
+        margin-top: 0;
+        padding-top: 1.5rem;
+        padding-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #FFF;
+        flex-shrink: 0;
+    }
+    
+    .navToggler {
+        position: fixed;
+        right: 1rem;
+        z-index: 50;
+    }
+    
+    .header .nav,
+    .navbar .nav,
+    .navbar ul.nav {
+        flex-direction: column;
+        width: 100% !important;
+        max-width: 100% !important;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .header .nav li,
+    .navbar .nav li {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .header .nav li a,
+    .navbar .nav li a {
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+        padding-left: 0;
+        padding-right: 0;
+        font-size: 1.125rem;
+        font-weight: 500;
+        color: #1a1a1a;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .header .nav li:last-child a,
+    .navbar .nav li:last-child a {
+        border-bottom: none;
+    }
+    
+    .mobile-actions .hideOnScroll{
+        display: block;
+        width: 100%;
+        pointer-events: auto;
+    }
+    
+    .mobile-actions .hideOnScroll  .navbar{
+        position: static;
+        right: auto;
+        top: auto;
+        border: none;
+        display: flex;
+        width: auto;
+        height: auto;
+        visibility: visible;
+        opacity: 1;
+        transform: none;
+        background: transparent;
+        padding: 0;
+    }
+    
+    .mobile-actions .hideOnScroll .macaw-social{
+        padding: 0;
+    }
+    
+    .mobile-actions .hideOnScroll .macaw-social li:first-child a{
+        padding-left: 0;
+    }
+    
+    .invisible .navbar{
+        visibility: hidden;
+        opacity: 0;
+    }
+    
+    .mobile-actions a[data-portal="signin"]{
+        color: #404040;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        padding-top: 0.85rem;
+        padding-bottom: 0.6rem;
+        display: block;
+    }
+    
+    .mobile-actions a[data-portal="signup"]{
+        margin-top: .5rem;
+    }
+
+    .header.active:hover .navbar{
+        background-color: #FFF;
+    }
+    
+    .header{
+        pointer-events: auto;
+    }
+    
+    .big-card.post-card.no-image .gh-card-link{
+        padding-right: 3rem;
+    }
 }
 
 .lg\:\[\&\.scrolled\]\:opacity-0.scrolled{
@@ -397,16 +656,20 @@ button.gh-search-icon{
 
 .navToggler{
     position: relative;
-    z-index: 40;
+    z-index: 50;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     height: 3rem;
-    width: 3rem;
+    min-width: 3rem;
     border-radius: 0;
     padding: 0;
     outline: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }
+
 
 @media (min-width: 1024px){
 .navToggler{
@@ -418,7 +681,15 @@ button.gh-search-icon{
     display: none;
 }
 
+.navToggler span{
+    display: block;
+}
+
 .navOpen .navToggler svg:first-child{
+    display: none;
+}
+
+.navOpen .navToggler span{
     display: none;
 }
 
@@ -430,12 +701,12 @@ button.gh-search-icon{
     visibility: hidden;
     position: fixed;
     inset: 0px;
-    z-index: 20;
-    background-color: rgb(0 0 0 / 0.8);
+    z-index: 25;
+    background-color: rgb(0 0 0 / 0.5);
     opacity: 0;
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 500ms;
+    transition-duration: 300ms;
 }
 
 .navOverlay.navOverlayVisible{
@@ -1102,7 +1373,7 @@ figcaption a:hover{
         padding: 0;
     }
     .gh-head-brand img{
-        max-width: 300px;
+        max-width: 200px;
     }
     .gh-content blockquote,
     .gh-canvas .kg-callout-card, .gh-canvas>pre{
@@ -1133,63 +1404,12 @@ figcaption a:hover{
 }
 
 @media (max-width: 1023px){
-    .header .nav{
-        flex-direction: column;
-    }
-    .navbar{
-        background: #FFF;
-    }
     .post-card.no-image .gh-card-link{
         padding-right: 0;
     }
     .post-card.no-image .gh-card-link:after{
         display: none;
     }
-    .mobile-actions .hideOnScroll{
-        display: block;
-        width: 100%;
-        pointer-events: auto;
-    }
-    .mobile-actions .hideOnScroll  .navbar{
-        position: relative;
-        right: 0;
-        top: 0;
-        border: none;
-        display: flex;
-    }
-    .mobile-actions .hideOnScroll .macaw-social{
-        padding: 0;
-    }
-    .mobile-actions .hideOnScroll .macaw-social li:first-child a{
-        padding-left: 0;
-    }
-    .invisible .navbar{
-        visibility: hidden;
-        opacity: 0;
-    }
-    .mobile-actions a[data-portal="signin"]{
-        color: #404040;
-        font-size: 0.875rem;
-        text-transform: uppercase;
-        letter-spacing: .05em;
-        padding-top: 0.85rem;
-        padding-bottom: 0.6rem;
-        display: block;
-    }
-    .mobile-actions a[data-portal="signup"]{
-        margin-top: .5rem;
-    }
-
-    .header.active:hover .navbar{
-        background-color: #FFF;
-    }
-    .header{
-        pointer-events: auto;
-    }
-    .big-card.post-card.no-image .gh-card-link{
-        padding-right: 3rem;
-    }
-
 }
 
 

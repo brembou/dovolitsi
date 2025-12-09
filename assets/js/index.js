@@ -96,6 +96,10 @@ import { pagination } from "./lib/pagination";
       if (navIndicatorRef) {
         setIndicatorPosition(link.offsetLeft, link.offsetWidth);
       }
+      // Close mobile menu when clicking on a link (mobile only)
+      if (mobileNavOpen && window.innerWidth < 1024) {
+        toggleMobileNav();
+      }
     };
 
     linkRef.forEach((link) => {
@@ -117,17 +121,44 @@ import { pagination } from "./lib/pagination";
 
     // Open-Close Mobile Nav state
     let mobileNavOpen = false;
+    const navOverlayRef = document.querySelector(".navOverlay");
     const toggleMobileNav = () => {
       if (!headerRef) return;
       mobileNavOpen = !mobileNavOpen;
       if (mobileNavOpen) {
         headerRef.classList.add("navOpen");
+        document.documentElement.classList.add("navOpen");
+        document.body.classList.add("navOpen");
+        if (navOverlayRef) {
+          navOverlayRef.classList.add("navOverlayVisible");
+        }
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = "hidden";
+        document.body.style.position = "fixed";
+        document.body.style.width = "100%";
       } else {
         headerRef.classList.remove("navOpen");
+        document.documentElement.classList.remove("navOpen");
+        document.body.classList.remove("navOpen");
+        if (navOverlayRef) {
+          navOverlayRef.classList.remove("navOverlayVisible");
+        }
+        // Restore body scroll
+        document.body.style.overflow = "";
+        document.body.style.position = "";
+        document.body.style.width = "";
       }
     };
     if (navTogglerRef) {
       navTogglerRef.addEventListener("click", toggleMobileNav);
+    }
+    // Close menu when clicking on overlay
+    if (navOverlayRef) {
+      navOverlayRef.addEventListener("click", () => {
+        if (mobileNavOpen) {
+          toggleMobileNav();
+        }
+      });
     }
 
 
