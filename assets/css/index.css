@@ -393,9 +393,10 @@ button.gh-search-icon{
     .navOpen .navbar {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         padding: 0;
+        padding-bottom: 0;
         position: fixed !important;
         left: 0 !important;
         top: 0 !important;
@@ -406,11 +407,11 @@ button.gh-search-icon{
         height: 100vh !important;
         min-height: 100vh;
         z-index: 30;
-        overflow-y: auto;
+        overflow: hidden;
         overflow-x: hidden;
     }
     
-    /* Center navigation items vertically and horizontally in the available space */
+    /* Scrollable navigation area - like Casper theme */
     .navOpen .navbar .nav,
     .navOpen .navbar ul.nav {
         display: flex;
@@ -421,10 +422,10 @@ button.gh-search-icon{
         width: 100%;
         margin: 0;
         padding: 0;
-        margin-top: auto;
-        margin-bottom: 0;
-        /* Add padding-bottom to prevent content from being hidden behind sticky mobile-actions */
         padding-bottom: 120px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
     }
     
     .mobile-search-icon {
@@ -486,13 +487,14 @@ button.gh-search-icon{
         width: auto;
     }
     
-    /* Position mobile actions at the bottom - always visible like Casper theme */
+    /* Position mobile actions at the bottom - fixed like Casper theme */
+    /* Fixed positioning ensures it's always visible at bottom of viewport */
     .navOpen .navbar .mobile-actions {
-        position: sticky;
+        position: fixed;
         bottom: 0;
+        left: 0;
+        right: 0;
         width: 100%;
-        margin-top: auto;
-        margin-bottom: 0;
         padding-top: 1.5rem;
         padding-bottom: 2rem;
         display: flex;
@@ -501,7 +503,7 @@ button.gh-search-icon{
         justify-content: center;
         background-color: #FFF;
         flex-shrink: 0;
-        z-index: 10;
+        z-index: 35;
         /* Shadow to separate from scrollable content above */
         box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
     }
