@@ -161,10 +161,6 @@ body.is-font-azeret .prose h6{
     }
 }
 
-body.gh-ghost-fonts .header .nav li a{
-    padding-top: .65rem;
-}
-
 .macaw-pill{
     @apply inline-flex items-center gap-x-1.5 text-sm tracking-wider uppercase backdrop-blur-lg font-display px-4 leading-none rounded-full;
     @apply h-7;
@@ -177,16 +173,6 @@ body.gh-ghost-fonts .header .nav li a{
 }
 .is-font-elegant .macaw-pill svg{
     margin-top: -3px;
-}
-
-body.is-font-playful .header .nav li a,
-body.is-font-system .header .nav li a,
-body.is-font-tight .header .nav li a,
-body.is-font-tight .header .nav li a,
-body.is-font-kreon .header .nav li a,
-body.is-font-quicksand .header .nav li a,
-body.is-font-azeret .header .nav li a{
-    padding-top: 0.6rem;
 }
 body.is-font-azeret .font-normal{
     font-size: 1rem;
@@ -261,6 +247,10 @@ button.gh-search-icon{
     height: 26px !important;
 }
 
+/* ============================================================
+   1. ZÁKLADNÍ STYLY - Header a Navbar (společné)
+   ============================================================ */
+
 .header, .navbar {
     transition: 0.3s ease;
 }
@@ -268,9 +258,14 @@ button.gh-search-icon{
 .header.active:hover .navbar{
     background-color: rgb(255 255 255 / 0.8);
 }
+
 .header.active:hover .navbar .indicator::before{
    box-shadow: 0 0 3px rgba(0,0,0,.4);
 }
+
+/* ============================================================
+   2. NAVBAR - Základní styly (mobile default)
+   ============================================================ */
 
 .navbar{
     visibility: hidden;
@@ -300,10 +295,39 @@ button.gh-search-icon{
     transition-duration: 400ms;
 }
 
+/* ============================================================
+   3. NAVBAR - Desktop styly (min-width: 1024px)
+   ============================================================ */
+
+@media (min-width: 1024px){
+    .navbar{
+        visibility: visible;
+        position: static;
+        display: flex;
+        width: auto;
+        --tw-scale-x: 1;
+        --tw-scale-y: 1;
+        transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+        border-radius: 9998px;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        opacity: 1;
+    }
+
+    /* Hide mobile menu logo on desktop */
+    .mobile-menu-logo {
+        display: none !important;
+    }
+}
+
+/* ============================================================
+   4. NAV - Základní styly pro navigační seznam
+   ============================================================ */
 
 .header .nav{
     display: flex;
 }
+
 .header .nav li a{
     position: relative;
     z-index: 20;
@@ -318,37 +342,36 @@ button.gh-search-icon{
     text-transform: uppercase;
     letter-spacing: .05em;
 }
-@media (min-width: 1024px){
-.cover-inactive .header .nav li.nav-current a,
-.cover-inactive .header .nav li.nav-active a,
-.cover-inactive .header .nav li.nav-active.nav-current a{
-    color: #FFF;
-}
-.cover-inactive .header .nav-hover li.nav-current a{
-    color: #404040;
-}
+
+/* Font-specifické úpravy padding pro nav odkazy */
+body.gh-ghost-fonts .header .nav li a{
+    padding-top: .65rem;
 }
 
-@media (min-width: 1024px){
-.navbar{
-    visibility: visible;
-    position: static;
-    display: flex;
-    width: auto;
-    --tw-scale-x: 1;
-    --tw-scale-y: 1;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    border-radius: 9998px;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    opacity: 1;
+body.is-font-playful .header .nav li a,
+body.is-font-system .header .nav li a,
+body.is-font-tight .header .nav li a,
+body.is-font-kreon .header .nav li a,
+body.is-font-quicksand .header .nav li a,
+body.is-font-azeret .header .nav li a{
+    padding-top: 0.6rem;
 }
 
-/* Hide mobile menu logo on desktop */
-.mobile-menu-logo {
-    display: none !important;
+/* Desktop specifické styly pro nav odkazy */
+@media (min-width: 1024px){
+    .cover-inactive .header .nav li.nav-current a,
+    .cover-inactive .header .nav li.nav-active a,
+    .cover-inactive .header .nav li.nav-active.nav-current a{
+        color: #FFF;
+    }
+    .cover-inactive .header .nav-hover li.nav-current a{
+        color: #404040;
+    }
 }
-}
+
+/* ============================================================
+   5. NAVOPEN - Stavy když je menu otevřené
+   ============================================================ */
 
 .navOpen .navbar{
     visibility: visible;
@@ -358,7 +381,12 @@ button.gh-search-icon{
     opacity: 1;
 }
 
+/* ============================================================
+   6. MOBILE STYLY - Kompletní mobilní menu (max-width: 1023px)
+   ============================================================ */
+
 @media (max-width: 1023px) {
+    /* 6.1 Navbar - Mobile základní styly */
     .navbar{
         position: fixed;
         left: 0;
@@ -381,7 +409,7 @@ button.gh-search-icon{
         backdrop-filter: none;
     }
     
-    /* Block body scroll when menu is open */
+    /* 6.2 Block body scroll when menu is open */
     body.navOpen,
     html.navOpen {
         overflow: hidden !important;
@@ -390,10 +418,11 @@ button.gh-search-icon{
         width: 100%;
     }
     
+    /* 6.3 Navbar - Když je menu otevřené (navOpen) */
     .navOpen .navbar {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: space-between;
         align-items: center;
         padding: 0;
         padding-bottom: 0;
@@ -411,14 +440,15 @@ button.gh-search-icon{
         overflow-x: hidden;
     }
     
-    /* Scrollable navigation area - like Casper theme */
+    /* 6.4 Nav - Scrollovatelná navigační oblast (jako Casper theme) */
     .navOpen .navbar .nav,
     .navOpen .navbar ul.nav {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        flex: 1;
+        flex: 1 1 auto;
+        min-height: 0; /* DŮLEŽITÉ: umožní scrollování v flexboxu */
         width: 100%;
         margin: 0;
         padding: 0;
@@ -428,6 +458,45 @@ button.gh-search-icon{
         -webkit-overflow-scrolling: touch;
     }
     
+    /* 6.5 Nav - Základní mobilní styly pro navigační seznam */
+    .header .nav,
+    .navbar .nav,
+    .navbar ul.nav {
+        flex-direction: column;
+        width: 100% !important;
+        max-width: 100% !important;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    /* 6.6 Nav li - Mobilní styly pro navigační položky */
+    .header .nav li,
+    .navbar .nav li {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* 6.7 Nav li a - Mobilní styly pro navigační odkazy */
+    .header .nav li a,
+    .navbar .nav li a {
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+        padding-left: 0;
+        padding-right: 0;
+        font-size: 1.125rem;
+        font-weight: 500;
+        color: #1a1a1a;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .header .nav li:last-child a,
+    .navbar .nav li:last-child a {
+        border-bottom: none;
+    }
+    
+    /* 6.8 Mobile Search Icon */
     .mobile-search-icon {
         opacity: 0;
         pointer-events: none;
@@ -445,22 +514,20 @@ button.gh-search-icon{
         display: none !important;
     }
     
-    /* Hide mobile portal links when menu is closed */
+    /* 6.9 Mobile Portal Links */
     .mobile-portal-links {
         display: none;
     }
     
-    /* Show mobile portal links only when menu is open */
     .navOpen .navbar .mobile-portal-links {
         display: block;
     }
     
-    /* Mobile menu logo - hidden by default */
+    /* 6.10 Mobile Menu Logo */
     .mobile-menu-logo {
         display: none;
     }
     
-    /* Show mobile menu logo only on mobile when menu is open */
     .navOpen .navbar .mobile-menu-logo {
         display: flex;
         justify-content: center;
@@ -487,81 +554,36 @@ button.gh-search-icon{
         width: auto;
     }
     
-    /* Position mobile actions at the bottom - fixed like Casper theme */
-    /* Fixed positioning ensures it's always visible at bottom of viewport */
+    /* 6.11 Mobile Actions - Fixed na spodku obrazovky (jako Casper theme) */
     .navOpen .navbar .mobile-actions {
-        position: fixed;
+        position: sticky;
         bottom: 0;
         left: 0;
         right: 0;
         width: 100%;
-        padding-top: 1.5rem;
-        padding-bottom: 2rem;
+        margin-top: auto; /* Přitlačí k dolní části flexboxu */
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         background-color: #FFF;
-        flex-shrink: 0;
+        flex-shrink: 0; /* Zabrání zmenšení */
         z-index: 35;
-        /* Shadow to separate from scrollable content above */
-        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
     }
     
-    /* Ensure mobile-portal-links inside mobile-actions is always visible */
     .navOpen .navbar .mobile-actions .mobile-portal-links {
         display: block;
         width: 100%;
     }
     
-    .navToggler {
-        position: fixed;
-        right: 1rem;
-        z-index: 50;
-    }
-    
-    .header .nav,
-    .navbar .nav,
-    .navbar ul.nav {
-        flex-direction: column;
-        width: 100% !important;
-        max-width: 100% !important;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-    
-    .header .nav li,
-    .navbar .nav li {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .header .nav li a,
-    .navbar .nav li a {
-        padding-top: 1.25rem;
-        padding-bottom: 1.25rem;
-        padding-left: 0;
-        padding-right: 0;
-        font-size: 1.125rem;
-        font-weight: 500;
-        color: #1a1a1a;
-        text-align: center;
-        width: 100%;
-    }
-    
-    .header .nav li:last-child a,
-    .navbar .nav li:last-child a {
-        border-bottom: none;
-    }
-    
+    /* 6.12 Mobile Actions - HideOnScroll a další */
     .mobile-actions .hideOnScroll{
         display: block;
         width: 100%;
         pointer-events: auto;
     }
     
-    .mobile-actions .hideOnScroll  .navbar{
+    .mobile-actions .hideOnScroll .navbar{
         position: static;
         right: auto;
         top: auto;
@@ -584,11 +606,6 @@ button.gh-search-icon{
         padding-left: 0;
     }
     
-    .invisible .navbar{
-        visibility: hidden;
-        opacity: 0;
-    }
-    
     .mobile-actions a[data-portal="signin"]{
         color: #404040;
         font-size: 0.875rem;
@@ -602,7 +619,20 @@ button.gh-search-icon{
     .mobile-actions a[data-portal="signup"]{
         margin-top: .5rem;
     }
-
+    
+    /* 6.13 NavToggler - Mobile */
+    .navToggler {
+        position: fixed;
+        right: 1rem;
+        z-index: 50;
+    }
+    
+    /* 6.14 Ostatní mobilní styly */
+    .invisible .navbar{
+        visibility: hidden;
+        opacity: 0;
+    }
+    
     .header.active:hover .navbar{
         background-color: #FFF;
     }
@@ -616,8 +646,12 @@ button.gh-search-icon{
     }
 }
 
-.lg\:\[\&\.scrolled\]\:opacity-0.scrolled{
-    pointer-events: none;
+/* ============================================================
+   7. NAVBAR ODKAZY - Hover a základní styly
+   ============================================================ */
+
+.navbar a {
+    transition: 0.25s color 0s, 0.25s opacity 0s;
 }
 
 .navbar a:hover{
@@ -625,14 +659,14 @@ button.gh-search-icon{
 }
 
 @media (min-width: 1024px){
-.navbar a{
-    color: #dddddd;
-}
+    .navbar a{
+        color: #dddddd;
+    }
 }
 
-.navbar a {
-    transition: 0.25s color 0s, 0.25s opacity 0s;
-}
+/* ============================================================
+   8. NAVBAR INDICATOR - Desktop indikátor aktivní položky
+   ============================================================ */
 
 .navbar .indicator{
     position: absolute;
@@ -645,16 +679,13 @@ button.gh-search-icon{
     --tw-scale-y: .5;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     opacity: 0;
+    transition: 0.35s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 @media (min-width: 1024px){
-.navbar .indicator{
-    display: block;
-}
-}
-
-.navbar .indicator {
-    transition: 0.35s cubic-bezier(0.075, 0.82, 0.165, 1);
+    .navbar .indicator{
+        display: block;
+    }
 }
 
 .navbar .indicator::before{
@@ -669,6 +700,10 @@ button.gh-search-icon{
     --tw-content: "";
     content: var(--tw-content);
 }
+
+/* ============================================================
+   9. NAVTOGGLER - Tlačítko pro otevření/zavření menu
+   ============================================================ */
 
 .navToggler{
     position: relative;
@@ -686,11 +721,10 @@ button.gh-search-icon{
     cursor: pointer;
 }
 
-
 @media (min-width: 1024px){
-.navToggler{
-    display: none;
-}
+    .navToggler{
+        display: none;
+    }
 }
 
 .navToggler svg:last-child{
@@ -713,6 +747,10 @@ button.gh-search-icon{
     display: block;
 }
 
+/* ============================================================
+   10. NAVOVERLAY - Překryv při otevřeném menu
+   ============================================================ */
+
 .navOverlay{
     visibility: hidden;
     position: fixed;
@@ -728,6 +766,14 @@ button.gh-search-icon{
 .navOverlay.navOverlayVisible{
     visibility: visible;
     opacity: 1;
+}
+
+/* ============================================================
+   11. OSTATNÍ - Utility třídy
+   ============================================================ */
+
+.lg\:\[\&\.scrolled\]\:opacity-0.scrolled{
+    pointer-events: none;
 }
 
 
