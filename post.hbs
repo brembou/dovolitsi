@@ -84,11 +84,11 @@
                     </div>
                 {{/if}}
 
-                <div class="divider-cherry mt-8"></div>
+                <div class="divider-cherry mt-16"></div>
 
                 {{!-- Hyvor komentáře - pouze v produkci --}}
                 {{#match @site.url "!=" "http://localhost:2368"}}
-                <section class="gh-post-comments mt-16 lg:mt-20" id="ghost-comments-root">
+                <section class="gh-post-comments mt-16" id="ghost-comments-root">
                     <!--{{comments}}-->
                     <div id="comments"></div>
                     <script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
