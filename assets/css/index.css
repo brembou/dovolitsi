@@ -1064,7 +1064,6 @@ form.success .macaw-success-message{
 .gh-content .kg-card,
 .gh-content blockquote,
 .gh-content > iframe{
-    @apply mt-0;
     @apply mb-14;
 }
 .gh-content .kg-card img{

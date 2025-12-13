@@ -63,8 +63,6 @@
         {{!-- Content goes here --}}
         <div class="relative prose sm:prose-lg prose-md prose-headings:font-display prose-headings:mt-0 prose-headings:mb-2 prose-p:mt-0 prose-p:mb-6 sm:prose-p:mb-10 md:prose-p:mb-12 lg:prose-p:mb-14 xl:prose-p:mb-14 prose-h5:font-bold prose-h6:font-bold prose-img:rounded-3xl prose-ul:mt-0 prose-ul:mb-6 sm:prose-ul:mb-10 md:prose-ul:mb-12 lg:prose-ul:mb-14 xl:prose-ul:mb-14 prose-ol:mt-0 prose-ol:mb-6 sm:prose-ol:mb-10 md:prose-ol:mb-12 lg:prose-ol:mb-14 xl:prose-ol:mb-14 prose-li:pl-0 prose-li:mt-0 prose-a:underline hover:prose-a:no-underline prose-hr:mt-0 prose-hr:mb-6 sm:prose-hr:mb-10 md:prose-hr:mb-12 lg:prose-hr:mb-14 xl:prose-hr:mb-14 last:prose-li:mb-0 prose-macaw gh-content gh-canvas max-w-none">
 
-            {{#if access}}
-
                 {{#if @custom.display_toc}}
 
                     <div class="mb-20 bg-gray-100 rounded-2xl">
@@ -75,6 +73,8 @@
                     </div>
 
                 {{/if}}
+
+            {{#if access}}
 
                 {{content}}
 
