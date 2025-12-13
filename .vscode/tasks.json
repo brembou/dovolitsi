@@ -1,12 +1,11 @@
 {
     "version": "2.0.0",
     "tasks": [
-        // 1. Úkol pro spuštění Ghost Serveru
+        // 1. GHOST SERVER
         {
             "label": "Start Ghost Server (Run)",
             "type": "shell",
-            // OPRAVA: Nahrazeno '~' za '/home/brembou'
-            "command": "bash -c \"cd /home/brembou/projects/ghost-blog && /home/brembou/.local/bin/mise x -- ghost restart && /home/brembou/.local/bin/mise x -- ghost log -f\"",
+            "command": "bash -c \"fuser -k 2368/tcp || true; cd /home/brembou/projects/ghost-blog && /home/brembou/.local/bin/mise x -- ghost start && /home/brembou/.local/bin/mise x -- ghost log -f\"",
             "group": "build",
             "isBackground": true,
             "presentation": {
@@ -16,28 +15,19 @@
             },
             "problemMatcher": {
                 "owner": "ghost",
-                "fileLocation": ["relative", "${workspaceFolder}"],
-                "pattern": {
-                    "regexp": "^.*Running.*$",
-                    "file": 1,
-                    "location": 2,
-                    "message": 3
-                },
+                "pattern": { "regexp": "^(.*)$", "message": 1 },
                 "background": {
                     "activeOnStart": true,
-                    "beginsPattern": "Restarting Ghost",
+                    "beginsPattern": "Starting Ghost",
                     "endsPattern": "Ghost is running"
                 }
             }
         },
-        // 2. Úkol pro spuštění Kompilátoru šablony (Watcher)
+
+        // 2. THEME WATCHER
         {
             "label": "Start Theme Watcher",
             "type": "shell",
-            // OPRAVA:
-            // 1. Použito 'bash -c' pro jistotu
-            // 2. Absolutní cesta k 'mise' (/home/brembou/...)
-            // 3. Spouští se v aktuálním adresáři projektu (protože tento soubor je v .vscode uvnitř šablony)
             "command": "bash -c \"/home/brembou/.local/bin/mise x -- npm run dev\"",
             "isBackground": true,
             "group": "build",
@@ -48,16 +38,7 @@
             },
             "problemMatcher": {
                 "owner": "typescript",
-                "pattern": [
-                    {
-                        "regexp": "^([^\\s].*)\\((\\d+|\\d+,\\d+|\\d+,\\d+,\\d+,\\d+)\\):\\s+(error|warning|info)\\s+(TS\\d+)\\s*:\\s*(.*)$",
-                        "file": 1,
-                        "line": 2,
-                        "severity": 3,
-                        "code": 4,
-                        "message": 5
-                    }
-                ],
+                "pattern": [{ "regexp": ".*", "file": 1, "location": 2, "message": 3 }],
                 "background": {
                     "activeOnStart": true,
                     "beginsPattern": ".*",
@@ -65,20 +46,50 @@
                 }
             }
         },
-        // 3. Hlavní spouštěč
+
+        // 3. SMARTGIT (S příkazem disown)
+        {
+            "label": "Open SmartGit",
+            "type": "shell",
+            "command": "zsh",
+            "args": [
+                "-i",
+                "-c",
+                "smartgit; disown"
+            ],
+            "presentation": { "reveal": "silent", "panel": "shared" },
+            "problemMatcher": []
+        },
+
+        // 4. OPEN BROWSER
+        {
+            "label": "Open Browser",
+            "type": "shell",
+            "command": "bash -c \"sleep 8 && wslview http://localhost:2368\"",
+            "presentation": { "reveal": "silent", "panel": "shared" },
+            "problemMatcher": []
+        },
+
+        // 🚀 HLAVNÍ SPOUŠTĚČ
         {
             "label": "🚀 START DEV ENVIRONMENT",
             "dependsOn": [
                 "Start Ghost Server (Run)",
-                "Start Theme Watcher"
+                "Start Theme Watcher",
+                "Open SmartGit",
+                "Open Browser"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
             "problemMatcher": []
         },
-        // 4. Stop Task
+
+        // 🛑 STOP
         {
             "label": "🛑 STOP ALL",
             "type": "shell",
