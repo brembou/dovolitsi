@@ -84,16 +84,6 @@
                     </div>
                 {{/if}}
 
-                {{#if @custom.display_author_box}}
-
-                    <div class="relative px-8 pb-8 md:p-10 overflow-hidden pt-[4.5rem] lg:px-20 lg:pt-20 lg:pb-16 my-7 lg:my-14 grad-bg rounded-3xl macaw-authors not-prose">
-                        {{#foreach authors}}
-                            {{> "author"}}
-                        {{/foreach}}
-                    </div>
-
-                {{/if}}
-
                 {{!-- Hyvor komentáře - pouze v produkci --}}
                 {{#match @site.url "!=" "http://localhost:2368"}}
                 <section class="gh-post-comments" id="ghost-comments-root">
@@ -181,6 +171,16 @@
                 </div>
 
                 {{> "content-cta"}}
+
+            {{/if}}
+
+            {{#if @custom.display_author_box}}
+
+                <div class="relative px-8 pb-8 md:p-10 overflow-hidden pt-[4.5rem] lg:px-20 lg:pt-20 lg:pb-16 my-7 lg:my-14 grad-bg rounded-3xl macaw-authors not-prose">
+                    {{#foreach authors}}
+                        {{> "author"}}
+                    {{/foreach}}
+                </div>
 
             {{/if}}
 
