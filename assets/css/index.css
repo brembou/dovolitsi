@@ -161,6 +161,11 @@ body.is-font-azeret .prose h6{
     }
 }
 
+/* Přepis margin-bottom pro všechny nadpisy v prose - přepisuje prose-headings:mb-2 */
+.prose.prose-macaw :is(:where(h1, h2, h3, h4, h5, h6, th):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+    margin-bottom: 2rem;
+}
+
 .macaw-pill{
     @apply inline-flex items-center gap-x-1.5 text-sm tracking-wider uppercase backdrop-blur-lg font-display px-4 leading-none rounded-full;
     @apply h-7;
@@ -1429,8 +1434,6 @@ figcaption a:hover{
     .gh-content blockquote,
     .gh-content > iframe,
     .gh-canvas>pre{
-        @apply mt-0;
-        @apply mb-4;
         grid-column: main-start/main-end;
         padding: 0;
     }

@@ -42,7 +42,7 @@
 
         {{!-- We check if the post has a feature image --}}
         {{#if feature_image}}
-            <figure class="container mt-2 mb-4 text-center md:mb-8 md:mt-10 gh-feature-image max-sm:p-0" data-aos="fade-in" data-aos-duration="500" data-aos-delay="150">
+            <figure class="container mt-2 text-center md:mb-8 md:mt-10 gh-feature-image max-sm:p-0" data-aos="fade-in" data-aos-duration="500" data-aos-delay="150">
 
                 <picture>
                     <source srcset="{{img_url feature_image size="post-full-s-x2"}} 2x,{{img_url feature_image
@@ -67,7 +67,7 @@
 
                 {{#if @custom.display_toc}}
 
-                    <div class="mb-6 bg-gray-100 rounded-2xl">
+                    <div class="mb-20 bg-gray-100 rounded-2xl">
                         <div class="px-10 py-8">
                             <h4 class="mb-8 text-xl toc-heading font-display">{{t "Table of contents"}}</h4>
                             <div class="gh-toc font-display"></div>
@@ -86,7 +86,7 @@
 
                 {{#if @custom.display_author_box}}
 
-                    <div class="relative px-8 pb-8 md:p-10 overflow-hidden pt-[4.5rem] lg:px-20 lg:pt-20 lg:pb-16 mb-7 lg:mb-14 grad-bg rounded-3xl macaw-authors not-prose">
+                    <div class="relative px-8 pb-8 md:p-10 overflow-hidden pt-[4.5rem] lg:px-20 lg:pt-20 lg:pb-16 my-7 lg:my-14 grad-bg rounded-3xl macaw-authors not-prose">
                         {{#foreach authors}}
                             {{> "author"}}
                         {{/foreach}}
@@ -186,7 +186,7 @@
 
             <div>
                 {{#is "post"}}
-                    <h2 class="no-toc pb-3 mb-8 text-lg md:text-base font-bold leading-none tracking-widest text-gray-900 uppercase border-b featured-title font-display">
+                    <h2 class="no-toc pb-3 mb-16 text-lg md:text-base font-bold leading-none tracking-widest text-gray-900 uppercase border-b featured-title font-display">
                         Nespěcháš? Tak si dej tohle…
                     </h2>
 
