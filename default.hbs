@@ -45,7 +45,10 @@
                     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
                 {{/match}}
                 {{#match @custom.typography "Elegant"}}
-                    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+                    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+                    <noscript>
+                        <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+                    </noscript>
                 {{/match}}
                 {{#match @custom.typography "Kreon"}}
                     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Kreon:wght@400;700&display=swap" rel="stylesheet">
