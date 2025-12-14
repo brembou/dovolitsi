@@ -228,7 +228,7 @@
 
         {{!-- Hyvor komentáře - pouze v produkci --}}
         {{#match @site.url "!=" "http://localhost:2368"}}
-            <script src="https://talk.hyvor.com/embed/comment-counts.js"></script>
+            <script async="https://talk.hyvor.com/embed/comment-counts.js"></script>
             <script>
                 // Sdílená funkce pro formátování počtu komentářů
                 function formatCommentCount(count) {
