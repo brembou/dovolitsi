@@ -13,7 +13,7 @@
             <h1 class="max-w-md m-auto mb-2 text-3xl font-bold sm:leading-snug sm:text-3xl lg:max-w-3xl lg:leading-snug lg:text-5xl gh-title font-display">{{title}}</h1>
 
             {{#if custom_excerpt}}
-                <p class="max-w-lg mx-auto mt-8 mb-4 font-normal md:mb-6 md:leading-relaxed md:mt-13 md:text-base lg:max-w-2xl font-text" data-aos="fade-in" data-aos-duration="500" data-aos-delay="150">{{custom_excerpt}}</p>
+                <p class="max-w-lg mx-auto mt-8 mb-4 font-normal md:mb-6 md:leading-relaxed md:mt-13 md:text-base lg:max-w-2xl font-text">{{custom_excerpt}}</p>
             {{/if}}
 
             {{!-- Meta data for post header --}}
@@ -42,15 +42,15 @@
 
         {{!-- We check if the post has a feature image --}}
         {{#if feature_image}}
-            <figure class="container mt-2 text-center md:mb-8 md:mt-10 gh-feature-image max-sm:p-0" data-aos="fade-in" data-aos-duration="500" data-aos-delay="150">
+            <figure class="container mt-2 text-center md:mb-8 md:mt-10 gh-feature-image max-sm:p-0">
 
                 <picture>
                     <source srcset="{{img_url feature_image size="post-full-s-x2"}} 2x,{{img_url feature_image
-                                                                                                 size="post-full-s"}} 1x" media="(max-width: 420px)" />
+                                                                                     size="post-full-s"}} 1x" media="(max-width: 420px)" />
                     <source srcset="{{img_url feature_image size="post-full-m-x2"}} 2x,{{img_url feature_image
-                                                                                                 size="post-full-m"}} 1x" media="(max-width: 768px)" />
+                                                                                     size="post-full-m"}} 1x" media="(max-width: 768px)" />
                     <source srcset="{{img_url feature_image size="post-full-x2"}} 2x,{{img_url feature_image
-                                                                                               size="post-full"}} 1x" media="(max-width: 1024px)" />
+                                                                                     size="post-full"}} 1x" media="(max-width: 1024px)" />
                     <img srcset="{{img_url feature_image size="post-full-x2"}} 2x" src="{{img_url feature_image size="post-full"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="w-full max-sm:rounded-none max-sm:w-full rounded-3xl" decoding="async" fetchpriority="high" />
 
                 </picture>
@@ -89,74 +89,72 @@
                 {{!-- Hyvor komentáře - pouze v produkci --}}
                 {{#match @site.url "!=" "http://localhost:2368"}}
                 <section class="gh-post-comments mt-16" id="ghost-comments-root">
-                    <!--{{comments}}-->
-                    <div id="comments"></div>
+                    
+                    {{!-- 1. Vykreslení HTML (Okamžité zobrazení pro rychlost) --}}
+                    {{!-- DŮLEŽITÉ: id="hyvor-comments" musí zůstat, aby ho JS našel --}}
+                    <hyvor-talk-comments
+                        id="hyvor-comments"
+                        website-id="14402"
+                        page-id="{{id}}"
+                        {{#if @member}}
+                        sso-user='{"timestamp":{{date format="X"}},"id":"{{@member.uuid}}","name":"{{@member.name}}","email":"{{@member.email}}","picture_url":"{{@member.avatar_image}}"}'
+                        {{/if}}
+                    ></hyvor-talk-comments>
+
+                    {{!-- 2. Načtení knihovny Hyvor --}}
                     <script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
 
+                    {{!-- 3. Napojení na GTM / Facebook Pixel --}}
                     <script>
-                        const comments = document.createElement('hyvor-talk-comments');
-                        comments.setAttribute('website-id', 14402);
-                        comments.setAttribute('page-id', "{{id}}");
-                        {{#if @member}}
-                        comments.setAttribute('sso-user', JSON.stringify({
-                            timestamp: Math.floor(Date.now() / 1000),
-                            id: "{{{ @member.uuid }}}",
-                            name: "{{{ @member.name }}}" || "{{{ @member.email }}}".split('@')[0] || "Člen",
-                            email: "{{{ @member.email }}}",
-                            picture_url: "{{{ @member.avatar_image }}}"
-                        }))
-                        {{/if}}
-                        document.getElementById("comments").appendChild(comments);
+                        // Počkáme, až bude DOM připravený (pro jistotu)
+                        document.addEventListener("DOMContentLoaded", function() {
+                            
+                            // Najdeme ten HTML element podle ID, které jsme mu dali nahoře
+                            const commentsElement = document.getElementById('hyvor-comments');
+                            
+                            // Inicializace DataLayeru, pokud ještě neexistuje
+                            window.dataLayer = window.dataLayer || [];
 
-                        // Inicializace dataLayer
-                        window.dataLayer = window.dataLayer || [];
-
-                        // 1. Nový komentář
-                        comments.addEventListener('comment:published', function(e) {
-                            if (window.dataLayer) {
-                                window.dataLayer.push({
-                                    'event': 'hyvor_comment',
-                                    'comment_id': e.detail.id || '',
-                                    'article_url': window.location.href,
-                                    'article_title': document.title
+                            if (commentsElement) {
+                                // A. Nový komentář (FB Pixel: SubmitApplication nebo vlastní event)
+                                commentsElement.addEventListener('comment:published', function(e) {
+                                    window.dataLayer.push({
+                                        'event': 'hyvor_comment',
+                                        'comment_id': e.detail.id || '',
+                                        'article_url': window.location.href,
+                                        'article_title': document.title
+                                    });
+                                    console.log('GTM Event: hyvor_comment odeslán'); // Kontrola v konzoli
                                 });
-                            }
-                        });
 
-                        // 2. Hodnocení komentáře (upvote/downvote)
-                        comments.addEventListener('comment:voted', function(e) {
-                            if (window.dataLayer) {
-                                window.dataLayer.push({
-                                    'event': 'hyvor_vote',
-                                    'comment_id': e.detail.comment?.id || '',
-                                    'vote_type': e.detail.vote || '',
-                                    'article_url': window.location.href
+                                // B. Hodnocení komentáře (To se ti hodí pro engagement)
+                                commentsElement.addEventListener('comment:voted', function(e) {
+                                    window.dataLayer.push({
+                                        'event': 'hyvor_vote',
+                                        'comment_id': e.detail.comment?.id || '',
+                                        'vote_type': e.detail.vote || '',
+                                        'article_url': window.location.href
+                                    });
                                 });
-                            }
-                        });
 
-                        // 3. REAKCE (emoji)
-                        comments.addEventListener('reaction', function(e) {
-                            if (window.dataLayer) {
-                                window.dataLayer.push({
-                                    'event': 'hyvor_reaction',
-                                    'reaction_type': e.detail.type || '', // 'superb' | 'love' | 'wow' | 'sad' | 'laugh' | 'angry'
-                                    'article_url': window.location.href,
-                                    'article_title': document.title
+                                // C. Reakce (Srdíčka, smajlíci...)
+                                commentsElement.addEventListener('reaction', function(e) {
+                                    window.dataLayer.push({
+                                        'event': 'hyvor_reaction',
+                                        'reaction_type': e.detail.type || '',
+                                        'article_url': window.location.href,
+                                        'article_title': document.title
+                                    });
                                 });
-                            }
-                        });
 
-                        // 4. HODNOCENÍ (rating/hvězdičky) - pokud používáte
-                        comments.addEventListener('rating', function(e) {
-                            if (window.dataLayer) {
-                                window.dataLayer.push({
-                                    'event': 'hyvor_rating',
-                                    'rating_value': e.detail.rating || 0,
-                                    'rating_count': e.detail.count || 0,
-                                    'rating_average': e.detail.average || 0,
-                                    'article_url': window.location.href,
-                                    'article_title': document.title
+                                // D. Hvězdičkové hodnocení
+                                commentsElement.addEventListener('rating', function(e) {
+                                    window.dataLayer.push({
+                                        'event': 'hyvor_rating',
+                                        'rating_value': e.detail.rating || 0,
+                                        'article_url': window.location.href,
+                                        'article_title': document.title
+                                    });
                                 });
                             }
                         });
@@ -167,9 +165,7 @@
             {{else}}
 
                 <div class="macaw-post-sneak-peek fading">
-
                     {{{html}}}
-
                 </div>
 
                 {{> "content-cta"}}
@@ -192,63 +188,42 @@
                         Nespěcháš? Tak si dej tohle…
                     </h2>
 
-                    {{!-- GRID: články pod sebou (1 sloupec) --}}
                     <div class="grid grid-cols-1 gap-6 md:gap-8 gh-feed recommended-posts" aria-label="Doporučené články">
-
-                        {{!-- ==========================================================
-                              SLOT 1: VIP ČLÁNEK (Hledá POUZE v 'members' obsahu)
-                              ========================================================== --}}
-                        {{!-- 1. Pokus: Náhodný článek pro členy (tím se vyloučí duplicita s veřejnými) --}}
                         {{#get "posts" filter="id:-{{id}}+visibility:members" limit="1" order="random" as |vip|}}
                             {{#if vip}}
                                 {{#foreach vip}}
                                     {{> "card-recommended"}}
                                 {{/foreach}}
                             {{else}}
-                                {{!-- FALLBACK PRO SLOT 1:
-                                      Pokud nemáte žádné members články, nebo jste zrovna na jediném z nich.
-                                      Musíme sáhnout do veřejných, ale vezmeme 'featured' (Doporučené),
-                                      abychom snížili šanci na duplicitu s těmi vedle. --}}
                                 {{#get "posts" filter="id:-{{id}}+visibility:public+featured:true" limit="1" order="random" as |fallbackVip|}}
                                     {{#foreach fallbackVip}}
                                         {{> "card-recommended"}}
                                     {{/foreach}}
-                            {{else}}
-                                {{!-- Poslední záchrana: prostě náhodný veřejný --}}
-                                {{#get "posts" filter="id:-{{id}}+visibility:public" limit="1" order="random" as |lastResort|}}
-                                    {{#foreach lastResort}}
-                                        {{> "card-recommended"}}
-                                    {{/foreach}}
-                                {{/get}}
+                                {{else}}
+                                    {{#get "posts" filter="id:-{{id}}+visibility:public" limit="1" order="random" as |lastResort|}}
+                                        {{#foreach lastResort}}
+                                            {{> "card-recommended"}}
+                                        {{/foreach}}
+                                    {{/get}}
                                 {{/get}}
                             {{/if}}
                         {{/get}}
 
-
-                        {{!-- ==========================================================
-                              SLOT 2 a 3: SOUVISEJÍCÍ (Hledá POUZE v 'public' obsahu)
-                              ========================================================== --}}
-                        {{!-- Tím, že hledáme jen v public, se nemůžeme srazit s VIP kartou (pokud ona našla members) --}}
-
                         {{#if tags}}
-                            {{!-- Máme tagy -> Hledáme související VEŘEJNÉ --}}
                             {{#get "posts" filter="tags:[{{tags[*].slug}}]+id:-{{id}}+visibility:public" limit="2" as |related|}}
                                 {{#match pagination.total ">=" 2}}
-                                    {{!-- Máme dostatek souvisejících --}}
                                     {{#foreach related}}
                                         {{> "card-recommended"}}
                                     {{/foreach}}
-                        {{else}}
-                            {{!-- Máme jich málo -> Raději načteme 2 náhodné VEŘEJNÉ --}}
-                            {{#get "posts" filter="id:-{{../id}}+visibility:public" limit="2" order="random" as |randoms|}}
-                                {{#foreach randoms}}
-                                    {{> "card-recommended"}}
-                                {{/foreach}}
-                            {{/get}}
+                                {{else}}
+                                    {{#get "posts" filter="id:-{{../id}}+visibility:public" limit="2" order="random" as |randoms|}}
+                                        {{#foreach randoms}}
+                                            {{> "card-recommended"}}
+                                        {{/foreach}}
+                                    {{/get}}
                                 {{/match}}
                             {{/get}}
                         {{else}}
-                            {{!-- Nemáme tagy -> Načteme 2 náhodné VEŘEJNÉ --}}
                             {{#get "posts" filter="id:-{{id}}+visibility:public" limit="2" order="random" as |randoms|}}
                                 {{#foreach randoms}}
                                     {{> "card-recommended"}}
@@ -259,7 +234,7 @@
                     </div>
 
                     {{else}}
-                        {{!-- PAGE (Statická stránka): Jednoduchý mix --}}
+                        {{!-- PAGE --}}
                         <h2 class="no-toc pb-3 mb-8 text-lg md:text-base font-bold leading-none tracking-widest text-gray-900 uppercase border-b featured-title font-display border-b-gray-200">
                             Vybrala jsem pro tebe…
                         </h2>
