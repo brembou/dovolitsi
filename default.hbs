@@ -230,7 +230,7 @@
         {{#match @site.url "!=" "http://localhost:2368"}}
             <script async="https://talk.hyvor.com/embed/comment-counts.js"></script>
             <script>
-                // Sdílená funkce pro formátování počtu komentářů
+                // 1. Definice funkcí (to zůstává stejné)
                 function formatCommentCount(count) {
                     if (count === 0) return "Žádný komentář";
                     if (count === 1) return count + " komentář";
@@ -238,34 +238,44 @@
                     return count + " komentářů";
                 }
 
-                // Funkce pro načtení/reload Hyvor
                 function loadHyvorCounts() {
                     if (window.hyvorTalkCommentCounts) {
-                        window.hyvorTalkCommentCounts.load({ "website-id": 14402, "mode": "number" },
-                            function(count) { return formatCommentCount(count); }
-                        );
+                        window.hyvorTalkCommentCounts.load({
+                            "website-id": 14402,
+                            "mode": "number"
+                        }, function(count) {
+                            return formatCommentCount(count);
+                        });
                     }
                 }
 
-                // Počáteční načtení
-                loadHyvorCounts();
+                // 2. CHYTRÉ SPUŠTĚNÍ (Tady je ta oprava)
+                // Zjistíme, jestli už je knihovna načtená.
+                if (window.hyvorTalkCommentCounts) {
+                    // Pokud ano (byla v cache), spustíme hned
+                    loadHyvorCounts();
+                } else {
+                    // Pokud ne (stahuje se), počkáme na událost 'load'
+                    var hyvorScript = document.getElementById('hyvor-script');
+                    if (hyvorScript) {
+                        hyvorScript.addEventListener('load', loadHyvorCounts);
+                    }
+                }
 
-                // Sleduj změny v DOM a reload komentáře při přidání nových článků
+                // 3. Observer pro lazy loading článků (zůstává stejné)
                 const observer = new MutationObserver(function(mutations) {
                     for (let mutation of mutations) {
                         if (mutation.addedNodes.length) {
-                            // Zkontroluj, jestli se přidaly nové články s Hyvor elementy
                             for (let node of mutation.addedNodes) {
                                 if (node.nodeType === 1 && node.querySelector('hyvor-talk-comment-count')) {
                                     setTimeout(loadHyvorCounts, 300);
-                                    return; // Stačí jednou
+                                    return;
                                 }
                             }
                         }
                     }
                 });
 
-                // Sleduj pouze .gh-feed element
                 const feedElement = document.querySelector('.gh-feed');
                 if (feedElement) {
                     observer.observe(feedElement, { childList: true });
