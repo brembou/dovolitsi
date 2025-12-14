@@ -228,9 +228,8 @@
 
         {{!-- Hyvor komentáře - pouze v produkci --}}
         {{#match @site.url "!=" "http://localhost:2368"}}
-            <script async="https://talk.hyvor.com/embed/comment-counts.js"></script>
             <script>
-                // 1. Definice funkcí (to zůstává stejné)
+                // Funkce pro formátování češtiny
                 function formatCommentCount(count) {
                     if (count === 0) return "Žádný komentář";
                     if (count === 1) return count + " komentář";
@@ -238,7 +237,9 @@
                     return count + " komentářů";
                 }
 
-                function loadHyvorCounts() {
+                // Hlavní spouštěcí funkce
+                function initializeHyvor() {
+                    // Kontrola, jestli knihovna opravdu dorazila
                     if (window.hyvorTalkCommentCounts) {
                         window.hyvorTalkCommentCounts.load({
                             "website-id": 14402,
@@ -246,41 +247,37 @@
                         }, function(count) {
                             return formatCommentCount(count);
                         });
+                        console.log("Hyvor komentáře úspěšně načteny.");
                     }
                 }
 
-                // 2. CHYTRÉ SPUŠTĚNÍ (Tady je ta oprava)
-                // Zjistíme, jestli už je knihovna načtená.
-                if (window.hyvorTalkCommentCounts) {
-                    // Pokud ano (byla v cache), spustíme hned
-                    loadHyvorCounts();
-                } else {
-                    // Pokud ne (stahuje se), počkáme na událost 'load'
-                    var hyvorScript = document.getElementById('hyvor-script');
-                    if (hyvorScript) {
-                        hyvorScript.addEventListener('load', loadHyvorCounts);
-                    }
-                }
-
-                // 3. Observer pro lazy loading článků (zůstává stejné)
-                const observer = new MutationObserver(function(mutations) {
-                    for (let mutation of mutations) {
-                        if (mutation.addedNodes.length) {
-                            for (let node of mutation.addedNodes) {
-                                if (node.nodeType === 1 && node.querySelector('hyvor-talk-comment-count')) {
-                                    setTimeout(loadHyvorCounts, 300);
-                                    return;
+                // Observer pro "nekonečné scrollování" (načítání dalších článků)
+                document.addEventListener("DOMContentLoaded", function() {
+                    const observer = new MutationObserver(function(mutations) {
+                        for (let mutation of mutations) {
+                            if (mutation.addedNodes.length) {
+                                for (let node of mutation.addedNodes) {
+                                    // Pokud přibyl prvek s komentáři
+                                    if (node.nodeType === 1 && node.querySelector('hyvor-talk-comment-count')) {
+                                        // Zkusíme znovu spustit Hyvor, pokud už je načtený
+                                        if (window.hyvorTalkCommentCounts) {
+                                            initializeHyvor();
+                                        }
+                                        return; 
+                                    }
                                 }
                             }
                         }
+                    });
+
+                    const feedElement = document.querySelector('.gh-feed');
+                    if (feedElement) {
+                        observer.observe(feedElement, { childList: true });
                     }
                 });
-
-                const feedElement = document.querySelector('.gh-feed');
-                if (feedElement) {
-                    observer.observe(feedElement, { childList: true });
-                }
             </script>
+
+            <script async src="https://talk.hyvor.com/embed/comment-counts.js" onload="initializeHyvor()"></script>
         {{/match}}
 
         {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}
