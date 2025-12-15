@@ -37,6 +37,11 @@
                         {{reading_time minute="Čtení na minutku" minutes="Čtení na % min"}}
                     </div>
                 {{/if}}
+
+                <span class="mx-2 bull">&bull;</span>
+                <span class="hide-number">
+                    <a href="{{url}}#ghost-comments-root"><hyvor-talk-comment-count page-id="{{id}}" mode="number"></hyvor-talk-comment-count></a>
+                </span>
             </span>
         </header>
 
