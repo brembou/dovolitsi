@@ -967,20 +967,30 @@ opacity: 0.04;
 
 form.error .macaw-error-message,
 form.success .macaw-success-message{
-    display: inline-flex
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .macaw-alert {
     font-weight: normal;
-    padding: 0;
+    padding: 10px;
     font-size: 0.85rem;
     line-height: 1.4;
-    position: absolute;
-    top: 100%;
-    margin-top: 8px;
-    right: 0;
-    text-align: right;
+    position: relative;
+    margin-top: 1rem;
+    text-align: center;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.macaw-alert a {
+    color: inherit;
+    text-decoration: underline;
+    display: inline;
 }
 
 .error .macaw-alert {
