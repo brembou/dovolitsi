@@ -967,9 +967,8 @@ opacity: 0.04;
 
 form.error .macaw-error-message,
 form.success .macaw-success-message{
-    display: flex;
+    display: block;
     width: 100%;
-    justify-content: center;
     margin-left: auto;
     margin-right: auto;
 }
