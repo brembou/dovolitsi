@@ -93,69 +93,82 @@
 
                 {{!-- Hyvor komentáře - pouze v produkci --}}
                 {{#match @site.url "!=" "http://localhost:2368"}}
-                <section class="gh-post-comments mt-16" id="ghost-comments-root">
-    
-                    {{!-- 1. Samotný Hyvor element (čisté HTML pro rychlost) --}}
-                    <hyvor-talk-comments
-                        id="hyvor-comments"
-                        website-id="14402"
-                        page-id="{{id}}"
-                        {{#if @member}}
-                        sso-user='{"timestamp":{{date format="X"}},"id":"{{@member.uuid}}","name":"{{@member.name}}","email":"{{@member.email}}","picture_url":"{{@member.avatar_image}}"}'
-                        {{/if}}
-                    ></hyvor-talk-comments>
-
-                    {{!-- 2. Načtení knihovny --}}
-                    <script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
-
-                    {{!-- 3. UNIVERZÁLNÍ MĚŘENÍ (Oprava: Posloucháme na window) --}}
-                    <script>
-                        // Funkce pro bezpečné odeslání do GTM a logování
-                        function pushToGTM(eventName, params) {
-                            // Log do konzole pro ověření funkčnosti
-                            console.log('🔔 HYVOR EVENT:', eventName, params);
-                            
-                            window.dataLayer = window.dataLayer || [];
-                            window.dataLayer.push(Object.assign({
-                                'event': eventName,
-                                'article_url': window.location.href,
-                                'article_title': document.title
-                            }, params));
-                        }
-
-                        // Posloucháme globálně na okně, protože Hyvor události bublají nahoru.
-                        // Tím se vyhneme problému, že element ještě neexistuje.
+                    <section class="gh-post-comments mt-16" id="ghost-comments-root">
                         
-                        // A. Nový komentář
-                        window.addEventListener('comment:published', function(e) {
-                            pushToGTM('hyvor_comment', { 
-                                'comment_id': e.detail.id || 'unknown' 
-                            });
-                        });
+                        {{!-- 1. Samotný Hyvor element --}}
+                        {{!-- ID "hyvor-comments" je klíčové pro náš skript dole --}}
+                        <hyvor-talk-comments
+                            id="hyvor-comments"
+                            website-id="14402"
+                            page-id="{{id}}"
+                            {{#if @member}}
+                            sso-user='{"timestamp":{{date format="X"}},"id":"{{@member.uuid}}","name":"{{@member.name}}","email":"{{@member.email}}","picture_url":"{{@member.avatar_image}}"}'
+                            {{/if}}
+                        ></hyvor-talk-comments>
 
-                        // B. Hlasování (Vote)
-                        window.addEventListener('comment:voted', function(e) {
-                            pushToGTM('hyvor_vote', { 
-                                'comment_id': e.detail.comment?.id || '',
-                                'vote_type': e.detail.vote || ''
-                            });
-                        });
+                        {{!-- 2. Načtení knihovny --}}
+                        <script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
 
-                        // C. Reakce (Emoji)
-                        window.addEventListener('reaction', function(e) {
-                            pushToGTM('hyvor_reaction', { 
-                                'reaction_type': e.detail.type || '' 
-                            });
-                        });
+                        {{!-- 3. MĚŘENÍ (Opravená verze: Zacílení přímo na element) --}}
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                
+                                // Najdeme konkrétní element podle ID
+                                const hyvorElement = document.getElementById('hyvor-comments');
 
-                        // D. Hvězdičky (Rating)
-                        window.addEventListener('rating', function(e) {
-                            pushToGTM('hyvor_rating', { 
-                                'rating_value': e.detail.rating || 0 
+                                // Pomocná funkce pro odeslání
+                                function pushToGTM(eventName, params) {
+                                    console.log('✅ ODESÍLÁM DO GTM:', eventName, params);
+                                    window.dataLayer = window.dataLayer || [];
+                                    window.dataLayer.push(Object.assign({
+                                        'event': eventName,
+                                        'article_url': window.location.href,
+                                        'article_title': document.title
+                                    }, params));
+                                }
+
+                                if (hyvorElement) {
+                                    console.log('👀 Hyvor element nalezen, naslouchám...');
+
+                                    // A. Nový komentář
+                                    hyvorElement.addEventListener('comment:published', function(e) {
+                                        pushToGTM('hyvor_comment', { 
+                                            'comment_id': e.detail.id || 'unknown' 
+                                        });
+                                    });
+
+                                    // B. Hlasování (Vote) - Hyvor V3 někdy používá jen 'vote' nebo 'comment:vote'
+                                    // Pro jistotu zkusíme odchytit oba, pokud se dokumentace liší
+                                    hyvorElement.addEventListener('vote', function(e) {
+                                        pushToGTM('hyvor_vote', { 
+                                            'vote_type': e.detail.type || 'unknown'
+                                        });
+                                    });
+                                    hyvorElement.addEventListener('comment:voted', function(e) {
+                                        pushToGTM('hyvor_vote', { 
+                                            'vote_type': e.detail.vote || 'unknown'
+                                        });
+                                    });
+
+                                    // C. Reakce
+                                    hyvorElement.addEventListener('reaction', function(e) {
+                                        pushToGTM('hyvor_reaction', { 
+                                            'reaction_type': e.detail.type || '' 
+                                        });
+                                    });
+
+                                    // D. Rating
+                                    hyvorElement.addEventListener('rating', function(e) {
+                                        pushToGTM('hyvor_rating', { 
+                                            'rating_value': e.detail.rating || 0 
+                                        });
+                                    });
+                                } else {
+                                    console.warn('❌ Hyvor element nenalezen (zkontroluj ID)');
+                                }
                             });
-                        });
-                    </script>
-                </section>
+                        </script>
+                    </section>
                 {{/match}}
 
             {{else}}
