@@ -94,83 +94,86 @@
                 {{!-- Hyvor komentáře - pouze v produkci --}}
                 {{#match @site.url "!=" "http://localhost:2368"}}
                     <section class="gh-post-comments mt-16" id="ghost-comments-root">
-    
-                    {{!-- 1. Samotný Hyvor element --}}
-                    <hyvor-talk-comments
-                        id="hyvor-comments"
-                        website-id="14402"
-                        page-id="{{id}}"
-                        {{#if @member}}
-                        sso-user='{
-                            "timestamp":{{date format="X"}},
-                            "id":"{{@member.uuid}}",
-                            "name":"{{#if @member.name}}{{@member.name}}{{else}}Sedící pod třešní{{/if}}",
-                            "email":"{{@member.email}}",
-                            "picture_url":"{{@member.avatar_image}}"
-                        }'
-                        {{/if}}
-                    ></hyvor-talk-comments>
+                        
+                        {{!-- 1. Samotný Hyvor element (BEZ sso-user atributu, ten doplníme skriptem) --}}
+                        <hyvor-talk-comments
+                            id="hyvor-comments"
+                            website-id="14402"
+                            page-id="{{id}}"
+                        ></hyvor-talk-comments>
 
-                    {{!-- 2. Načtení knihovny --}}
-                    <script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
+                        {{!-- 2. Načtení knihovny --}}
+                        <script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
 
-                    {{!-- 3. MĚŘENÍ (Verze "Lovec" - čeká na element) --}}
-                    <script>
-                        // Funkce pro odeslání do GTM
-                        function pushToGTM(eventName, params) {
-                            // console.log('✅ ODESÍLÁM DO GTM:', eventName, params); // Odkomentuj pro testování
-                            window.dataLayer = window.dataLayer || [];
-                            window.dataLayer.push(Object.assign({
-                                'event': eventName,
-                                'article_url': window.location.href,
-                                'article_title': document.title
-                            }, params));
-                        }
-
-                        // Interval kontroluje každých 100ms, jestli už Hyvor existuje
-                        var hyvorCheckInterval = setInterval(function() {
+                        {{!-- 3. LOGIKA (SSO + GTM + LOVEC) --}}
+                        <script>
+                            // A. Příprava dat uživatele (pokud je přihlášen)
+                            var memberData = null;
                             
-                            var hyvorElement = document.getElementById('hyvor-comments');
+                            {{#if @member}}
+                            memberData = {
+                                id: "{{@member.uuid}}",
+                                // Tady řešíme ten problém s chybějícím jménem
+                                name: "{{#if @member.name}}{{@member.name}}{{else}}Sedící pod třešní{{/if}}",
+                                email: "{{@member.email}}",
+                                picture_url: "{{@member.avatar_image}}"
+                            };
+                            {{/if}}
 
-                            // Pokud jsme ho našli!
-                            if (hyvorElement) {
-                                // 1. Zastavíme hledání
-                                clearInterval(hyvorCheckInterval);
-
-                                // 2. Pověsíme na něj posluchače
-                                
-                                // A. Nový komentář
-                                hyvorElement.addEventListener('comment:published', function(e) {
-                                    pushToGTM('hyvor_comment', { 
-                                        'comment_id': e.detail.id || 'unknown' 
-                                    });
-                                });
-
-                                // B. Hlasování a Reakce
-                                hyvorElement.addEventListener('vote', function(e) {
-                                    pushToGTM('hyvor_vote', { 'vote_type': e.detail.type || 'unknown' });
-                                });
-                                
-                                hyvorElement.addEventListener('comment:voted', function(e) {
-                                    pushToGTM('hyvor_vote', { 'vote_type': e.detail.vote || 'unknown' });
-                                });
-
-                                hyvorElement.addEventListener('reaction', function(e) {
-                                    pushToGTM('hyvor_reaction', { 'reaction_type': e.detail.type || '' });
-                                });
-
-                                hyvorElement.addEventListener('rating', function(e) {
-                                    pushToGTM('hyvor_rating', { 'rating_value': e.detail.rating || 0 });
-                                });
+                            // B. Funkce pro GTM
+                            function pushToGTM(eventName, params) {
+                                // console.log('✅ ODESÍLÁM DO GTM:', eventName, params);
+                                window.dataLayer = window.dataLayer || [];
+                                window.dataLayer.push(Object.assign({
+                                    'event': eventName,
+                                    'article_url': window.location.href,
+                                    'article_title': document.title
+                                }, params));
                             }
-                        }, 100);
 
-                        // Bezpečnostní pojistka: Po 10 vteřinách to vzdáme
-                        setTimeout(function() {
-                            clearInterval(hyvorCheckInterval);
-                        }, 10000);
-                    </script>
-                </section>
+                            // C. "Lovec" - čeká na element a pak do něj vstříkne data
+                            var hyvorCheckInterval = setInterval(function() {
+                                var hyvorElement = document.getElementById('hyvor-comments');
+
+                                if (hyvorElement) {
+                                    clearInterval(hyvorCheckInterval);
+
+                                    // --- 1. VLOŽENÍ SSO DAT (Oprava chyby Timestamp) ---
+                                    if (memberData) {
+                                        // Vygenerujeme aktuální čas TADY A TEĎ v prohlížeči
+                                        memberData.timestamp = Math.floor(Date.now() / 1000);
+                                        
+                                        // Vložíme data do komponenty
+                                        hyvorElement.setAttribute('sso-user', JSON.stringify(memberData));
+                                    }
+
+                                    // --- 2. NASAZENÍ GTM MĚŘENÍ ---
+                                    hyvorElement.addEventListener('comment:published', function(e) {
+                                        pushToGTM('hyvor_comment', { 'comment_id': e.detail.id || 'unknown' });
+                                    });
+
+                                    hyvorElement.addEventListener('vote', function(e) {
+                                        pushToGTM('hyvor_vote', { 'vote_type': e.detail.type || 'unknown' });
+                                    });
+                                    
+                                    hyvorElement.addEventListener('comment:voted', function(e) {
+                                        pushToGTM('hyvor_vote', { 'vote_type': e.detail.vote || 'unknown' });
+                                    });
+
+                                    hyvorElement.addEventListener('reaction', function(e) {
+                                        pushToGTM('hyvor_reaction', { 'reaction_type': e.detail.type || '' });
+                                    });
+
+                                    hyvorElement.addEventListener('rating', function(e) {
+                                        pushToGTM('hyvor_rating', { 'rating_value': e.detail.rating || 0 });
+                                    });
+                                }
+                            }, 100);
+
+                            // Pojistka
+                            setTimeout(function() { clearInterval(hyvorCheckInterval); }, 10000);
+                        </script>
+                    </section>
                 {{/match}}
 
             {{else}}
