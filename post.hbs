@@ -94,23 +94,44 @@
                 {{!-- Hyvor komentáře - pouze v produkci --}}
                 {{#match @site.url "!=" "http://localhost:2368"}}
                     <section class="gh-post-comments mt-16" id="ghost-comments-root">
-                        
-                        {{!-- 1. Element Hyvoru --}}
-                        {{!-- Nedáváme sem sso-user, vložíme ho bezpečně Javascriptem --}}
-                        <hyvor-talk-comments
-                            id="hyvor-comments"
-                            website-id="14402"
-                            page-id="{{id}}"
-                        ></hyvor-talk-comments>
+    
+                        {{!-- Kontejner, kam to JavaScript vloží --}}
+                        <div id="comments-container"></div>
 
-                        {{!-- 2. Skript Hyvoru --}}
+                        {{!-- Načtení knihovny --}}
                         <script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
 
-                        {{!-- 3. Logika (Podle dokumentace Hyvor + GTM) --}}
                         <script>
+                            // 1. Vytvoříme element programově (Starý spolehlivý způsob)
+                            const comments = document.createElement('hyvor-talk-comments');
+                            comments.setAttribute('website-id', '14402');
+                            comments.setAttribute('page-id', "{{id}}");
+
+                            // 2. Nastavení uživatele (Oprava chyb Name a Timestamp)
+                            {{#if @member}}
+                                const ssoData = {
+                                    // Oprava chyby "Timestamp too old": Generujeme čas teď v prohlížeči
+                                    timestamp: Math.floor(Date.now() / 1000), 
+                                    
+                                    id: "{{@member.uuid}}",
+                                    
+                                    // Oprava chyby "Name is not set": Pokud chybí jméno, dáme "Člen"
+                                    name: "{{#if @member.name}}{{@member.name}}{{else}}Člen{{/if}}",
+                                    
+                                    email: "{{@member.email}}",
+                                    picture_url: "{{@member.avatar_image}}"
+                                };
+                                comments.setAttribute('sso-user', JSON.stringify(ssoData));
+                            {{/if}}
+
+                            // 3. Vložíme do stránky
+                            document.getElementById("comments-container").appendChild(comments);
+
+                            // 4. MĚŘENÍ (Protože máme proměnnou 'comments', posluchače se chytí na 100%)
+                            
                             // Funkce pro GTM
                             function pushToGTM(eventName, params) {
-                                // console.log('✅ GTM Push:', eventName, params); // Pro debug
+                                console.log('✅ GTM:', eventName, params);
                                 window.dataLayer = window.dataLayer || [];
                                 window.dataLayer.push(Object.assign({
                                     'event': eventName,
@@ -119,54 +140,27 @@
                                 }, params));
                             }
 
-                            // Tady je to kouzlo z dokumentace:
-                            // Čekáme, až prohlížeč "pochopí", co je to <hyvor-talk-comments>
-                            customElements.whenDefined('hyvor-talk-comments').then(() => {
-                                
-                                const comments = document.getElementById('hyvor-comments');
-                                if (!comments) return;
+                            // A. Nový komentář
+                            comments.addEventListener('comment:published', function(e) {
+                                pushToGTM('hyvor_comment', { 'comment_id': e.detail.id || 'unknown' });
+                            });
 
-                                // --- A. Nastavení SSO (pokud je uživatel přihlášen) ---
-                                // Tím, že to děláme uvnitř whenDefined, máme jistotu, že to komponenta vezme
-                                {{#if @member}}
-                                    const ssoData = {
-                                        timestamp: Math.floor(Date.now() / 1000), // Aktuální čas (řeší chybu Timestamp too old)
-                                        id: "{{@member.uuid}}",
-                                        name: "{{#if @member.name}}{{@member.name}}{{else}}Sedící pod třešní{{/if}}", // Řeší chybu chybějícího jména
-                                        email: "{{@member.email}}",
-                                        picture_url: "{{@member.avatar_image}}"
-                                    };
-                                    comments.setAttribute('sso-user', JSON.stringify(ssoData));
-                                {{/if}}
+                            // B. Hlasování (Pro jistotu obě varianty názvů)
+                            comments.addEventListener('vote', function(e) {
+                                pushToGTM('hyvor_vote', { 'vote_type': e.detail.type || 'unknown' });
+                            });
+                            comments.addEventListener('comment:voted', function(e) {
+                                pushToGTM('hyvor_vote', { 'vote_type': e.detail.vote || 'unknown' });
+                            });
 
-                                // --- B. Nasazení měření (Event Listeners) ---
-                                // Podle dokumentace v3 jsou události: 'comment:published', 'vote', 'reaction'
-                                
-                                comments.addEventListener('comment:published', (e) => {
-                                    pushToGTM('hyvor_comment', { 
-                                        'comment_id': e.detail.id 
-                                    });
-                                });
+                            // C. Reakce
+                            comments.addEventListener('reaction', function(e) {
+                                pushToGTM('hyvor_reaction', { 'reaction_type': e.detail.type || '' });
+                            });
 
-                                // Pozor: V dokumentaci v3 se událost pro hlasování někdy liší.
-                                // Pro jistotu odchytáváme obě varianty, aby to fungovalo na 100%.
-                                comments.addEventListener('vote', (e) => {
-                                    pushToGTM('hyvor_vote', { 'vote_type': e.detail.type }); // Upvote/Downvote
-                                });
-                                
-                                comments.addEventListener('comment:vote', (e) => { // Legacy podpora
-                                    pushToGTM('hyvor_vote', { 'vote_type': e.detail.vote });
-                                });
-
-                                comments.addEventListener('reaction', (e) => {
-                                    pushToGTM('hyvor_reaction', { 'reaction_type': e.detail.type });
-                                });
-                                
-                                comments.addEventListener('rating', (e) => {
-                                    pushToGTM('hyvor_rating', { 'rating_value': e.detail.rating });
-                                });
-                                
-                                // console.log("🚀 Hyvor ready & listeners attached");
+                            // D. Hodnocení
+                            comments.addEventListener('rating', function(e) {
+                                pushToGTM('hyvor_rating', { 'rating_value': e.detail.rating || 0 });
                             });
                         </script>
                     </section>
