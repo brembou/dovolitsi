@@ -95,34 +95,22 @@
                 {{#match @site.url "!=" "http://localhost:2368"}}
                     <section class="gh-post-comments mt-16" id="ghost-comments-root">
                         
-                        {{!-- 1. Samotný Hyvor element (BEZ sso-user atributu, ten doplníme skriptem) --}}
+                        {{!-- 1. Element Hyvoru --}}
+                        {{!-- Nedáváme sem sso-user, vložíme ho bezpečně Javascriptem --}}
                         <hyvor-talk-comments
                             id="hyvor-comments"
                             website-id="14402"
                             page-id="{{id}}"
                         ></hyvor-talk-comments>
 
-                        {{!-- 2. Načtení knihovny --}}
+                        {{!-- 2. Skript Hyvoru --}}
                         <script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
 
-                        {{!-- 3. LOGIKA (SSO + GTM + LOVEC) --}}
+                        {{!-- 3. Logika (Podle dokumentace Hyvor + GTM) --}}
                         <script>
-                            // A. Příprava dat uživatele (pokud je přihlášen)
-                            var memberData = null;
-                            
-                            {{#if @member}}
-                            memberData = {
-                                id: "{{@member.uuid}}",
-                                // Tady řešíme ten problém s chybějícím jménem
-                                name: "{{#if @member.name}}{{@member.name}}{{else}}Sedící pod třešní{{/if}}",
-                                email: "{{@member.email}}",
-                                picture_url: "{{@member.avatar_image}}"
-                            };
-                            {{/if}}
-
-                            // B. Funkce pro GTM
+                            // Funkce pro GTM
                             function pushToGTM(eventName, params) {
-                                // console.log('✅ ODESÍLÁM DO GTM:', eventName, params);
+                                // console.log('✅ GTM Push:', eventName, params); // Pro debug
                                 window.dataLayer = window.dataLayer || [];
                                 window.dataLayer.push(Object.assign({
                                     'event': eventName,
@@ -131,47 +119,55 @@
                                 }, params));
                             }
 
-                            // C. "Lovec" - čeká na element a pak do něj vstříkne data
-                            var hyvorCheckInterval = setInterval(function() {
-                                var hyvorElement = document.getElementById('hyvor-comments');
+                            // Tady je to kouzlo z dokumentace:
+                            // Čekáme, až prohlížeč "pochopí", co je to <hyvor-talk-comments>
+                            customElements.whenDefined('hyvor-talk-comments').then(() => {
+                                
+                                const comments = document.getElementById('hyvor-comments');
+                                if (!comments) return;
 
-                                if (hyvorElement) {
-                                    clearInterval(hyvorCheckInterval);
+                                // --- A. Nastavení SSO (pokud je uživatel přihlášen) ---
+                                // Tím, že to děláme uvnitř whenDefined, máme jistotu, že to komponenta vezme
+                                {{#if @member}}
+                                    const ssoData = {
+                                        timestamp: Math.floor(Date.now() / 1000), // Aktuální čas (řeší chybu Timestamp too old)
+                                        id: "{{@member.uuid}}",
+                                        name: "{{#if @member.name}}{{@member.name}}{{else}}Sedící pod třešní{{/if}}", // Řeší chybu chybějícího jména
+                                        email: "{{@member.email}}",
+                                        picture_url: "{{@member.avatar_image}}"
+                                    };
+                                    comments.setAttribute('sso-user', JSON.stringify(ssoData));
+                                {{/if}}
 
-                                    // --- 1. VLOŽENÍ SSO DAT (Oprava chyby Timestamp) ---
-                                    if (memberData) {
-                                        // Vygenerujeme aktuální čas TADY A TEĎ v prohlížeči
-                                        memberData.timestamp = Math.floor(Date.now() / 1000);
-                                        
-                                        // Vložíme data do komponenty
-                                        hyvorElement.setAttribute('sso-user', JSON.stringify(memberData));
-                                    }
-
-                                    // --- 2. NASAZENÍ GTM MĚŘENÍ ---
-                                    hyvorElement.addEventListener('comment:published', function(e) {
-                                        pushToGTM('hyvor_comment', { 'comment_id': e.detail.id || 'unknown' });
+                                // --- B. Nasazení měření (Event Listeners) ---
+                                // Podle dokumentace v3 jsou události: 'comment:published', 'vote', 'reaction'
+                                
+                                comments.addEventListener('comment:published', (e) => {
+                                    pushToGTM('hyvor_comment', { 
+                                        'comment_id': e.detail.id 
                                     });
+                                });
 
-                                    hyvorElement.addEventListener('vote', function(e) {
-                                        pushToGTM('hyvor_vote', { 'vote_type': e.detail.type || 'unknown' });
-                                    });
-                                    
-                                    hyvorElement.addEventListener('comment:voted', function(e) {
-                                        pushToGTM('hyvor_vote', { 'vote_type': e.detail.vote || 'unknown' });
-                                    });
+                                // Pozor: V dokumentaci v3 se událost pro hlasování někdy liší.
+                                // Pro jistotu odchytáváme obě varianty, aby to fungovalo na 100%.
+                                comments.addEventListener('vote', (e) => {
+                                    pushToGTM('hyvor_vote', { 'vote_type': e.detail.type }); // Upvote/Downvote
+                                });
+                                
+                                comments.addEventListener('comment:vote', (e) => { // Legacy podpora
+                                    pushToGTM('hyvor_vote', { 'vote_type': e.detail.vote });
+                                });
 
-                                    hyvorElement.addEventListener('reaction', function(e) {
-                                        pushToGTM('hyvor_reaction', { 'reaction_type': e.detail.type || '' });
-                                    });
-
-                                    hyvorElement.addEventListener('rating', function(e) {
-                                        pushToGTM('hyvor_rating', { 'rating_value': e.detail.rating || 0 });
-                                    });
-                                }
-                            }, 100);
-
-                            // Pojistka
-                            setTimeout(function() { clearInterval(hyvorCheckInterval); }, 10000);
+                                comments.addEventListener('reaction', (e) => {
+                                    pushToGTM('hyvor_reaction', { 'reaction_type': e.detail.type });
+                                });
+                                
+                                comments.addEventListener('rating', (e) => {
+                                    pushToGTM('hyvor_rating', { 'rating_value': e.detail.rating });
+                                });
+                                
+                                // console.log("🚀 Hyvor ready & listeners attached");
+                            });
                         </script>
                     </section>
                 {{/match}}
