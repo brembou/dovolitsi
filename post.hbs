@@ -109,16 +109,13 @@
 
                             // 2. Nastavení uživatele (Oprava chyb Name a Timestamp)
                             {{#if @member}}
+                                const memberName = {{#if @member.name}}"{{@member.name}}"{{else}}null{{/if}};
+                                const memberEmail = "{{@member.email}}";
                                 const ssoData = {
-                                    // Oprava chyby "Timestamp too old": Generujeme čas teď v prohlížeči
                                     timestamp: Math.floor(Date.now() / 1000), 
-                                    
                                     id: "{{@member.uuid}}",
-                                    
-                                    // Oprava chyby "Name is not set": Pokud chybí jméno, dáme "Člen"
-                                    name: "{{#if @member.name}}{{@member.name}}{{else}}Jedna z přísedících pod třešní{{/if}}",
-                                    
-                                    email: "{{@member.email}}",
+                                    name: memberName || memberEmail.split('@')[0],
+                                    email: memberEmail,
                                     picture_url: "{{@member.avatar_image}}"
                                 };
                                 comments.setAttribute('sso-user', JSON.stringify(ssoData));
@@ -131,7 +128,6 @@
                             
                             // Funkce pro GTM
                             function pushToGTM(eventName, params) {
-                                console.log('✅ GTM:', eventName, params);
                                 window.dataLayer = window.dataLayer || [];
                                 window.dataLayer.push(Object.assign({
                                     'event': eventName,
