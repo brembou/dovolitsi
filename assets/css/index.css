@@ -976,15 +976,9 @@ form.success .macaw-success-message{
 
 .macaw-alert {
     font-weight: normal;
-    padding: 10px;
-    font-size: 0.85rem;
-    line-height: 1.4;
     position: relative;
     margin-top: 1rem;
-    text-align: center;
     align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
 }
 
 .macaw-alert a {
@@ -997,9 +991,7 @@ form.success .macaw-success-message{
     color: #ff0700;
 }
 
-.success .macaw-alert {
-    color: #4caf50;
-}
+
 .visibility{
     color: #167616;
 }
