@@ -109,27 +109,34 @@
                         {{!-- 2. Načtení knihovny --}}
                         <script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
 
-                        {{!-- 3. MĚŘENÍ (Opravená verze: Zacílení přímo na element) --}}
+                        {{!-- 3. MĚŘENÍ (Verze "Lovec" - čeká na element) --}}
                         <script>
-                            document.addEventListener("DOMContentLoaded", function() {
+                            // Funkce pro odeslání do GTM
+                            function pushToGTM(eventName, params) {
+                                console.log('✅ ODESÍLÁM DO GTM:', eventName, params);
+                                window.dataLayer = window.dataLayer || [];
+                                window.dataLayer.push(Object.assign({
+                                    'event': eventName,
+                                    'article_url': window.location.href,
+                                    'article_title': document.title
+                                }, params));
+                            }
+
+                            // Tady začíná "Lovec"
+                            // Spustíme interval, který každých 100ms zkontroluje, jestli už Hyvor existuje
+                            var hyvorCheckInterval = setInterval(function() {
                                 
-                                // Najdeme konkrétní element podle ID
-                                const hyvorElement = document.getElementById('hyvor-comments');
+                                var hyvorElement = document.getElementById('hyvor-comments');
 
-                                // Pomocná funkce pro odeslání
-                                function pushToGTM(eventName, params) {
-                                    console.log('✅ ODESÍLÁM DO GTM:', eventName, params);
-                                    window.dataLayer = window.dataLayer || [];
-                                    window.dataLayer.push(Object.assign({
-                                        'event': eventName,
-                                        'article_url': window.location.href,
-                                        'article_title': document.title
-                                    }, params));
-                                }
-
+                                // Pokud jsme ho našli!
                                 if (hyvorElement) {
-                                    console.log('👀 Hyvor element nalezen, naslouchám...');
+                                    console.log('🎯 Hyvor element nalezen a připojen!');
+                                    
+                                    // 1. Okamžitě zastavíme hledání, ať nezatěžujeme procesor
+                                    clearInterval(hyvorCheckInterval);
 
+                                    // 2. Pověsíme na něj posluchače
+                                    
                                     // A. Nový komentář
                                     hyvorElement.addEventListener('comment:published', function(e) {
                                         pushToGTM('hyvor_comment', { 
@@ -137,36 +144,29 @@
                                         });
                                     });
 
-                                    // B. Hlasování (Vote) - Hyvor V3 někdy používá jen 'vote' nebo 'comment:vote'
-                                    // Pro jistotu zkusíme odchytit oba, pokud se dokumentace liší
+                                    // B. Hlasování a Reakce (Všechny varianty pro jistotu)
                                     hyvorElement.addEventListener('vote', function(e) {
-                                        pushToGTM('hyvor_vote', { 
-                                            'vote_type': e.detail.type || 'unknown'
-                                        });
+                                        pushToGTM('hyvor_vote', { 'vote_type': e.detail.type || 'unknown' });
                                     });
+                                    
                                     hyvorElement.addEventListener('comment:voted', function(e) {
-                                        pushToGTM('hyvor_vote', { 
-                                            'vote_type': e.detail.vote || 'unknown'
-                                        });
+                                        pushToGTM('hyvor_vote', { 'vote_type': e.detail.vote || 'unknown' });
                                     });
 
-                                    // C. Reakce
                                     hyvorElement.addEventListener('reaction', function(e) {
-                                        pushToGTM('hyvor_reaction', { 
-                                            'reaction_type': e.detail.type || '' 
-                                        });
+                                        pushToGTM('hyvor_reaction', { 'reaction_type': e.detail.type || '' });
                                     });
 
-                                    // D. Rating
                                     hyvorElement.addEventListener('rating', function(e) {
-                                        pushToGTM('hyvor_rating', { 
-                                            'rating_value': e.detail.rating || 0 
-                                        });
+                                        pushToGTM('hyvor_rating', { 'rating_value': e.detail.rating || 0 });
                                     });
-                                } else {
-                                    console.warn('❌ Hyvor element nenalezen (zkontroluj ID)');
                                 }
-                            });
+                            }, 100); // Zkouší to 10x za vteřinu
+
+                            // Bezpečnostní pojistka: Po 10 vteřinách to hledání vzdáme, kdyby se něco pokazilo
+                            setTimeout(function() {
+                                clearInterval(hyvorCheckInterval);
+                            }, 10000);
                         </script>
                     </section>
                 {{/match}}
