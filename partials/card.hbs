@@ -13,7 +13,7 @@ Re-usable card for linking to posts
                     {{#match @custom.meta_display "!=" "Hide tags and post access meta"}}
                         <div class="flex flex-wrap items-center justify-start mb-4 space-x-2.5">
 
-                            {{#foreach tags}}
+                            {{#foreach tags limit="2"}}
                                 <a class="macaw-pill bg-acc-before text-accent post-tag-{{slug}}" href="{{url}}" title="{{name}}">
 
                                     <svg class="h-1.5 w-1.5 fill-bg-acc ml-[-3px]" viewBox="0 0 6 6" aria-hidden="true">
