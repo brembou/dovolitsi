@@ -19,23 +19,25 @@
         <!-- end of logo -->
 
         <div class="row">
-            {{#if @site.members_enabled}}
-                {{^if @member}}
-                    <div class="mb-6 w-full flex justify-center flex-col items-center">
-                        <div class="mx-auto mt-2 mb-6 macaw-description md:leading-relaxed md:mt-4 md:max-w-xl font-text text-center">
-                            <h2 class="text-2xl md:text-3xl font-bold mb-3 leading-tight">
-                                Už se zvedáš? Chápu. <br>Bylo krásné tě tu mít
-                            </h2>
+            {{#unless (match @page.template "custom-landing")}}
+                {{#if @site.members_enabled}}
+                    {{^if @member}}
+                        <div class="mb-6 w-full flex justify-center flex-col items-center">
+                            <div class="mx-auto mt-2 mb-6 macaw-description md:leading-relaxed md:mt-4 md:max-w-xl font-text text-center">
+                                <h2 class="text-2xl md:text-3xl font-bold mb-3 leading-tight">
+                                    Už se zvedáš? Chápu. <br>Bylo krásné tě tu mít
+                                </h2>
 
-                            <p class="text-base md:text-lg">
-                                Pokud nechceš, aby ti příště uteklo to nejlepší pod třešní, nech mi na sebe e-mail.
-                                Jednou za měsíc se ti ozvu s novým důvodem si zase přisednout.
-                            </p>
+                                <p class="text-base md:text-lg">
+                                    Pokud nechceš, aby ti příště uteklo to nejlepší pod třešní, nech mi na sebe e-mail.
+                                    Jednou za měsíc se ti ozvu s novým důvodem si zase přisednout.
+                                </p>
+                            </div>
+                            {{> "newsletter-form" label="footer" source="footer"}}
                         </div>
-                        {{> "newsletter-form" label="footer" source="footer"}}
-                    </div>
+                    {{/if}}
                 {{/if}}
-            {{/if}}
+            {{/unless}}
             {{!-- Information about the theme --}}
             <div class="text-center mt-12">
                 <p class="text-sm text-white/75 font-display">Psáno s láskou na lavičce pod třešní. <br>© Martina
