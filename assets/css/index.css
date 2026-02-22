@@ -904,8 +904,9 @@ opacity: 0.04;
     transform: rotate(-45deg);
 }
 
-/* Skrýt newsletter v patičce na stránkách se šablonou Landing (custom-landing) */
-body.page-template-custom-landing .footer .footer-newsletter {
+/* Skrýt newsletter v patičce na stránkách se šablonou Landing (custom-landing).
+   Ghost nepřidává na body třídu podle šablony, proto cílíme na obsah z custom-landing.hbs. */
+body:has(.is-landing-template) .footer .footer-newsletter {
     display: none !important;
 }
 
