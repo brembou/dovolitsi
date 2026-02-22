@@ -19,7 +19,7 @@
         <!-- end of logo -->
 
         <div class="row">
-            {{#unless (match @page.template "custom-landing")}}
+            {{#match @page.template "!=" "custom-landing"}}
                 {{#if @site.members_enabled}}
                     {{^if @member}}
                         <div class="mb-6 w-full flex justify-center flex-col items-center">
@@ -37,7 +37,7 @@
                         </div>
                     {{/if}}
                 {{/if}}
-            {{/unless}}
+            {{/match}}
             {{!-- Information about the theme --}}
             <div class="text-center mt-12">
                 <p class="text-sm text-white/75 font-display">Psáno s láskou na lavičce pod třešní. <br>© Martina
