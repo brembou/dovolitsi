@@ -904,6 +904,11 @@ opacity: 0.04;
     transform: rotate(-45deg);
 }
 
+/* Skrýt newsletter v patičce na stránkách se šablonou Landing (custom-landing) */
+body.page-template-custom-landing .footer .footer-newsletter {
+    display: none !important;
+}
+
 /* Theme utils
 /* ---------------------------------------------------------- */
 
