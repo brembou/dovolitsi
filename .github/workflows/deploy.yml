@@ -26,7 +26,13 @@ jobs:
         # Skript 'zip' zajistí produkční build a vytvoření souboru macaw.zip
         run: |
           npm install
-          npm run zip 
+          npm run zip
+
+      - name: Validate theme with GScan (Ghost 6.x)
+        # Ghost dokumentace: https://docs.ghost.org/themes/gscan/
+        # Validace stejného zipu, který nasazuje action-deploy-theme – chyby se zobrazí v logu
+        run: |
+          npx gscan -z macaw1.zip 2>&1
 
       - name: Deploy Theme to Ghost
         # Používá oficiální akci pro nahrání šablony na Ghost
