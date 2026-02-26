@@ -261,11 +261,9 @@ body.is-landing-page .gh-header-nav-region {
     display: none !important;
 }
 
-/* Na landing page na desktopu vycentrovat logo v hlavičce */
-@media (min-width: 1024px) {
-    body.is-landing-page .header .container > div {
-        justify-content: center;
-    }
+/* Na landing page vycentrovat logo v hlavičce (mobil i desktop) */
+body.is-landing-page .header .container > div {
+    justify-content: center;
 }
 
 button.gh-search-icon{
