@@ -247,6 +247,15 @@ body.is-font-azeret .md\:text-sm{
 /* Header
 /* ---------------------------------------------------------- */
 
+/* Obalení menu – musí být flex, aby se položky zobrazily vedle sebe jako předtím; relative kvůli absolute pozici navbaru na mobilu */
+.gh-header-nav-region {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+    position: relative;
+}
+
 /* Na stránce s šablonou custom-landing skrýt menu, vyhledávání a signup (třídu přidává JS v custom-landing.hbs) */
 body.is-landing-page .gh-header-nav-region {
     display: none !important;
