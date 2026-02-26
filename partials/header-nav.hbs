@@ -1,5 +1,5 @@
-{{!-- Menu, vyhledávání a signup – skryje se při hide_nav=true (např. custom-landing) --}}
-{{#unless hide_nav}}
+{{!-- Menu, vyhledávání a signup – na stránce s .is-landing-template skryje CSS (body.is-landing-page) --}}
+<div class="gh-header-nav-region">
     <!-- navbar -->
     <nav class="navbar">
         <span class="indicator"></span>
@@ -45,4 +45,4 @@
     </button>
 
     {{> "header-actions"}}
-{{/unless}}
+</div>

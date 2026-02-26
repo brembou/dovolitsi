@@ -247,6 +247,11 @@ body.is-font-azeret .md\:text-sm{
 /* Header
 /* ---------------------------------------------------------- */
 
+/* Na stránce s šablonou custom-landing skrýt menu, vyhledávání a signup (třídu přidává JS v custom-landing.hbs) */
+body.is-landing-page .gh-header-nav-region {
+    display: none !important;
+}
+
 button.gh-search-icon{
     width: 16px !important;
     height: 26px !important;

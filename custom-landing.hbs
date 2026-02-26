@@ -2,6 +2,8 @@
 {{#page}}
 
     <div class="is-landing-template">
+    {{!-- Přidá třídu na body, aby CSS mohl skrýt menu (Ghost nepřidává custom šablony do body_class) --}}
+    <script>document.body.classList.add('is-landing-page');</script>
     <article class="gh-article mt-0">
         <header class="container mb-6 text-center md:mb-8 gh-header">
             <h1 class="max-w-md mx-auto mb-2 text-3xl font-bold sm:leading-snug lg:max-w-3xl lg:text-5xl gh-title font-display">{{title}}</h1>
