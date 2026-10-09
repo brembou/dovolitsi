@@ -35,12 +35,8 @@ following a broken link
     {{/get}}
 </div>
 
-{{!-- Chybné odkazy do GA přes GTM: událost page_not_found s adresou a odkud čtenář přišel --}}
+{{!-- Chybné odkazy do Plausible (vkládá ho GTM). Fronta plausible.q zachytí událost, i když skript ještě nedoběhl --}}
 <script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-        'event': 'page_not_found',
-        'page_path': window.location.pathname + window.location.search,
-        'page_referrer': document.referrer
-    });
+    window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) };
+    plausible('404', { props: { path: document.location.pathname } });
 </script>
