@@ -44,11 +44,6 @@
             wsBtn.addEventListener('click', async () => {
                 try {
                     await navigator.share({ title: document.title, url: absUrl });
-                    if (window.gtag) gtag('event', 'share', {
-                        method: 'webshare',
-                        content_type: 'article',
-                        item_id: location.pathname
-                    });
                 }
                 catch (_) {}
             });
@@ -65,11 +60,6 @@
                         toast.classList.remove('hidden');
                         setTimeout(() => toast.classList.add('hidden'), 1600);
                     }
-                    if (window.gtag) gtag('event', 'share', {
-                        method: 'copy',
-                        content_type: 'article',
-                        item_id: location.pathname
-                    });
                 }
                 catch (_) {}
             });
@@ -88,11 +78,6 @@
         document.querySelectorAll('a[aria-label$="Facebook"]').forEach(a => {
             a.addEventListener('click', () => {
                 a.href = `https://www.facebook.com/sharer/sharer.php?u=${utmUrl('facebook')}`;
-                if (window.gtag) gtag('event', 'share', {
-                    method: 'facebook',
-                    content_type: 'article',
-                    item_id: location.pathname
-                });
             });
         });
 
@@ -101,11 +86,6 @@
             a.addEventListener('click', () => {
                 const text = encodeURIComponent(document.title);
                 a.href = `https://api.whatsapp.com/send?text=${text}%20${utmUrl('whatsapp')}`;
-                if (window.gtag) gtag('event', 'share', {
-                    method: 'whatsapp',
-                    content_type: 'article',
-                    item_id: location.pathname
-                });
             });
         });
     })();
