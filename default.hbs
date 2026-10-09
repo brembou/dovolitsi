@@ -123,7 +123,8 @@
                             <div class="gh-head-brand">
                                 <a class="text-2xl lg:text-4xl gh-head-logo" href="{{@site.url}}">
                                     {{#if @site.logo}}
-                                        <img src="{{@site.logo}}" alt="{{@site.title}}" loading="lazy" decoding="async">
+                                        {{!-- Rozměry = aktuální logo 400×100 (rezervuje místo, CLS); logo je vidět hned, proto ne lazy. Při výměně loga upravit. --}}
+                                        <img src="{{@site.logo}}" alt="{{@site.title}}" width="400" height="100" decoding="async">
                                     {{else}}
                                         {{@site.title}}
                                     {{/if}}
