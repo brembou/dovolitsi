@@ -9,10 +9,10 @@ Recommended post card with large image and full excerpt
             <div class="relative w-full overflow-hidden aspect-[16/10] md:aspect-[16/9]">
                 <div class="absolute inset-0">
                     <picture class="gh-card-picture">
-                        <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image size="s"}} 1x" media="(max-width: 420px)">
-                        <source srcset="{{img_url feature_image size="mx2"}} 2x,{{img_url feature_image size="m"}} 1x" media="(max-width: 768px)">
-                        <source srcset="{{img_url feature_image size="post-full-m-x2"}} 2x,{{img_url feature_image size="post-full-m"}} 1x" media="(max-width: 1024px)">
-                        <img srcset="{{img_url feature_image size="post-full-x2"}} 2x" src="{{img_url feature_image size="post-full-m"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="w-full h-full object-cover duration-700 transition-transform group-hover:scale-105" loading="lazy" decoding="async">
+                        <source srcset="{{img_url feature_image size="sx2" format="webp"}} 2x,{{img_url feature_image size="s" format="webp"}} 1x" media="(max-width: 420px)">
+                        <source srcset="{{img_url feature_image size="mx2" format="webp"}} 2x,{{img_url feature_image size="m" format="webp"}} 1x" media="(max-width: 768px)">
+                        <source srcset="{{img_url feature_image size="post-full-m-x2" format="webp"}} 2x,{{img_url feature_image size="post-full-m" format="webp"}} 1x" media="(max-width: 1024px)">
+                        <img srcset="{{img_url feature_image size="post-full-x2" format="webp"}} 2x" src="{{img_url feature_image size="post-full-m"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="w-full h-full object-cover duration-700 transition-transform group-hover:scale-105" loading="lazy" decoding="async">
                     </picture>
                     
                     {{#unless access}}
@@ -105,7 +105,7 @@ Recommended post card with large image and full excerpt
             {{/match}}
         </div>
 
-        <a class="absolute top-0 left-0 w-full h-full z-10" href="{{url}}" aria-label="{{title}}" title="{{t "Read more about:"}} {{title}}"></a>
+        <a class="absolute top-0 left-0 w-full h-full z-10" href="{{url}}" title="{{t "Read more about:"}} {{title}}"><span class="sr-only">{{title}}</span></a>
     </div>
 </article>
 

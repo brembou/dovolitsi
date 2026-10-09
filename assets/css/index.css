@@ -1276,7 +1276,8 @@ figcaption a:hover{
     margin: auto;
 }
 .kg-image-card a:hover,
-.kg-gallery-image a:hover{
+.kg-gallery-image a:hover,
+.gh-feature-image a:hover{
     cursor: zoom-in;
 }
 
