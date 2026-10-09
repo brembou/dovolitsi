@@ -35,8 +35,10 @@ following a broken link
     {{/get}}
 </div>
 
-{{!-- Chybné odkazy do Plausible (vkládá ho GTM). Fronta plausible.q zachytí událost, i když skript ještě nedoběhl --}}
+{{!-- Chybné odkazy do Plausible (vkládá ho GTM). Fronta plausible.q zachytí událost, i když skript ještě nedoběhl.
+     path = adresa, která vrátila 404; odkud = celá adresa stránky se špatným odkazem (Plausible jinak ukáže jen doménu
+     a odkazy z vlastního webu nepočítá vůbec) --}}
 <script>
     window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) };
-    plausible('404', { props: { path: document.location.pathname } });
+    plausible('404', { props: { path: document.location.pathname, odkud: document.referrer || '(přímý přístup)' } });
 </script>
