@@ -1,0 +1,31 @@
+{{!--
+Fotky vložené v editoru vykresluje Ghost jako JPEG/PNG a pro mobil nabízí zbytečně velkou variantu
+(chybí mu sizes pod 720 px). Skript běží synchronně hned za {{content}}, dřív než prohlížeč začne
+líně načítané fotky stahovat, a přepíše srcset na WebP ve velikostech šablony (card-480 … card-1600).
+Musí zůstat inline a hned za obsahem – jako externí/defer skript by přišel pozdě a fotky by se stahovaly dvakrát.
+--}}
+<script>
+    (function () {
+        var WIDTHS = [480, 720, 960, 1200, 1600];
+        var RE = /^(https?:\/\/[^?#]*\/content\/images\/)(?:size\/[^/]+\/)?((?:\d{4}\/\d{2}\/)[^?#]+\.(?:jpe?g|png))$/i;
+        var imgs = document.currentScript.parentNode.querySelectorAll('img.kg-image, .kg-gallery-image img');
+        for (var i = 0; i < imgs.length; i++) {
+            var img = imgs[i];
+            var m = RE.exec(img.getAttribute('src') || '');
+            var natural = parseInt(img.getAttribute('width'), 10);
+            if (!m || !natural) continue;
+            var base = m[1], path = m[2], set = [];
+            for (var j = 0; j < WIDTHS.length; j++) {
+                if (WIDTHS[j] < natural) set.push(base + 'size/w' + WIDTHS[j] + '/format/webp/' + path + ' ' + WIDTHS[j] + 'w');
+            }
+            var top = Math.min(natural, 1600);
+            set.push(base + 'size/w1600/format/webp/' + path + ' ' + top + 'w');
+            // Běžná fotka v textu: na mobilu šířka sloupce, ne celá obrazovka (galerie a široké karty nechává Ghostu)
+            var card = img.closest('.kg-image-card');
+            if (card && !card.classList.contains('kg-width-wide') && !card.classList.contains('kg-width-full')) {
+                img.setAttribute('sizes', '(min-width: 720px) 720px, calc(100vw - 32px)');
+            }
+            img.setAttribute('srcset', set.join(', '));
+        }
+    })();
+</script>
