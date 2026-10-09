@@ -97,7 +97,9 @@
                     <section class="gh-post-comments mt-16" id="ghost-comments-root">
     
                         {{!-- Kontejner, kam to JavaScript vloží --}}
-                        <div id="comments-container"></div>
+                        {{!-- Údaje člena jdou přes data-* atributy: HTML escapování Handlebars v atributu prohlížeč zase dekóduje,
+                             kdežto uvnitř <script> by se jméno „O'Brien“ ukázalo jako „O&#x27;Brien“ a zpětné lomítko na konci shodilo celý skript --}}
+                        <div id="comments-container"{{#if @member}} data-member-uuid="{{@member.uuid}}" data-member-name="{{@member.name}}" data-member-email="{{@member.email}}" data-member-avatar="{{@member.avatar_image}}"{{/if}}></div>
 
                         {{!-- Načtení knihovny (132 kB) až když se čtenář blíží ke komentářům – jinak brzdí úvodní fotku článku (LCP) --}}
                         <script>
@@ -133,22 +135,26 @@
                             comments.setAttribute('website-id', '14402');
                             comments.setAttribute('page-id', "{{id}}");
 
-                            // 2. Nastavení uživatele (Oprava chyb Name a Timestamp)
-                            {{#if @member}}
-                                const memberName = {{#if @member.name}}"{{@member.name}}"{{else}}null{{/if}};
-                                const memberEmail = "{{@member.email}}";
+                            // 2. Přihlášený člen Ghostu → Hyvor SSO v režimu „keyless“ (Console → SSO): bez sso-hash, Ghost(Pro)
+                            //    nemá backend, který by data podepsal. Hyvor proto údaje neověřuje – kdo zná UUID člena
+                            //    (je např. v odhlašovacím odkazu newsletteru), může psát pod jeho jménem.
+                            const container = document.getElementById("comments-container");
+                            const member = container.dataset;
+                            if (member.memberUuid) {
                                 const ssoData = {
-                                    timestamp: Math.floor(Date.now() / 1000), 
-                                    id: "{{@member.uuid}}",
-                                    name: memberName || memberEmail.split('@')[0],
-                                    email: memberEmail,
-                                    picture_url: "{{@member.avatar_image}}"
+                                    timestamp: Math.floor(Date.now() / 1000),
+                                    id: member.memberUuid,
+                                    name: (member.memberName || member.memberEmail.split('@')[0]).slice(0, 50), // Hyvor bere max. 50 znaků
+                                    email: member.memberEmail
                                 };
+                                if (member.memberAvatar) {
+                                    ssoData.picture_url = member.memberAvatar;
+                                }
                                 comments.setAttribute('sso-user', JSON.stringify(ssoData));
-                            {{/if}}
+                            }
 
                             // 3. Vložíme do stránky
-                            document.getElementById("comments-container").appendChild(comments);
+                            container.appendChild(comments);
 
                             // 4. MĚŘENÍ (Protože máme proměnnou 'comments', posluchače se chytí na 100%)
                             
