@@ -12,20 +12,35 @@ following a broken link
 --}}
 
 <div class="container">
-
-    <section class="h-[55vh] mt-10 text-center error-message">
+    <section class="mt-10 text-center error-message">
         <h1 class="font-bold text-9xl error-code font-display">{{statusCode}}</h1>
-        <p class="text-base error-description">{{message}}</p>
+        {{!-- {{message}} je od Ghostu vždy anglicky („Page not found“), proto vlastní text z locales/cs.json --}}
+        <p class="text-base error-description">{{t "Page not found"}}</p>
         <a class="mt-8 error-link inline-flex items-center justify-center px-8 text-sm h-[42px] leading-none tracking-wider text-white uppercase transition-opacity macaw-button font-display bg-acc rounded-3xl hover:opacity-80" href="{{@site.url}}">{{t "Go to the front page"}} →</a>
     </section>
 
+    {{#get "posts" filter="visibility:public" limit="3" as |latest|}}
+        {{#if latest}}
+            <section class="mt-20 mb-10">
+                <h2 class="pb-3 mb-16 text-lg md:text-base font-bold leading-none tracking-widest text-gray-900 uppercase border-b featured-title font-display">
+                    Nebo si přisedni k něčemu novému…
+                </h2>
+                <div class="grid grid-cols-1 gap-6 md:gap-8 gh-feed recommended-posts">
+                    {{#foreach latest}}
+                        {{> "card-recommended"}}
+                    {{/foreach}}
+                </div>
+            </section>
+        {{/if}}
+    {{/get}}
 </div>
 
-{{!-- Plausible analytics tracking - only if available --}}
+{{!-- Chybné odkazy do GA přes GTM: událost page_not_found s adresou a odkud čtenář přišel --}}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if (typeof plausible !== 'undefined') {
-            plausible('404');
-        }
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'page_not_found',
+        'page_path': window.location.pathname + window.location.search,
+        'page_referrer': document.referrer
     });
 </script>
