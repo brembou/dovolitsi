@@ -80,6 +80,21 @@
             },
             "post-full-x2": {
                 "width": 2432
+            },
+            "card-480": {
+                "width": 480
+            },
+            "card-720": {
+                "width": 720
+            },
+            "card-960": {
+                "width": 960
+            },
+            "card-1200": {
+                "width": 1200
+            },
+            "card-1600": {
+                "width": 1600
             }
         },
         "card_assets": true,

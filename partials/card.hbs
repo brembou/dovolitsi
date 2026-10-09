@@ -94,10 +94,14 @@ Re-usable card for linking to posts
             <div class="w-auto md:w-2/5 md:max-h-[309px] mb-4 lg:mb-0">
                 <div class="relative overflow-hidden rounded-3xl">
                     <picture class="gh-card-picture">
-                        <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image size="s"}} 1x" media="(max-width: 420px)">
-                        <source srcset="{{img_url feature_image size="mx2"}} 2x,{{img_url feature_image size="m"}} 1x" media="(max-width: 768px)">
-                        <source srcset="{{img_url feature_image size="sx2"}} 2x,{{img_url feature_image size="s"}} 1x" media="(max-width: 1024px)">
-                        <img srcset="{{img_url feature_image size="mx2"}} 2x" src="{{img_url feature_image size="m"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="duration-700 gh-card-image rounded-3xl" {{#if @first}}fetchpriority="high" {{else}}loading="lazy" {{/if}} decoding="async">
+                        {{!-- Fotky jsou typicky 16:9, rámeček 3:2 (object-cover) – sizes je proto o 20 % větší než šířka rámečku, jinak by prohlížeč výřez zvětšoval --}}
+                        <img srcset="{{img_url feature_image size="card-480" format="webp"}} 480w,
+                                     {{img_url feature_image size="card-720" format="webp"}} 720w,
+                                     {{img_url feature_image size="card-960" format="webp"}} 960w,
+                                     {{img_url feature_image size="card-1200" format="webp"}} 1200w,
+                                     {{img_url feature_image size="card-1600" format="webp"}} 1600w"
+                             sizes="(max-width: 767px) calc(120vw - 46px), (max-width: 1279px) 44vw, 560px"
+                             src="{{img_url feature_image size="m"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="duration-700 gh-card-image rounded-3xl" {{#if @first}}fetchpriority="high" {{else}}loading="lazy" {{/if}} decoding="async">
 
                     </picture>
 
@@ -124,6 +128,6 @@ Re-usable card for linking to posts
             </div>
         {{/if}}
 
-        <a class="absolute top-0 left-0 w-full h-full" href="{{url}}" aria-label="{{title}}" title="{{t "Read more about:"}} {{title}}"></a>
+        <a class="absolute top-0 left-0 w-full h-full" href="{{url}}" title="{{t "Read more about:"}} {{title}}"><span class="sr-only">{{title}}</span></a>
     </div>
 </article>
