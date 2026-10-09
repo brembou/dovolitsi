@@ -98,8 +98,33 @@
                         {{!-- Kontejner, kam to JavaScript vloží --}}
                         <div id="comments-container"></div>
 
-                        {{!-- Načtení knihovny --}}
-                        <script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
+                        {{!-- Načtení knihovny (132 kB) až když se čtenář blíží ke komentářům – jinak brzdí úvodní fotku článku (LCP) --}}
+                        <script>
+                            (function () {
+                                const root = document.getElementById('ghost-comments-root');
+                                let loaded = false;
+                                function loadHyvor() {
+                                    if (loaded) return;
+                                    loaded = true;
+                                    const s = document.createElement('script');
+                                    s.src = 'https://talk.hyvor.com/embed/embed.js';
+                                    s.type = 'module';
+                                    s.async = true;
+                                    document.head.appendChild(s);
+                                }
+                                if (location.hash === '#ghost-comments-root' || !('IntersectionObserver' in window)) {
+                                    loadHyvor();
+                                    return;
+                                }
+                                const observer = new IntersectionObserver(function (entries) {
+                                    if (entries.some(function (e) { return e.isIntersecting; })) {
+                                        observer.disconnect();
+                                        loadHyvor();
+                                    }
+                                }, { rootMargin: '1500px 0px' });
+                                observer.observe(root);
+                            })();
+                        </script>
 
                         <script>
                             // 1. Vytvoříme element programově (Starý spolehlivý způsob)
