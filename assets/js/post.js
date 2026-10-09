@@ -8,8 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
         initializeClipboard(clipboardButton);
     }
 
+    // Úvodní fotka článku – obalíme celý <picture>, aby zůstal výběr velikosti podle <source>
+    const featurePicture = document.querySelector('.gh-feature-image picture');
+    if (featurePicture) {
+        setupFeatureLightbox(featurePicture);
+    }
+
     const images = document.querySelectorAll('.kg-image-card img, .kg-gallery-card img');
-    if (images.length > 0) {
+    if (featurePicture || images.length > 0) {
         images.forEach(setupLightbox);
         // Inicializace FsLightbox po nastavení obrázků - refreshFsLightbox znovu projde všechny odkazy
         setTimeout(() => {
@@ -42,6 +48,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const wrapper = createLightboxWrapper(image.src);
             image.parentNode.insertBefore(wrapper, image.parentNode.firstChild);
             wrapper.appendChild(image);
+        } catch (error) {
+            console.warn('Lightbox setup failed:', error);
+        }
+    }
+
+    function setupFeatureLightbox(picture) {
+        const image = picture.querySelector('img');
+        if (!image) return;
+
+        try {
+            const wrapper = createLightboxWrapper(image.currentSrc || image.src);
+            picture.parentNode.insertBefore(wrapper, picture);
+            wrapper.appendChild(picture);
         } catch (error) {
             console.warn('Lightbox setup failed:', error);
         }
