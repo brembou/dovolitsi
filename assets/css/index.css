@@ -1281,6 +1281,13 @@ figcaption a:hover{
     cursor: zoom-in;
 }
 
+/* Ghost nepředává rozměry úvodní fotky – než se načte, držíme místo v nejčastějším poměru 3:2,
+   aby text článku pod ní neposkočil (CLS); po načtení platí skutečný poměr fotky */
+.gh-feature-image img {
+    width: 100%;
+    aspect-ratio: auto 3 / 2;
+}
+
 .copy-is-active .hidden {
     display: flex;
     font-size: 0.875rem;
