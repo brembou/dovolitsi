@@ -1,7 +1,7 @@
 {
-    "name": "macaw",
-    "description": "A Ghost Blog and Newsletter theme",
-    "demo": "https://macaw.iristhemes.com",
+    "name": "dovolitsi",
+    "description": "Šablona blogu dovolit.si (vychází z Macaw od Iris Themes)",
+    "demo": "https://www.dovolit.si",
     "version": "1.5.0",
     "engines": {
         "ghost": ">=5.0.0"
