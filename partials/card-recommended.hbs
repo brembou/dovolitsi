@@ -65,42 +65,7 @@ Recommended post card with large image and full excerpt
 
             {{#match @custom.meta_display "!=" "Hide all meta"}}
                 <footer class="flex flex-wrap items-center mt-auto text-sm leading-tight text-gray-600 sm:text-md font-display macaw-post-meta">
-                    {{#match @custom.meta_display "!=" "Hide author meta"}}
-                        {{#match @custom.meta_display "!=" "Hide author and post access meta"}}
-                            {{#match @custom.meta_display "!=" "Hide author and date meta"}}
-                                <span class="macaw-post-author">
-                                    {{#foreach authors}}<a href="{{url}}" class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
-                                </span>
-                            {{/match}}
-                        {{/match}}
-                    {{/match}}
-
-                    {{#match @custom.meta_display "!=" "Hide date meta"}}
-                        {{#match @custom.meta_display "!=" "Hide date and post access meta"}}
-                            {{#match @custom.meta_display "!=" "Hide author and date meta"}}
-                                <time class="feed-date" datetime="{{date format="DD-MM-YYYY"}}">
-                                    {{date published_at format="DD. MMM YYYY"}}
-                                </time>
-                            {{/match}}
-                        {{/match}}
-                    {{/match}}
-
-                    {{#has visibility="public"}}
-                        <span class="visibility text-green-600">{{t "Public"}}</span>
-                    {{/has}}
-                    {{#has visibility="members"}}
-                        <span class="visibility text-accent">{{t "Members only"}}</span>
-                    {{/has}}
-                    {{#has visibility="paid"}}
-                        <span class="visibility text-accent">{{t "Premium only"}}</span>
-                    {{/has}}
-                    {{#has visibility="tiers"}}
-                        <span class="visibility text-accent">{{t "Premium only"}}</span>
-                    {{/has}}
-
-                    <span class="hide-number">
-                        <a href="{{url}}#ghost-comments-root"><hyvor-talk-comment-count page-id="{{id}}" mode="number"></hyvor-talk-comment-count></a>
-                    </span>
+                    {{> "kd-pribeh-karta"}}
                 </footer>
             {{/match}}
         </div>

@@ -1020,10 +1020,6 @@ form.success .macaw-success-message{
 }
 
 
-.visibility{
-    color: #167616;
-}
-
 .macaw-share__post .w-4{
     height: 1.4rem;
     width: 1.4rem;
@@ -1853,9 +1849,18 @@ a[style*="font-weight: 600"] {
 .kd-podpis { display: flex; flex-direction: column; align-items: flex-end; margin: 8px 0 0; }
 .kd-podpis__plocha { width: 190px; aspect-ratio: 887 / 268; }
 
-/* 7 · čtení na kávu */
-.kd-delka { display: inline-flex; align-items: center; }
-.kd-salek { flex: none; width: 18px; height: 18px; margin-right: 6px; color: #4B5563; overflow: visible; }
+/* 7 · kdo, kdy, na jak dlouho a kdo už se ozval – jako věty (partials/kd-pribeh-clanek.hbs, kd-pribeh-karta.hbs).
+   Text o komentářích doplní skript až po načtení počtu, proto má v článku řádek místo rezervované předem
+   (2 řádky na telefonu, 1 od 640 px) – stránka pod ním neposkočí. */
+.kd-pribeh { max-width: 36rem; margin: 0 auto; font-family: var(--font-sans); font-style: italic; font-size: 1.0625rem; line-height: 1.6; color: #4B5563; text-wrap: balance; }
+.kd-pribeh time, .kd-pribeh-radek, .kd-pribeh .kd-kom { display: block; }
+.kd-pribeh .kd-kom { min-height: 3.2em; color: var(--ghost-accent-color); text-decoration: none; }
+.kd-pribeh .kd-kom:hover { text-decoration: underline; }
+@media (min-width: 640px) { .kd-pribeh .kd-kom { min-height: 1.6em; } }
+.kd-pribeh-karta { margin: 0; font-family: var(--font-sans); font-style: italic; font-size: 0.9375rem; line-height: 1.55; color: #4B5563; }
+.kd-pribeh-karta .kd-kom { position: relative; z-index: 20; color: inherit; text-decoration: none; }
+.kd-pribeh-karta .kd-kom:hover { color: var(--ghost-accent-color); text-decoration: underline; }
+.kd-pribeh-karta .kd-clen { color: var(--ghost-accent-color); font-style: normal; }
 
 /* 8 · vítej zpátky */
 .kd-zpatky {

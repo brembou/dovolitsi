@@ -16,28 +16,8 @@
                 <p class="max-w-lg mx-auto mb-4 font-normal md:mb-6 md:leading-relaxed md:mt-13 md:text-base lg:max-w-2xl font-text" data-aos="fade-in" data-aos-duration="500" data-aos-delay="150">{{custom_excerpt}}</p>
             {{/if}}
 
-            {{!-- Meta data for post header --}}
-            <span class="flex flex-wrap items-center justify-center text-base leading-relaxed text-gray-600 md:leading-none font-display">
-                <span class="macaw-post-author">
-                    {{#foreach authors}}<a href="{{url}}" class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
-                </span>
-                <time class="feed-date" datetime="{{date format="DD-MM-YYYY"}}">
-                    <span class="mx-2 bull">&bull;</span>
-                    {{date published_at format="DD. MMM YYYY"}}
-                </time>
-
-                <span class="visibility">
-                    <span class="mx-2 bull">&bull;</span>
-                    {{visibility}}
-                </span>
-
-                {{#if reading_time}}
-                    <div class="feed-length kd-delka">
-                        <span class="mx-2 bull">&bull;</span>
-                        {{> "kudrlinky-salek"}}
-                    </div>
-                {{/if}}
-            </span>
+            {{!-- Kdo, kdy, na jak dlouho a kdo už se ozval – jako věty (partials/kd-pribeh-clanek.hbs) --}}
+            {{> "kd-pribeh-clanek"}}
         </header>
 
         {{!-- We check if the post has a feature image --}}
