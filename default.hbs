@@ -192,7 +192,7 @@
                 }
                 function kdKomentareText(kde, n, jmena) {
                     if (kde === 'karta') {
-                        return n === 0 ? 'lavička je zatím volná.' : n === 1 ? 'jedna už tam sedí.' : 'holky už tam sedí (' + n + ').';
+                        return n === 0 ? 'Zatím ticho, budeš první?' : n === 1 ? 'Jedna se vyjádřila.' : 'Holky se vyjádřily (' + n + ').';
                     }
                     if (n === 0) return 'Zatím ticho. Budeš první?';
                     var a = jmena[0], b = jmena[1];
