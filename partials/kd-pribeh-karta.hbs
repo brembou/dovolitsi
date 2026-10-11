@@ -1,11 +1,8 @@
-{{!-- Řádek pod úryvkem na kartě článku: pozvání na kafe podle délky čtení (kd-pozvani), pozvání k rozhovoru po dočtení
-     a u článku jen pro členky prosba o mlčenlivost. Datum drobně zvlášť. Čtenářka článek ještě nečetla, proto
-     „Až dočteš…“, ne „Můj pohled znáš“. Obal div kvůli kartám, které mají řádek meta jako flex (card.hbs). Bez počtu komentářů: Hyvor účtuje kredit za každé načtení počtů. --}}
-<div class="kd-karta-meta">
+{{!-- Řádek pod úryvkem na kartě článku: osobní věta podle měsíce vydání (kd-datum-karta) a Martinin úvod k článku
+     (kd-uvod) – u každého článku jiný, ať se ve výpisu nic neopakuje. Pozvání na kafe a výzva k rozhovoru jsou až
+     v článku (kd-pribeh-clanek.hbs, post.hbs). U článku jen pro členky prosba o mlčenlivost. (Pepa 11. 10. 2026) --}}
 <p class="kd-pribeh-karta">
-    {{> "kd-pozvani"}}
-    <a href="{{url}}#ghost-comments-root" class="kd-kom">Až dočteš, řekni mi, jak to vidíš ty.</a>
+    <time datetime="{{date published_at format="YYYY-MM-DD"}}" title="{{date published_at format="D. M. YYYY"}}">{{> "kd-datum-karta"}}</time>
+    {{> "kd-uvod"}}
     {{> "kd-clenky"}}
 </p>
-<p class="kd-datum-karta">{{> "kd-datum"}}</p>
-</div>

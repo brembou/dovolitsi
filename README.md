@@ -33,14 +33,14 @@ Pro lokální Ghost symlinkni složku do `content/themes/` a šablonu aktivuj v 
 
 ## Osobní texty u článků
 
-Pod perexem článku Martina začne povídat a pozve na kafe, na kartách ve výpisech pozve na kafe a k rozhovoru po
-dočtení, nad komentáři dá slovo čtenářce. Každá část má jeden soubor v `partials/`:
+Pod perexem článku Martina řekne, kdy to psala, začne povídat a pozve na kafe; na kartách ve výpisech je věta podle
+měsíce a úvod k článku (u každého jiný); nad komentáři dá slovo čtenářce. Každá část má jeden soubor v `partials/`:
 
 | Soubor | Co dělá |
 |---|---|
 | `kd-uvod.hbs` | osobní úvod článku (1–3 věty), podle slugu; článek bez úvodu ho prostě nemá |
 | `kd-pozvani.hbs` | pozvání podle délky čtení z Ghostu („Uvař si kafe. Než ho dopiješ, všechno ti povím.“) |
-| `kd-datum.hbs` | datum vydání „9. října 2026“ |
+| `kd-datum-clanek.hbs`, `kd-datum-karta.hbs` | datum jako věta podle měsíce („Psala jsem ti to v říjnu 2026, s čajem v ruce.“ / „Z října 2026, psáno s čajem v ruce.“); vážné články jen měsíc a rok |
 | `kd-clenky.hbs` | prosba u článku jen pro členky |
 | `kd-pribeh-clanek.hbs`, `kd-pribeh-karta.hbs` | skládají části v hlavičce článku a na kartě |
 
