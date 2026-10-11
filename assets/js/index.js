@@ -1,6 +1,7 @@
 import aosJS from "./lib/aos";
 import { pagination } from "./lib/pagination";
 import { initKudrlinkyMista } from "./kudrlinky-mista";
+import { initOdberNavrat } from "./odber-navrat";
 
 (() => {
 
@@ -20,6 +21,9 @@ import { initKudrlinkyMista } from "./kudrlinky-mista";
 
     // Kudrlinky – další místa (patička, výzva pro odběratelky, uvítací stránka); vše se stahuje až po načtení stránky
     initKudrlinkyMista();
+
+    // Po potvrzení odběru odkaz z uvítací stránky zpět na článek, kde se čtenářka přihlásila
+    initOdberNavrat();
 
 
     // =========================== Start of Header =========================== //
