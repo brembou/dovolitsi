@@ -1,11 +1,9 @@
-{{!-- Hlavička článku pod perexem: „Psala jsem ti to v říjnu 2026, s čajem v ruce.“ (kd-datum-clanek), pak Martina
-     začne vyprávět (kd-uvod, jen u článků, které úvod mají) a pozve na kafe podle délky čtení (kd-pozvani).
-     Výzva k rozhovoru je až na konci článku nad komentáři (post.hbs, data-kd-rozhovor), tady jen drobný počet komentářů,
-     který doplní skript v default.hbs (kdKomentare); do té doby je skrytý – neznámý počet se netváří jako nula.
-     Řádek pro počet má místo rezervované (CSS), stránka po načtení počtu neposkočí. --}}
-<div class="kd-pribeh">
-    <p class="kd-pribeh__datum"><time datetime="{{date published_at format="YYYY-MM-DD"}}" title="{{date published_at format="D. M. YYYY"}}">Psala jsem ti to {{> "kd-datum-clanek"}}</time></p>
-    <p class="kd-pribeh__text">{{> "kd-uvod"}} {{> "kd-pozvani"}}</p>
-    <p class="kd-pribeh__clen">{{> "kd-clenky"}}</p>
-    <p class="kd-pribeh__meta"><span class="kd-kom-obal" data-kd-kom-obal hidden><a href="#ghost-comments-root" class="kd-kom" data-kd-kom="clanek"><hyvor-talk-comment-count page-id="{{id}}" mode="number" hidden></hyvor-talk-comment-count><span data-kd-kom-text></span></a></span></p>
-</div>
+{{!-- Hlavička článku jako tři věty, jak by to Martina řekla kamarádce (schválila 11. 10. 2026):
+     „Psala jsem ti to v březnu 2026, s prvním sluníčkem. / Dej si k tomu kafe a sušenku. / Holky se k tomu vyjádřily (5). Přidáš svůj pohled?“
+     Třetí větu doplní skript v default.hbs podle počtu komentářů, jména holek až po načtení komentářů (post.hbs) –
+     vlastní dotaz na Hyvor kvůli jménům by stál kredit za každé zobrazení. Místo pro ni je rezervované v CSS (.kd-kom-radek). --}}
+<p class="kd-pribeh">
+    <time datetime="{{date published_at format="YYYY-MM-DD"}}" title="{{date published_at format="D. M. YYYY"}}">Psala jsem ti to {{> "kd-datum-clanek"}}</time>
+    {{#if reading_time}}<span class="kd-pribeh-radek">{{> "kd-cteni-clanek"}}</span>{{/if}}
+    <a href="#ghost-comments-root" class="kd-kom kd-kom-radek" data-kd-kom="clanek"><hyvor-talk-comment-count page-id="{{id}}" mode="number" hidden></hyvor-talk-comment-count><span data-kd-kom-text></span></a>
+</p>
