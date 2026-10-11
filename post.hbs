@@ -20,33 +20,8 @@
 
             {{!-- Uvítací stránka po potvrzení odběru: jen nadpis, bez autorky, data, délky čtení a komentářů (Pepa 11. 10. 2026) --}}
             {{#match slug "!=" "vitej-pod-tresni"}}
-            {{!-- Meta data for post header --}}
-            <span class="flex flex-wrap items-center justify-center text-base leading-relaxed text-gray-600 md:leading-none font-display">
-                <span class="macaw-post-author">
-                    {{#foreach authors}}<a href="/jako-ja/" class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
-                </span>
-                <time class="feed-date" datetime="{{date format="DD-MM-YYYY"}}">
-                    <span class="mx-2 bull">&bull;</span>
-                    {{date published_at format="DD. MMM YYYY"}}
-                </time>
-
-                <!--<span class="visibility">
-                    <span class="mx-2 bull">&bull;</span>
-                    {{visibility}}
-                </span>-->
-
-                {{#if reading_time}}
-                    <div class="feed-length kd-delka">
-                        <span class="mx-2 bull">&bull;</span>
-                        {{> "kudrlinky-salek"}}
-                    </div>
-                {{/if}}
-
-                <span class="mx-2 bull">&bull;</span>
-                <span class="hide-number">
-                    <a href="{{url}}#ghost-comments-root"><hyvor-talk-comment-count page-id="{{id}}" mode="number"></hyvor-talk-comment-count></a>
-                </span>
-            </span>
+            {{!-- Kdo, kdy, na jak dlouho a kdo už se ozval – jako věty (partials/kd-pribeh-clanek.hbs) --}}
+            {{> "kd-pribeh-clanek"}}
             {{/match}}
         </header>
 
@@ -120,11 +95,42 @@
                                 function loadHyvor() {
                                     if (loaded) return;
                                     loaded = true;
+                                    kdJmenaZKomentaru();
                                     const s = document.createElement('script');
                                     s.src = 'https://talk.hyvor.com/embed/embed.js';
                                     s.type = 'module';
                                     s.async = true;
                                     document.head.appendChild(s);
+                                }
+                                // Jména holek do hlavičky článku („Ivana s Jolanou už se ozvaly“, partials/kd-pribeh-clanek.hbs) ze stejné
+                                // odpovědi, kterou si komentáře stejně načítají – vlastní dotaz by stál kredit Hyvoru za každé zobrazení.
+                                // Bere první dvě různá křestní jména z komentářů první úrovně, bez Martiny (moderátorka) a jen
+                                // ženská (konec -a/-e), protože věta je v ženském rodě; jinak zůstane věta s počtem.
+                                function kdJmenaZKomentaru() {
+                                    const xhr = window.XMLHttpRequest && XMLHttpRequest.prototype;
+                                    if (!xhr || xhr.kdOpen) return;
+                                    const puvodni = xhr.kdOpen = xhr.open;
+                                    xhr.open = function (metoda, url) {
+                                        if (String(url).indexOf('/api/embed/v3/14402/init') !== -1) {
+                                            this.addEventListener('load', function () {
+                                                try {
+                                                    const data = typeof this.response === 'object' && this.response ? this.response : JSON.parse(this.responseText);
+                                                    const komentare = (data.comments && data.comments.indexed) || {};
+                                                    const jmena = [];
+                                                    ((data.comments && data.comments.list && data.comments.list.PARENT) || []).forEach(function (id) {
+                                                        const c = komentare[id];
+                                                        if (!c || !c.user || c.user.is_mod || c.user.is_mod_alias) return;
+                                                        let jmeno = (c.user.name || '').trim().split(/\s+/)[0];
+                                                        jmeno = jmeno.charAt(0).toUpperCase() + jmeno.slice(1);
+                                                        if (/[ae]$/i.test(jmeno) && jmena.indexOf(jmeno) === -1) jmena.push(jmeno);
+                                                    });
+                                                    window.kdJmena = jmena;
+                                                    if (window.kdKomentare) window.kdKomentare();
+                                                } catch (e) { /* bez jmen zůstane věta s počtem */ }
+                                            });
+                                        }
+                                        return puvodni.apply(this, arguments);
+                                    };
                                 }
                                 if (location.hash === '#ghost-comments-root' || !('IntersectionObserver' in window)) {
                                     loadHyvor();

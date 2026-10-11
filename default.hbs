@@ -184,13 +184,47 @@
         {{!-- Hyvor komentáře - pouze v produkci --}}
         {{#match @site.url "!=" "http://localhost:2368"}}
             <script>
-                // Funkce pro formátování češtiny
+                // Počet komentářů jako konec věty (partials/kd-pribeh-clanek.hbs a kd-pribeh-karta.hbs). Hyvor vloží do
+                // skrytého <hyvor-talk-comment-count> jen číslo, věta se doplní vedle něj podle počtu a místa (článek, karta).
+                // Jména holek (window.kdJmena) přidá post.hbs, až se načtou komentáře – vlastní dotaz by stál kredit Hyvoru.
                 function formatCommentCount(count) {
-                    if (count === 0) return "Žádný komentář";
-                    if (count === 1) return count + " komentář";
-                    if (count >= 2 && count <= 4) return count + " komentáře";
-                    return count + " komentářů";
+                    return String(count);
                 }
+                function kdKomentareText(kde, n, jmena) {
+                    if (kde === 'karta') {
+                        return n === 0 ? 'lavička je zatím volná.' : n === 1 ? 'jedna už tam sedí.' : 'holky už tam sedí (' + n + ').';
+                    }
+                    if (n === 0) return 'Zatím ticho. Budeš první?';
+                    var a = jmena[0], b = jmena[1];
+                    if (n === 1 && a) return a + ' už mi k tomu napsala svoje. A ty?';
+                    if (n === 2 && b) {
+                        // „s Jolanou“, „s Lucií“; u jiných konců jmen raději „a“
+                        var b7 = /ie$/.test(b) ? b.slice(0, -1) + 'í' : /a$/.test(b) ? b.slice(0, -1) + 'ou' : null;
+                        return (b7 ? a + ' s ' + b7 : a + ' a ' + b) + ' už se ozvaly. A ty?';
+                    }
+                    if (n >= 3 && n <= 5 && b) return a + ', ' + b + ' a další holky už mi k tomu napsaly. Přidáš se?';
+                    if (n >= 6 && b) {
+                        var m = n - 2;
+                        return a + ', ' + b + (m <= 4 ? ' a další ' + m + ' holky už se ozvaly.' : ' a dalších ' + m + ' holek už se ozvalo.') + ' Přidáš se?';
+                    }
+                    return n === 1 ? 'Jedna už mi k tomu napsala svoje. A ty?' : 'Holky už mi k tomu napsaly (' + n + '). Přidáš se?';
+                }
+                function kdKomentare() {
+                    document.querySelectorAll('[data-kd-kom]').forEach(function (el) {
+                        var pocet = el.querySelector('hyvor-talk-comment-count');
+                        var n = parseInt(pocet && pocet.textContent, 10);
+                        if (isNaN(n)) {
+                            if (pocet && !pocet.kdHlida) {
+                                pocet.kdHlida = true;
+                                new MutationObserver(kdKomentare).observe(pocet, { childList: true, characterData: true, subtree: true });
+                            }
+                            return;
+                        }
+                        el.querySelector('[data-kd-kom-text]').textContent = kdKomentareText(el.dataset.kdKom, n, window.kdJmena || []);
+                    });
+                }
+                window.kdKomentare = kdKomentare;
+                document.addEventListener('DOMContentLoaded', kdKomentare);
 
                 // Hlavní spouštěcí funkce
                 function initializeHyvor() {
@@ -218,6 +252,7 @@
                                         if (window.hyvorTalkCommentCounts) {
                                             initializeHyvor();
                                         }
+                                        kdKomentare();
                                         return; 
                                     }
                                 }

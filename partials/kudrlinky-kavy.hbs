@@ -1,3 +1,0 @@
-{{!-- Délka čtení slovy místo minut (kudrlinka 7). Jediné místo s texty: šálek v článku i všechny výpisy článků.
-     Hranice podle reading_time v minutách: do 3 espresso, do 7 káva, do 12 dvě kávy, víc konvice čaje. --}}
-{{~#match reading_time "<=" 3}}Čtení na espresso{{else match reading_time "<=" 7}}Čtení na jednu kávu{{else match reading_time "<=" 12}}Čtení na dvě kávy{{else}}Čtení na konvici čaje{{/match~}}

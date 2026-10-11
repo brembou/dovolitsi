@@ -40,52 +40,7 @@ Re-usable card for linking to posts
 
             {{#match @custom.meta_display "!=" "Hide all meta"}}
                 <div class="mt-8 relative z-10 flex flex-wrap items-center justify-start text-sm leading-tight text-gray-600 lg:absolute lg:bottom-0 lg:left-0 sm:text-md font-display macaw-post-meta">
-
-
-                    {{#match @custom.meta_display "!=" "Hide author meta"}}
-
-                        {{#match @custom.meta_display "!=" "Hide author and post access meta"}}
-
-                            {{#match @custom.meta_display "!=" "Hide author and date meta"}}
-
-                                <span class="macaw-post-author">
-                                    {{#foreach authors}}<a href="{{url}}" class="text-gray-900 underline transition-colors duration-300 hover:text-accent">{{name}}</a>{{/foreach}}
-                                </span>
-
-                            {{/match}}
-
-                        {{/match}}
-
-                    {{/match}}
-
-                    {{#match @custom.meta_display "!=" "Hide date meta"}}
-
-                        {{#match @custom.meta_display "!=" "Hide date and post access meta"}}
-
-                            {{#match @custom.meta_display "!=" "Hide author and date meta"}}
-                                <time class="feed-date" datetime="{{date format="DD-MM-YYYY"}}">{{date published_at
-                                                                                                       format="DD. MMM YYYY"}}</time>
-                            {{/match}}
-                        {{/match}}
-                    {{/match}}
-
-                                    <span class="visibility">
-                                        {{#has visibility="public"}}
-                                            {{t "Public"}}
-                                        {{/has}}
-                                        {{#has visibility="members"}}
-                                            {{t "Members only"}}
-                                        {{/has}}
-                                        {{#has visibility="premium"}}
-                                            {{t "Premium only"}}
-                                        {{/has}}
-                                    </span>
-
-
-                    <span class="hide-number">
-                        <a href="{{url}}#ghost-comments-root"><hyvor-talk-comment-count page-id="{{id}}" mode="number"></hyvor-talk-comment-count></a>
-                    </span>
-
+                    {{> "kd-pribeh-karta"}}
                 </div>
             {{/match}}
         </div>
@@ -105,7 +60,7 @@ Re-usable card for linking to posts
 
                     </picture>
 
-                    <span class="absolute z-10 flex items-center text-sm font-normal text-white transition-opacity duration-200 delay-100 md:text-base opacity-1 sm:opacity-0 gap-x-1 font-display bottom-6 right-6 md:bottom-6 md:right-6 lg:bottom-8 lg:right-10 group-hover:opacity-100">{{> "kudrlinky-kavy"}} &#8594;</span>
+                    <span class="absolute z-10 flex items-center text-sm font-normal text-white transition-opacity duration-200 delay-100 md:text-base opacity-1 sm:opacity-0 gap-x-1 font-display bottom-6 right-6 md:bottom-6 md:right-6 lg:bottom-8 lg:right-10 group-hover:opacity-100">Přisedni &#8594;</span>
                     <span class="absolute top-0 left-0 w-full h-full transition-opacity duration-300 pointer-events-none opacity-1 sm:opacity-0 bg-overlay group-hover:opacity-100 z-1"></span>
 
                     {{#unless access}}
