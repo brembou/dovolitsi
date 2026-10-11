@@ -16,6 +16,10 @@
                     <a href="#/portal/signup" class="inline-flex items-center justify-center px-8 macaw-button h-[50px] mt-4 text-sm leading-none tracking-wider text-white uppercase transition-opacity font-display bg-acc rounded-3xl hover:opacity-80" data-portal="signup">{{t "Reserve my seat"}}</a>
                 {{/has}}
                 {{#has visibility="members"}}
+                    {{!-- ZMĚNA (kudrlinky – další místa): prázdná lavička pod stromem podle ročního období. Místo je rezervované
+                         (poměr 6:5), kresba se stáhne až těsně před výzvou a nakreslí se jednou. --}}
+                    <span class="kd-misto kd-cta-lavicka" aria-hidden="true" data-kd-src="{{asset "kudrlinky/lavicka-lehka-jaro.svg"}}"></span>
+                    <noscript><style>.kd-cta-lavicka{display:none}</style></noscript>
                     <h4 class="mt-4 text-3xl font-bold leading-tight tracking-normal text-gray-900 font-display sm:text-4xl px-14 max-sm:px-0 max-sm:mt-0">
                         To nejdůležitější si říkáme až pod třešní 🍒
                     </h4>

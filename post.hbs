@@ -11,6 +11,14 @@
 
         <header class="container mb-3 text-center md:mb-8 gh-header">
 
+            {{!-- ZMĚNA (kudrlinky – další místa): přivítání nové odběratelky – strom s lavičkou podle ročního období se nakreslí
+                 nad nadpisem. Místo je rezervované, kresba se stáhne až po načtení stránky (nesoupeří s ničím jiným). --}}
+            {{!-- jen s přístupem (přihlášená odběratelka) – bez něj stránka ukazuje výzvu k odběru, která má vlastní lavičku --}}
+            {{#match slug "vitej-pod-tresni"}}{{#if access}}
+                <span class="kd-misto kd-vitej" aria-hidden="true" data-kd-src="{{asset "kudrlinky/lavicka-lehka-jaro.svg"}}"></span>
+                <noscript><style>.kd-vitej{display:none}</style></noscript>
+            {{/if}}{{/match}}
+
             <h1 class="max-w-md m-auto mb-2 text-3xl font-bold sm:leading-snug sm:text-3xl lg:max-w-3xl lg:leading-snug lg:text-5xl gh-title font-display">{{title}}</h1>
 
             {{#if custom_excerpt}}
