@@ -1,3 +1,0 @@
-{{!-- Délka čtení jako věta pod datem v hlavičce článku (schválila Martina 11. 10. 2026).
-     Hranice podle reading_time v minutách: do 2, do 4, do 7, do 12, víc (revize 11. 10. 2026 – dřív měla půlka článků stejnou větu). --}}
-{{~#match reading_time "<=" 2}}Přečteš to dřív, než ti vystydne kafe.{{else match reading_time "<=" 4}}Akorát na jedno kafe.{{else match reading_time "<=" 7}}Dej si k tomu kafe a sušenku.{{else match reading_time "<=" 12}}Uvař si dvě kafe, bude se hodit.{{else}}Tohle je na celou konvici čaje.{{/match~}}

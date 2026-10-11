@@ -184,30 +184,22 @@
         {{!-- Hyvor komentáře - pouze v produkci --}}
         {{#match @site.url "!=" "http://localhost:2368"}}
             <script>
-                // Počet komentářů jako konec věty (partials/kd-pribeh-clanek.hbs a kd-pribeh-karta.hbs). Hyvor vloží do
-                // skrytého <hyvor-talk-comment-count> jen číslo, věta se doplní vedle něj podle počtu a místa (článek, karta).
-                // Jména holek (window.kdJmena) přidá post.hbs, až se načtou komentáře – vlastní dotaz by stál kredit Hyvoru.
+                // Komentáře u článku: drobný počet v hlavičce (partials/kd-pribeh-clanek.hbs, „4 komentáře“) a jména v
+                // Martinině výzvě nad komentáři (post.hbs, data-kd-rozhovor). Hyvor vloží do skrytého <hyvor-talk-comment-count>
+                // jen číslo; dokud nedorazí, počet zůstane skrytý – neznámý stav se netváří jako nula.
+                // Jména holek (window.kdJmena, různá křestní jména bez Martiny) přidá post.hbs z odpovědi, kterou si komentáře
+                // stejně načítají – vlastní dotaz by stál kredit Hyvoru. Počet komentářů není počet žen, věta proto stojí na jménech.
                 function formatCommentCount(count) {
                     return String(count);
                 }
-                function kdKomentareText(kde, n, jmena) {
-                    if (kde === 'karta') {
-                        return n === 0 ? 'Zatím je tu ticho. Co si o tom myslíš ty?' : n === 1 ? 'Jedna se vyjádřila.' : 'Holky se vyjádřily (' + n + ').';
-                    }
-                    if (n === 0) return 'Zatím je tu ticho. Co si o tom myslíš ty?';
-                    var a = jmena[0], b = jmena[1];
-                    if (n === 1 && a) return a + ' už mi k tomu napsala svoje. A ty?';
-                    if (n === 2 && b) {
-                        // „s Jolanou“, „s Lucií“; u jiných konců jmen raději „a“
-                        var b7 = /ie$/.test(b) ? b.slice(0, -1) + 'í' : /a$/.test(b) ? b.slice(0, -1) + 'ou' : null;
-                        return (b7 ? a + ' s ' + b7 : a + ' a ' + b) + ' se vyjádřily. Přidáš svůj pohled?';
-                    }
-                    if (n >= 3 && n <= 5 && b) return a + ', ' + b + ' a další holky se vyjádřily. Přidáš svůj pohled?';
-                    if (n >= 6 && b) {
-                        var m = n - 2;
-                        return a + ', ' + b + (m <= 4 ? ' a další ' + m + ' holky se vyjádřily.' : ' a dalších ' + m + ' holek se vyjádřilo.') + ' Přidáš svůj pohled?';
-                    }
-                    return n === 1 ? 'Jedna už mi k tomu napsala svoje. A ty?' : 'Holky se k tomu vyjádřily (' + n + '). Přidáš svůj pohled?';
+                function kdPocetKomentaru(n) {
+                    return n === 1 ? '1 komentář' : n >= 2 && n <= 4 ? n + ' komentáře' : n + ' komentářů';
+                }
+                function kdRozhovorText(jmena) {
+                    if (jmena.length === 1) return jmena[0] + ' mi už řekla, jak to vidí. A ty?';
+                    if (jmena.length === 2) return jmena[0] + ' a ' + jmena[1] + ' mi už řekly svoje. Jak to vidíš ty?';
+                    if (jmena.length >= 3) return jmena[0] + ', ' + jmena[1] + ' a další mi k tomu řekly svoje. A co ty?';
+                    return 'Můj pohled znáš. Jak to vidíš ty?';
                 }
                 function kdKomentare() {
                     document.querySelectorAll('[data-kd-kom]').forEach(function (el) {
@@ -220,8 +212,12 @@
                             }
                             return;
                         }
-                        el.querySelector('[data-kd-kom-text]').textContent = kdKomentareText(el.dataset.kdKom, n, window.kdJmena || []);
+                        el.querySelector('[data-kd-kom-text]').textContent = kdPocetKomentaru(n);
+                        var obal = el.closest('[data-kd-kom-obal]');
+                        if (obal) obal.hidden = n === 0;
                     });
+                    var rozhovor = document.querySelector('[data-kd-rozhovor]');
+                    if (rozhovor && window.kdJmena) rozhovor.textContent = kdRozhovorText(window.kdJmena);
                 }
                 window.kdKomentare = kdKomentare;
                 document.addEventListener('DOMContentLoaded', kdKomentare);

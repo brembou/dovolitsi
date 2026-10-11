@@ -1,12 +1,11 @@
-{{!-- Řádek pod úryvkem na kartě článku jako jedna věta (varianta B, schválila Martina 11. 10. 2026):
-     „Z března 2026, psáno s prvním sluníčkem. Akorát na jedno kafe. Holky se vyjádřily (3).“ (revize 11. 10. 2026)
-     Konec věty podle počtu komentářů doplní skript v default.hbs (kdKomentare), než dorazí počet, stojí tu text pro nulu –
-     všechny tři konce mají podobnou délku, aby se řádek po načtení nepřelomil jinak. U článku jen pro členky přibude „Pssst…“. --}}
+{{!-- Řádek pod úryvkem na kartě článku: pozvání na kafe podle délky čtení (kd-pozvani), pozvání k rozhovoru po dočtení
+     a u článku jen pro členky prosba o mlčenlivost. Datum drobně zvlášť. Čtenářka článek ještě nečetla, proto
+     „Až dočteš…“, ne „Můj pohled znáš“. Obal div kvůli kartám, které mají řádek meta jako flex (card.hbs). Bez počtu komentářů: Hyvor účtuje kredit za každé načtení počtů. --}}
+<div class="kd-karta-meta">
 <p class="kd-pribeh-karta">
-    <time datetime="{{date published_at format="YYYY-MM-DD"}}" title="{{date published_at format="D. M. YYYY"}}">{{> "kd-datum-karta"}}</time>
-    {{#if reading_time}}{{> "kd-cteni-karta"}}{{/if}}
-    <a href="{{url}}#ghost-comments-root" class="kd-kom" data-kd-kom="karta"><hyvor-talk-comment-count page-id="{{id}}" mode="number" hidden></hyvor-talk-comment-count><span data-kd-kom-text>Zatím je tu ticho. Co si o tom myslíš ty?</span></a>
-    {{#has visibility="members"}}<span class="kd-clen">Pssst, tohle je jen mezi námi 🍒</span>{{/has}}
-    {{#has visibility="paid"}}<span class="kd-clen">Pssst, tohle je jen mezi námi 🍒</span>{{/has}}
-    {{#has visibility="tiers"}}<span class="kd-clen">Pssst, tohle je jen mezi námi 🍒</span>{{/has}}
+    {{> "kd-pozvani"}}
+    <a href="{{url}}#ghost-comments-root" class="kd-kom">Až dočteš, řekni mi, jak to vidíš ty.</a>
+    {{> "kd-clenky"}}
 </p>
+<p class="kd-datum-karta">{{> "kd-datum"}}</p>
+</div>

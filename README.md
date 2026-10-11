@@ -30,3 +30,23 @@ Pro lokální Ghost symlinkni složku do `content/themes/` a šablonu aktivuj v 
 - [`post.hbs`](post.hbs) – článek, včetně komentářů Hyvor Talk
 - [`tag.hbs`](tag.hbs), [`author.hbs`](author.hbs) – archivy štítků a autorů
 - [`partials/`](partials) – sdílené části (karty, fotky ve WebP, sociální sítě…)
+
+## Osobní texty u článků
+
+Pod perexem článku Martina začne povídat a pozve na kafe, na kartách ve výpisech pozve na kafe a k rozhovoru po
+dočtení, nad komentáři dá slovo čtenářce. Každá část má jeden soubor v `partials/`:
+
+| Soubor | Co dělá |
+|---|---|
+| `kd-uvod.hbs` | osobní úvod článku (1–3 věty), podle slugu; článek bez úvodu ho prostě nemá |
+| `kd-pozvani.hbs` | pozvání podle délky čtení z Ghostu („Uvař si kafe. Než ho dopiješ, všechno ti povím.“) |
+| `kd-datum.hbs` | datum vydání „9. října 2026“ |
+| `kd-clenky.hbs` | prosba u článku jen pro členky |
+| `kd-pribeh-clanek.hbs`, `kd-pribeh-karta.hbs` | skládají části v hlavičce článku a na kartě |
+
+Výzva nad komentáři („Můj pohled znáš. Jak to vidíš ty?“) je v `post.hbs`, jména těch, které už napsaly, a drobný
+počet komentářů v hlavičce doplňuje skript `kdKomentare` v `default.hbs`.
+
+**Úvod pro další článek:** v `partials/kd-uvod.hbs` přidej před `{{/match}}` řádek
+`{{~else match slug "slug-clanku"}}<span class="kd-uvod">Text úvodu.</span>` (slug = adresa článku bez lomítek).
+Text jen z toho, co v článku opravdu je, neopakovat perex, neprozradit pointu; schvaluje Martina.
