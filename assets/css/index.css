@@ -1777,20 +1777,57 @@ a[style*="font-weight: 600"] {
 
 /* Recommended posts section - UX improvements
 /* ---------------------------------------------------------- */
-.recommended-posts .post-card {
-    @apply mb-0;
+/* Karta doporučeného článku (partials/card-recommended.hbs) – vidět i bez hoveru, na širší obrazovce fotka vlevo */
+.recommended-posts { gap: 1.25rem; }
+.kd-rec {
+    position: relative; display: flex; flex-direction: column; overflow: hidden;
+    background: #FCF8F5; border: 1px solid rgba(157, 34, 53, .10); border-radius: 1.5rem;
+    box-shadow: 0 1px 2px rgba(17, 24, 39, .04), 0 10px 24px -14px rgba(157, 34, 53, .25);
+    transition: box-shadow .3s ease, transform .3s ease, border-color .3s ease;
 }
-
-.recommended-posts .post-card img {
-    transition: transform 0.7s ease;
+.kd-rec__foto { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #F3ECE7; }
+/* !important kvůli stylům obrázků v .prose (margin, zaoblení) – blok stojí uvnitř obsahu článku */
+.kd-rec__foto img { width: 100%; height: 100%; margin: 0 !important; border-radius: 0 !important; object-fit: cover; transition: transform .7s ease; }
+.kd-rec__zamek {
+    position: absolute; top: .75rem; left: .75rem; z-index: 2; display: inline-flex; align-items: center; gap: .375rem;
+    padding: .375rem .75rem .3rem .625rem; border-radius: 999px; background: rgba(255, 255, 255, .92);
+    color: var(--ghost-accent-color); font-family: var(--font-display); font-size: .8125rem; font-weight: 600; letter-spacing: .02em;
+    box-shadow: 0 2px 8px rgba(17, 24, 39, .12);
 }
-
-.recommended-posts .post-card picture {
-    margin-top: 0 !important;
+.kd-rec__zamek .gh-card-access-icon { position: static; width: 1rem; height: 1rem; color: currentColor; opacity: 1; }
+.kd-rec__text { display: flex; flex-direction: column; flex: 1; padding: 1.25rem 1.25rem 1.375rem; }
+.kd-rec__nadpis { margin: 0 0 .5rem; font-size: 1.375rem; font-weight: 700; line-height: 1.2; color: #111827; transition: color .3s ease; text-wrap: balance; }
+.kd-rec__uryvek {
+    margin: 0 0 .875rem; font-size: 1rem; line-height: 1.6; color: #374151;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
-
-.recommended-posts .post-card .gh-card-picture {
-    margin-top: 0 !important;
+.kd-rec__meta { margin-bottom: 1rem; }
+.kd-rec__meta .kd-pribeh-karta { margin: 0 !important; font-size: .875rem; line-height: 1.5; }
+.kd-rec__vyzva {
+    margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: .5rem;
+    padding: .625rem 1.125rem .5rem; border-radius: 999px; background: var(--ghost-accent-color); color: #fff;
+    font-size: .9375rem; font-weight: 600; letter-spacing: .02em; line-height: 1;
+}
+.kd-rec__sipka { display: inline-block; transition: transform .3s ease; }
+.kd-rec__odkaz { position: absolute; inset: 0; z-index: 10; border-radius: inherit; }
+.kd-rec__odkaz:focus-visible { outline: 3px solid var(--ghost-accent-color); outline-offset: 3px; }
+.kd-rec:active { transform: scale(.99); }
+@media (hover: hover) {
+    .kd-rec:hover { transform: translateY(-3px); border-color: rgba(157, 34, 53, .22); box-shadow: 0 2px 4px rgba(17, 24, 39, .05), 0 22px 40px -18px rgba(157, 34, 53, .38); }
+    .kd-rec:hover .kd-rec__foto img { transform: scale(1.04); }
+    .kd-rec:hover .kd-rec__nadpis { color: var(--ghost-accent-color); }
+    .kd-rec:hover .kd-rec__sipka { transform: translateX(4px); }
+}
+@media (min-width: 640px) {
+    .kd-rec { flex-direction: row; min-height: 14rem; }
+    .kd-rec__foto { flex: 0 0 40%; aspect-ratio: auto; }
+    .kd-rec__foto img { position: absolute; inset: 0; }
+    .kd-rec__text { padding: 1.5rem 1.75rem 1.625rem; }
+    .kd-rec__nadpis { font-size: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .kd-rec, .kd-rec__foto img, .kd-rec__sipka { transition: none; }
+    .kd-rec:hover, .kd-rec:active { transform: none; }
 }
 
 /* ===== Kudrlinky (předloha Claude Design, projekt „dovolit.si — web“; chování v assets/js/kudrlinky.js) ===== */
