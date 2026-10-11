@@ -23,6 +23,8 @@ production stylesheet in assets/built/index.css using: npm run dev
 @tailwind components;
 @tailwind utilities;
 
+/* Nadpisy bez osamoceného slova na posledním řádku („…ti napíšu z / lavičky“) – řádky se vyrovnají délkou */
+h1, h2, h3, h4, .kd-dopis__nadpis, .kd-lavicka__nadpis { text-wrap: balance; }
 
 :root {
     --gap: clamp(2rem, 1.82vw + 1.27rem, 3.6rem);
