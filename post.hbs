@@ -6,8 +6,9 @@
         {{> "progress-bar"}}
     {{/if}}
 
-    {{!-- data-kd-* pro kudrlinky (assets/js/kudrlinky.js): id článku pro „vítej zpátky“ a adresa ilustrací s otiskem verze --}}
-    <article class="gh-article {{post_class}} mt-0" data-post-id="{{id}}" data-kd-assets="{{asset "kudrlinky/tresen-jaro.svg"}}">
+    {{!-- data-kd-* pro kudrlinky (assets/js/kudrlinky.js): id článku pro „vítej zpátky“, adresa ilustrací s otiskem verze
+         a data-kd-clen u přihlášené členky (pozvánka k odběru po reakci se jí neukáže) --}}
+    <article class="gh-article {{post_class}} mt-0" data-post-id="{{id}}" data-kd-assets="{{asset "kudrlinky/tresen-jaro.svg"}}"{{#if @member}} data-kd-clen{{/if}}>
 
         <header class="container mb-3 text-center md:mb-8 gh-header">
 

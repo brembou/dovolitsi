@@ -1,11 +1,23 @@
-{{!-- Odběr hned za textem článku – formulář v patičce je až pod komentáři a doporučenými články, kam většina čtenářek nedojde --}}
+{{!-- Dopis od Martiny hned za textem článku – formulář v patičce je až pod komentáři a doporučenými články, kam většina
+     čtenářek nedojde. Rytmus podle skutečnosti (zhruba jednou za měsíc), ukázka = skutečný úvod posledního dopisu, který
+     na webu není (karta „jen v e-mailu“ článku /futtitinni/). Ukázka je zavřená, místo se rozbalí až na klik – stránka
+     sama neposkočí. Podpis je obyčejný obrázek s rozměry a loading="lazy", stahuje se až před koncem článku. --}}
 {{#if @site.members_enabled}}
     {{^if @member}}
-        <div class="not-prose relative overflow-hidden my-12 md:my-16 px-6 py-8 md:p-10 grad-bg rounded-3xl flex flex-col items-center text-center">
-            <p class="mb-6 text-base md:text-lg font-text max-w-xl [text-wrap:balance]">
-                Pokud nechceš, aby ti příště uteklo to nejlepší pod třešní, nech mi na sebe e-mail.
-            </p>
-            {{> "newsletter-form" label="clanek" source="post"}}
+        <div class="kd-dopis not-prose relative overflow-hidden my-12 md:my-16 px-6 py-8 md:p-10 grad-bg rounded-3xl flex flex-col items-center text-center">
+            <p class="kd-dopis__nadpis font-display">Napíšu ti?</p>
+            <p class="kd-dopis__text font-text">Zhruba jednou za měsíc ti pošlu dopis z lavičky. Nový příběh a k němu pár řádků jen pro tebe, ty na web nedávám.</p>
+            {{> "newsletter-form" label="clanek" source="dopis"}}
+            <details class="kd-dopis__ukazka">
+                <summary>Přečti si, jak začínal poslední dopis</summary>
+                <div class="kd-dopis__papir font-text">
+                    <p>Ahoj,<br>léto jsem si dala po italsku. Zahrada, káva na terase, klábosení se sousedy, koncerty a procházky večerním městem.</p>
+                    <p>S nadcházejícím podzimem zpomaluju ještě víc. A nejen to. Dostalo se mi do života nové slovo, které mi pomáhá nechat ze sebe spadnout spoustu věcí tak, jako začínají padat listy z naší třešně.</p>
+                    <p>S láskou, Martina</p>
+                </div>
+            </details>
+            <p class="kd-dopis__soukromi">Tvůj e-mail zůstane jen mezi námi. Odhlásit se můžeš jedním kliknutím.</p>
+            <img class="kd-dopis__podpis" src="{{asset "kudrlinky/podpis-martina.webp"}}" width="140" height="54" loading="lazy" decoding="async" alt="Martina">
         </div>
     {{/if}}
 {{/if}}

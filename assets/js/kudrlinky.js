@@ -326,6 +326,7 @@ function initThanks() {
     let timer = 0;
     comments.addEventListener('reaction', () => {
         loadSvg('mini.svg').then((svg) => {
+            if (invite(svg)) return;
             if (!box) {
                 box = document.createElement('div');
                 box.className = 'kd-dik';
@@ -339,6 +340,36 @@ function initThanks() {
             timer = setTimeout(() => box.classList.remove('kd-dik--on'), 4500);
         }).catch(() => {});
     });
+}
+
+/* 10b · pozvánka k odběru po reakci: místo krátkého poděkování plovoucí karta s tlačítkem (stejná jako „vítej zpátky“,
+   leží přes stránku, čtený text se neposune). Jen nečlenkám, v jednom prohlížeči nanejvýš jednou, nikdy současně
+   s „vítej zpátky“ a ne po odběru v téže návštěvě. Tlačítko otevře přihlášení Ghostu (Portal) přes #/portal/signup. */
+const INVITE_KEY = 'kd-pozvanka-reakce';
+function invite(svg) {
+    if (!article || article.hasAttribute('data-kd-clen')) return false;
+    if (storageGet(localStorage, INVITE_KEY) || document.querySelector('form[data-members-form].success')) return false;
+    if (document.querySelector('.kd-zpatky--on')) return false;
+    storageSet(localStorage, INVITE_KEY, '1');
+    const card = document.createElement('div');
+    card.className = 'kd-zpatky kd-dik-pozvanka';
+    card.setAttribute('role', 'status');
+    card.innerHTML = '<div class="kd-dik__kresba"></div>'
+        + '<div class="kd-zpatky__text"><strong class="font-display">Děkuju, že sis přisedla.</strong>'
+        + '<span>Chceš, ať ti příští dopis přijde rovnou do schránky?</span></div>'
+        + '<a class="kd-zpatky__dal font-display" href="#/portal/signup">Chci</a>'
+        + '<button type="button" class="kd-zpatky__zavrit" aria-label="Zavřít">×</button>';
+    card.querySelector('.kd-dik__kresba').innerHTML = svg;
+    const close = () => {
+        card.classList.remove('kd-zpatky--on');
+        setTimeout(() => card.remove(), 600);
+    };
+    card.querySelector('.kd-zpatky__zavrit').addEventListener('click', close);
+    card.querySelector('.kd-zpatky__dal').addEventListener('click', () => setTimeout(close, 300));
+    document.body.appendChild(card);
+    requestAnimationFrame(() => requestAnimationFrame(() => card.classList.add('kd-zpatky--on')));
+    setTimeout(close, 20000);
+    return true;
 }
 
 /* Reakce „Jaký pocit ti zůstal po dočtení?“ vždy v jednom řádku. Blok kreslí Hyvor do otevřeného shadow DOM:

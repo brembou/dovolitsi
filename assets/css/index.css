@@ -1898,6 +1898,34 @@ a[style*="font-weight: 600"] {
 .kd-dik__kresba { width: 36px; flex: none; }
 .kd-dik span { font-size: 15px; white-space: nowrap; }
 
+/* 10b · pozvánka k odběru po reakci – plovoucí karta jako „vítej zpátky“ (.kd-zpatky), jen nečlenkám a nanejvýš jednou */
+.kd-dik-pozvanka .kd-dik__kresba { width: 36px; flex: none; }
+.kd-dik-pozvanka .kd-zpatky__dal { display: flex; align-items: center; }
+
+/* 12 · dopis od Martiny pod článkem (partials/post-newsletter.hbs) – plocha banneru odběru zůstává, mění se obsah */
+.kd-dopis__nadpis { font-weight: 700; font-size: 24px; line-height: 1.2; margin: 0 0 8px; color: #111827; }
+.kd-dopis__text { font-size: 17px; line-height: 1.55; margin: 0 0 24px; max-width: 34rem; color: #111827; text-wrap: balance; }
+.kd-dopis__ukazka { width: 100%; max-width: 550px; margin: 8px 0 0; text-align: left; }
+.kd-dopis__ukazka summary {
+    cursor: pointer; width: fit-content; margin-inline: auto; font-size: 15px; color: var(--ghost-accent-color);
+    text-decoration: underline; text-underline-offset: 3px; list-style: none;
+}
+.kd-dopis__ukazka summary::-webkit-details-marker { display: none; }
+.kd-dopis__ukazka summary::after { content: " →"; }
+.kd-dopis__ukazka[open] summary::after { content: " ↓"; }
+.kd-dopis__papir {
+    margin-top: 12px; padding: 18px 20px; background: #FFFCF7; border-radius: 16px; box-shadow: 0 6px 18px -10px rgba(17, 24, 39, .35);
+    font-size: 15px; line-height: 1.6; color: #1F2937;
+}
+.kd-dopis__papir p { margin: 0 0 10px; }
+.kd-dopis__papir p:last-child { margin: 0; font-style: italic; }
+.kd-dopis__soukromi { font-size: 14px; line-height: 1.5; margin: 14px 0 0; color: #4B5563; text-wrap: balance; }
+.kd-dopis__podpis { display: block; width: 140px; height: auto; aspect-ratio: 140 / 54; margin: 14px 0 0 auto; transform: rotate(-6deg); }
+@media (min-width: 768px) {
+    .kd-dopis__nadpis { font-size: 28px; }
+    .kd-dopis__text { font-size: 19px; }
+}
+
 /* 11 · fotky v článku se jemně vynoří (jen ty pod okrajem obrazovky při načtení, skrývá je až JS) */
 .kd-vynor { opacity: 0; }
 .kd-vynor--on { animation: kd-rise .7s cubic-bezier(.2, .7, .3, 1) both; }
