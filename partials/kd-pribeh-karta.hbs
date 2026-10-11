@@ -3,7 +3,7 @@
      Konec věty podle počtu komentářů doplní skript v default.hbs (kdKomentare), než dorazí počet, stojí tu text pro nulu –
      všechny tři konce mají podobnou délku, aby se řádek po načtení nepřelomil jinak. U článku jen pro členky přibude „Pssst…“. --}}
 <p class="kd-pribeh-karta">
-    <time datetime="{{date published_at format="YYYY-MM-DD"}}" title="{{date published_at format="D. M. YYYY"}}">{{> "kd-datum-karta"}}.</time>
+    <time datetime="{{date published_at format="YYYY-MM-DD"}}" title="{{date published_at format="D. M. YYYY"}}">{{> "kd-datum-karta"}}</time>
     {{#if reading_time}}{{> "kd-cteni-karta"}}{{else}}Přisedni,{{/if}}
     <a href="{{url}}#ghost-comments-root" class="kd-kom" data-kd-kom="karta"><hyvor-talk-comment-count page-id="{{id}}" mode="number" hidden></hyvor-talk-comment-count><span data-kd-kom-text>lavička je zatím volná.</span></a>
     {{#has visibility="members"}}<span class="kd-clen">Pssst, tohle je jen mezi námi 🍒</span>{{/has}}

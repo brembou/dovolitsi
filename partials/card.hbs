@@ -5,7 +5,7 @@ Re-usable card for linking to posts
 <article class="post-card {{post_class}} py-8 md:py-8 lg:py-16 big-card">
     <div class="relative flex flex-col-reverse w-full gh-card-link gap-x-14 group md:flex-row">
 
-        <div class="{{#if feature_image}}w-full md:w-3/5{{else}}w-full{{/if}} md:pb-7 macaw-card-content">
+        <div class="{{#if feature_image}}w-full md:w-3/5{{else}}w-full{{/if}} md:pb-7 lg:pb-0 lg:flex lg:flex-col macaw-card-content">
 
 
             {{#match @custom.meta_display "!=" "Hide all meta"}}
@@ -38,8 +38,9 @@ Re-usable card for linking to posts
                     characters="150"}}</p>
 
 
+            {{!-- Řádek příběhu dole ve sloupci textu (mt-auto), ne absolute přes celou kartu – dlouhá věta jinak vjela pod fotku --}}
             {{#match @custom.meta_display "!=" "Hide all meta"}}
-                <div class="mt-8 relative z-10 flex flex-wrap items-center justify-start text-sm leading-tight text-gray-600 lg:absolute lg:bottom-0 lg:left-0 sm:text-md font-display macaw-post-meta">
+                <div class="mt-8 relative z-10 flex flex-wrap items-center justify-start text-sm leading-tight text-gray-600 lg:mt-auto lg:pt-8 lg:pr-24 sm:text-md font-display macaw-post-meta">
                     {{> "kd-pribeh-karta"}}
                 </div>
             {{/match}}
