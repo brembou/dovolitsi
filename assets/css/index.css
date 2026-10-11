@@ -1814,9 +1814,13 @@ a[style*="font-weight: 600"] {
 @keyframes kd-growX { from { transform: scaleX(0); } to { transform: none; } }
 @keyframes kd-grow { from { transform: scale(0); } to { transform: none; } }
 
-/* Omezené animace: zůstane hotová kresba, odlétající prvky se neukážou */
+/* Omezené animace: kresba se dál objevuje postupně ve stejném pořadí a čase, ale jen prolínáním – nic neroste, nehoupe
+   se ani nepadá (pohyb a změna velikosti vadí lidem s citlivou rovnováhou, prolínání ne). Tah čáry (kd-draw) zůstává,
+   je to kreslení na místě bez pohybu. Odlétající prvky se neukážou. Délku, zpoždění i „both“ bere z inline stylu. */
 @media (prefers-reduced-motion: reduce) {
-    [data-anim] { animation: none !important; }
+    [data-anim] { animation-name: kd-fade !important; animation-iteration-count: 1 !important; animation-direction: normal !important; }
+    [data-anim][style*="kd-draw"] { animation-name: kd-draw !important; }
+    [data-anim][style*="kd-swing"], [data-anim][style*="kd-flake"] { animation: none !important; }
     [data-anim-hide] { display: none !important; }
     [data-tw], [data-tw] * { transition: none !important; }
     .kd-zpatky, .kd-citat, .kd-toast, .kd-dik, .kd-lavicka { transition: none !important; animation: none !important; }

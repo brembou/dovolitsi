@@ -2,7 +2,7 @@
    Pravidla rychlosti: nic neblokuje vykreslení článku; velké ilustrace se stahují až těsně před tím, než je čtenářka
    uvidí (třešeň, podpis) nebo až když jsou potřeba (lavička po přihlášení, poděkování za reakci); nic nemění výšku
    stránky po načtení (místo je rezervované předem, nebo prvek leží jako vrstva / plovoucí lišta).
-   Omezené animace (prefers-reduced-motion) řeší CSS v assets/css/index.css: zůstane hotová kresba bez pohybu. */
+   Omezené animace (prefers-reduced-motion) řeší CSS v assets/css/index.css: kresba se jen postupně prolne, bez pohybu. */
 import { twigBar, petals, petalsStatic, season as seasonFor } from './lib/kresba.js';
 
 const article = document.querySelector('.gh-article[data-kd-assets]');
