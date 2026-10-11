@@ -3,8 +3,9 @@
     {{!-- Martina ve smyčce z jejího vlastního videa (11. 10. 2026, vybrala sama): úsek 5 s zpomalený na polovinu (zdroj 60 fps,
          takže bez trhání), jemný „závoj“ (měkké světlo, teplý tón), ořez na obličej, bez zvuku, konec prolnutý se začátkem
          (ffmpeg xfade) – smyčka 10 s bez škubnutí. Fotka (poster) = první snímek videa.
-         Do té doby a bez videa je vidět fotka (poster). Video se stáhne až těsně před tím, než blok dojede na obrazovku,
-         a vůbec ne při šetření dat nebo vypnutých animacích v systému – blok je pod článkem, načtení stránky nebrzdí. --}}
+         Do té doby je vidět fotka (poster). Video se stáhne až těsně před tím, než blok dojede na obrazovku – blok je pod článkem,
+         načtení stránky nebrzdí. Pouští se všem, i při vypnutých animacích v systému a šetření dat (Martina 11. 10. 2026:
+         pohyb je pomalý a jemný, 216 kB). --}}
     <div class="kd-autorka__foto">
         <a href="/jako-ja/" data-rel="author-photo">
             <video class="kd-autorka__video" poster="{{asset "kudrlinky/martina.webp"}}" width="160" height="160" muted loop playsinline preload="none"
@@ -49,8 +50,7 @@
         var v = document.querySelector('[data-kd-autorka-video]');
         if (!v || v.dataset.kdStart) return;
         v.dataset.kdStart = '1';
-        var setri = navigator.connection && navigator.connection.saveData;
-        if (setri || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (!('IntersectionObserver' in window)) return;
         var io = new IntersectionObserver(function (entries) {
             if (!entries.some(function (e) { return e.isIntersecting; })) return;
             io.disconnect();
