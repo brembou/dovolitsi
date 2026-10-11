@@ -1,19 +1,19 @@
 {{!--
 Karta doporučeného článku pod článkem a na 404 („Nespěcháš? Tak si dej tohle…“).
 Karta je vidět i bez najetí myší (krémové pozadí, okraj, jemný stín) – na telefonu hover není, dřív se karta
-slévala s bílou stránkou. Na širší obrazovce fotka vlevo a text vpravo, ať tři doporučení nezaberou tři obrazovky.
+slévala s bílou stránkou. Fotka je nahoře na celou šířku v 16:9, ať se neořízne.
 Výzva „Přečtu si to →“ (potvrzení akce po kliku; „přisedni“ jen u odběru) je jen vizuální, odkazem je celá karta (poslední <a> přes celou plochu).
 --}}
 
 <article class="post-card {{post_class}} kd-rec{{#unless access}} post-access-{{visibility}}{{/unless}}">
     {{#if feature_image}}
         <div class="kd-rec__foto">
-            {{!-- Rámeček na telefonu 16:9 na celou šířku, od 640 px sloupec 40 % karty vysoký jako text – sizes s rezervou na object-cover --}}
+            {{!-- Rámeček 16:9 na celou šířku karty (sloupec obsahu max. ~660 px) --}}
             <img srcset="{{img_url feature_image size="card-480" format="webp"}} 480w,
                          {{img_url feature_image size="card-720" format="webp"}} 720w,
                          {{img_url feature_image size="card-960" format="webp"}} 960w,
                          {{img_url feature_image size="card-1200" format="webp"}} 1200w"
-                 sizes="(max-width: 639px) calc(110vw - 32px), 540px"
+                 sizes="(max-width: 699px) calc(100vw - 32px), 680px"
                  src="{{img_url feature_image size="m"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" loading="lazy" decoding="async">
 
             {{#unless access}}
