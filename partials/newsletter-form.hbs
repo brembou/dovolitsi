@@ -19,8 +19,10 @@
         {{{t "Sorry, something went wrong. Please try again."}}}
     </div>
 
-    {{!-- Když je to footer, nic nezobrazuj --}}
+    {{!-- Když je to footer, nic nezobrazuj; dopis pod článkem (post-newsletter.hbs) má rytmus a soukromí ve vlastním textu --}}
     {{#match source "=" "footer"}}
+        {{!-- prázdné --}}
+        {{else match source "=" "dopis"}}
         {{!-- prázdné --}}
         {{else}}
             <!-- Jemné doplnění důvěry a social proof -->
