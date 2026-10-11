@@ -1894,25 +1894,18 @@ a[style*="font-weight: 600"] {
 .kd-podpis { display: flex; flex-direction: column; align-items: flex-end; margin: 8px 0 0; }
 .kd-podpis__plocha { width: 190px; aspect-ratio: 887 / 268; }
 
-/* 7 · osobní texty: úvod a pozvání pod perexem (partials/kd-pribeh-clanek.hbs), řádek na kartě (kd-pribeh-karta.hbs),
-   výzva k rozhovoru nad komentáři (post.hbs). Datum a počet komentářů drobně zvlášť; počet doplní skript ve stejném
-   řádku jako datum, takže stránka po jeho načtení neposkočí. */
-.kd-pribeh { max-width: 36rem; margin: 0 auto; font-family: var(--font-sans); color: #4B5563; text-wrap: balance; }
+/* 7 · osobní texty: „Psala jsem ti to…“, úvod a pozvání pod perexem (partials/kd-pribeh-clanek.hbs), na kartě osobní
+   věta podle měsíce a úvod (kd-pribeh-karta.hbs), výzva k rozhovoru nad komentáři (post.hbs). Řádek s počtem komentářů
+   má místo rezervované předem, počet doplní skript – stránka po jeho načtení neposkočí. */
+.kd-pribeh { max-width: 36rem; margin: 0 auto; font-family: var(--font-sans); font-style: italic; font-size: 1.0625rem; line-height: 1.6; color: #4B5563; text-wrap: balance; }
 .kd-pribeh p { margin: 0; }
-.kd-pribeh__text { font-style: italic; font-size: 1.0625rem; line-height: 1.6; }
 .kd-pribeh__clen:not(:has(.kd-clen)) { display: none; }
-.kd-pribeh__clen, .kd-pribeh-karta .kd-clen { color: var(--ghost-accent-color); }
-.kd-pribeh__clen { margin-top: .25rem !important; font-size: 1.0625rem; line-height: 1.6; }
-.kd-pribeh__meta { margin-top: .625rem !important; font-size: .875rem; line-height: 1.5; color: #6B7280; }
+.kd-pribeh__clen, .kd-pribeh-karta .kd-clen { color: var(--ghost-accent-color); font-style: normal; }
+.kd-pribeh__meta { min-height: 1.5em; margin-top: .375rem !important; font-style: normal; font-size: .875rem; line-height: 1.5; color: #6B7280; }
 .kd-pribeh__meta .kd-kom { color: inherit; text-decoration: none; }
 .kd-pribeh__meta .kd-kom:hover { color: var(--ghost-accent-color); text-decoration: underline; }
-.kd-karta-meta { width: 100%; }
-.kd-karta-meta p { margin: 0 !important; }
-.kd-pribeh-karta { font-family: var(--font-sans); font-style: italic; font-size: 0.9375rem; line-height: 1.55; color: #4B5563; }
-.kd-pribeh-karta .kd-kom { position: relative; z-index: 20; color: inherit; text-decoration: underline; text-decoration-color: rgba(75, 85, 99, .35); text-underline-offset: 3px; }
-.kd-pribeh-karta .kd-kom:hover { color: var(--ghost-accent-color); text-decoration-color: currentColor; }
-.kd-pribeh-karta .kd-clen { display: block; margin-top: .25rem; font-style: normal; }
-.kd-datum-karta { margin-top: .375rem !important; font-family: var(--font-sans); font-size: .8125rem; line-height: 1.4; color: #6B7280; }
+.kd-pribeh-karta { margin: 0; font-family: var(--font-sans); font-style: italic; font-size: 0.9375rem; line-height: 1.55; color: #4B5563; }
+.kd-pribeh-karta .kd-clen { display: block; margin-top: .25rem; }
 .kd-rozhovor { min-height: 3.2em; margin: 0 0 1.5rem; font-family: var(--font-sans); font-style: italic; font-size: 1.1875rem; line-height: 1.6; color: #111827; text-align: center; text-wrap: balance; }
 @media (min-width: 640px) { .kd-rozhovor { min-height: 1.6em; } }
 
