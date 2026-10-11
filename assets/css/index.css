@@ -1960,5 +1960,3 @@ a[style*="font-weight: 600"] {
 [data-kd-obdobi="podzim"] .divide-y > :not([hidden]) ~ :not([hidden])::after { background-image: url("../kudrlinky/tresen-staticka-podzim.svg"); }
 [data-kd-obdobi="zima"] .divide-y > :not([hidden]) ~ :not([hidden])::after { background-image: url("../kudrlinky/tresen-staticka-zima.svg"); }
 
-/* 5 · uvítací stránka /vitej-pod-tresni/ */
-.kd-vitej { width: min(300px, 78vw); margin-top: 8px; margin-bottom: 8px; }

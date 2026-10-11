@@ -1,5 +1,5 @@
 /* Strom a třešeň podle ročního období na dalších místech webu (předloha Claude Design, projekt „Kudrlinky – další místa“).
-   Patička, výzva u článků pro odběratelky, uvítací stránka /vitej-pod-tresni/. Oddělovače na úvodní stránce řeší jen CSS.
+   Patička a výzva u článků pro odběratelky. Oddělovače na úvodní stránce řeší jen CSS.
    Pravidla: místo na kresbu je rezervované v šabloně (aspect-ratio), kresba se stahuje až těsně před tím, než ji čtenářka
    uvidí, a vkládá se až po události load – nikdy nesoupeří s hlavní fotkou. Klidná verze: [data-anim] v index.css.
    Spouští se z assets/js/index.js (všechny stránky). */

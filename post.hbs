@@ -12,20 +12,14 @@
 
         <header class="container mb-3 text-center md:mb-8 gh-header">
 
-            {{!-- ZMĚNA (kudrlinky – další místa): přivítání nové odběratelky – strom s lavičkou podle ročního období se nakreslí
-                 nad nadpisem. Místo je rezervované, kresba se stáhne až po načtení stránky (nesoupeří s ničím jiným). --}}
-            {{!-- jen s přístupem (přihlášená odběratelka) – bez něj stránka ukazuje výzvu k odběru, která má vlastní lavičku --}}
-            {{#match slug "vitej-pod-tresni"}}{{#if access}}
-                <span class="kd-misto kd-vitej" aria-hidden="true" data-kd-src="{{asset "kudrlinky/lavicka-lehka-jaro.svg"}}"></span>
-                <noscript><style>.kd-vitej{display:none}</style></noscript>
-            {{/if}}{{/match}}
-
             <h1 class="max-w-md m-auto mb-2 text-3xl font-bold sm:leading-snug sm:text-3xl lg:max-w-3xl lg:leading-snug lg:text-5xl gh-title font-display">{{title}}</h1>
 
             {{#if custom_excerpt}}
                 <p class="max-w-lg mx-auto mt-8 mb-4 font-normal md:mb-6 md:leading-relaxed md:mt-13 md:text-base lg:max-w-2xl font-text">{{custom_excerpt}}</p>
             {{/if}}
 
+            {{!-- Uvítací stránka po potvrzení odběru: jen nadpis, bez autorky, data, délky čtení a komentářů (Pepa 11. 10. 2026) --}}
+            {{#match slug "!=" "vitej-pod-tresni"}}
             {{!-- Meta data for post header --}}
             <span class="flex flex-wrap items-center justify-center text-base leading-relaxed text-gray-600 md:leading-none font-display">
                 <span class="macaw-post-author">
@@ -53,6 +47,7 @@
                     <a href="{{url}}#ghost-comments-root"><hyvor-talk-comment-count page-id="{{id}}" mode="number"></hyvor-talk-comment-count></a>
                 </span>
             </span>
+            {{/match}}
         </header>
 
         {{!-- We check if the post has a feature image --}}
@@ -78,7 +73,8 @@
         {{!-- Content goes here --}}
         <div class="relative prose sm:prose-lg prose-md prose-headings:font-display prose-headings:mt-0 prose-headings:mb-2 prose-p:mt-0 prose-p:mb-6 sm:prose-p:mb-10 md:prose-p:mb-12 lg:prose-p:mb-14 xl:prose-p:mb-14 prose-h5:font-bold prose-h6:font-bold prose-img:rounded-3xl prose-ul:mt-0 prose-ul:mb-6 sm:prose-ul:mb-10 md:prose-ul:mb-12 lg:prose-ul:mb-14 xl:prose-ul:mb-14 prose-ol:mt-0 prose-ol:mb-6 sm:prose-ol:mb-10 md:prose-ol:mb-12 lg:prose-ol:mb-14 xl:prose-ol:mb-14 prose-li:pl-0 prose-li:mt-0 prose-a:underline hover:prose-a:no-underline prose-hr:mt-0 prose-hr:mb-6 sm:prose-hr:mb-10 md:prose-hr:mb-12 lg:prose-hr:mb-14 xl:prose-hr:mb-14 last:prose-li:mb-0 prose-macaw gh-content gh-canvas max-w-none">
 
-                {{#if @custom.display_toc}}
+                {{!-- Obsah článku (ne na uvítací stránce – tam má být po nadpisu rovnou video) --}}
+                {{#if @custom.display_toc}}{{#match slug "!=" "vitej-pod-tresni"}}
 
                     <div class="mb-20 bg-gray-100 rounded-2xl">
                         <div class="px-10 py-8">
@@ -87,7 +83,7 @@
                         </div>
                     </div>
 
-                {{/if}}
+                {{/match}}{{/if}}
 
             {{#if access}}
 
@@ -323,6 +319,6 @@
 {{/post}}
 
 
-{{#if @custom.display_toc}}
+{{#if @custom.display_toc}}{{#post}}{{#match slug "!=" "vitej-pod-tresni"}}
     {{> "toc"}}
-{{/if}}
+{{/match}}{{/post}}{{/if}}
