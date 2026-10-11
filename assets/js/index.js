@@ -19,7 +19,7 @@ import { initOdberNavrat } from "./odber-navrat";
 
     pagination(false);
 
-    // Kudrlinky – další místa (patička, výzva pro odběratelky, uvítací stránka); vše se stahuje až po načtení stránky
+    // Kudrlinky – další místa (patička, výzva pro odběratelky); vše se stahuje až po načtení stránky
     initKudrlinkyMista();
 
     // Po potvrzení odběru odkaz z uvítací stránky zpět na článek, kde se čtenářka přihlásila
