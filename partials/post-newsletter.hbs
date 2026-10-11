@@ -1,12 +1,12 @@
 {{!-- Dopis od Martiny hned za textem článku – formulář v patičce je až pod komentáři a doporučenými články, kam většina
      čtenářek nedojde. Rytmus podle skutečnosti (zhruba jednou za měsíc), ukázka = skutečný úvod posledního dopisu, který
      na webu není (karta „jen v e-mailu“ článku /futtitinni/). Ukázka je zavřená, místo se rozbalí až na klik – stránka
-     sama neposkočí. Vlastní podpis karta nemá – Martinin podpis je hned nad ní pod článkem (kd-podpis), dvakrát pod sebou rušil. --}}
+     sama neposkočí. „Na uvítanou ti napíšu hned“ = uvítací e-mail Ghostu (Settings → Membership → Welcome emails), zapnutý 11. 10. 2026. Vlastní podpis karta nemá – Martinin podpis je hned nad ní pod článkem (kd-podpis), dvakrát pod sebou rušil. --}}
 {{#if @site.members_enabled}}
     {{^if @member}}
         <div class="kd-dopis not-prose relative overflow-hidden my-12 md:my-16 px-6 py-8 md:p-10 grad-bg rounded-3xl flex flex-col items-center text-center">
             <p class="kd-dopis__nadpis font-display">Napíšu ti?</p>
-            <p class="kd-dopis__text font-text">Zhruba jednou za měsíc ti pošlu dopis z lavičky. Nový příběh a k němu pár řádků jen pro tebe, ty na web nedávám.</p>
+            <p class="kd-dopis__text font-text">Zhruba jednou za měsíc ti pošlu dopis z lavičky. Nový příběh a k němu pár řádků jen pro tebe, ty na web nedávám. Na uvítanou ti napíšu hned, jak potvrdíš e-mail.</p>
             {{> "newsletter-form" label="clanek" source="dopis"}}
             <details class="kd-dopis__ukazka">
                 <summary>Přečti si, jak začínal poslední dopis</summary>
