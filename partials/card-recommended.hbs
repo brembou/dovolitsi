@@ -1,76 +1,47 @@
 {{!--
-Recommended post card with large image and full excerpt
+Karta doporučeného článku pod článkem a na 404 („Nespěcháš? Tak si dej tohle…“).
+Karta je vidět i bez najetí myší (krémové pozadí, okraj, jemný stín) – na telefonu hover není, dřív se karta
+slévala s bílou stránkou. Na širší obrazovce fotka vlevo a text vpravo, ať tři doporučení nezaberou tři obrazovky.
+Výzva „Přisedni →“ je jen vizuální, odkazem je celá karta (poslední <a> přes celou plochu).
 --}}
 
-<article class="post-card {{post_class}} relative{{#unless access}} post-access-{{visibility}}{{/unless}}">
-    <div class="relative flex flex-col w-full overflow-hidden rounded-3xl bg-white group transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-        
-        {{#if feature_image}}
-            <div class="relative w-full overflow-hidden aspect-[16/10] md:aspect-[16/9]">
-                <div class="absolute inset-0">
-                    <picture class="gh-card-picture">
-                        <source srcset="{{img_url feature_image size="sx2" format="webp"}} 2x,{{img_url feature_image size="s" format="webp"}} 1x" media="(max-width: 420px)">
-                        <source srcset="{{img_url feature_image size="mx2" format="webp"}} 2x,{{img_url feature_image size="m" format="webp"}} 1x" media="(max-width: 768px)">
-                        <source srcset="{{img_url feature_image size="post-full-m-x2" format="webp"}} 2x,{{img_url feature_image size="post-full-m" format="webp"}} 1x" media="(max-width: 1024px)">
-                        <img srcset="{{img_url feature_image size="post-full-x2" format="webp"}} 2x" src="{{img_url feature_image size="post-full-m"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="w-full h-full object-cover duration-700 transition-transform group-hover:scale-105" loading="lazy" decoding="async">
-                    </picture>
-                    
-                    {{#unless access}}
-                        <div class="absolute inset-0 flex items-center justify-center bg-black/50 z-10">
-                            <div class="text-center text-white">
-                                {{> "icons/lock"}}
-                                <p class="mt-2 text-sm font-display uppercase tracking-wider">
-                                    {{#has visibility="members"}}{{t "Members only"}}{{/has}}
-                                    {{#has visibility="paid"}}{{t "Premium only"}}{{/has}}
-                                    {{#has visibility="tiers"}}{{t "Premium only"}}{{/has}}
-                                </p>
-                            </div>
-                        </div>
-                    {{/unless}}
-                </div>
-            </div>
+<article class="post-card {{post_class}} kd-rec{{#unless access}} post-access-{{visibility}}{{/unless}}">
+    {{#if feature_image}}
+        <div class="kd-rec__foto">
+            {{!-- Rámeček na telefonu 16:9 na celou šířku, od 640 px sloupec 40 % karty vysoký jako text – sizes s rezervou na object-cover --}}
+            <img srcset="{{img_url feature_image size="card-480" format="webp"}} 480w,
+                         {{img_url feature_image size="card-720" format="webp"}} 720w,
+                         {{img_url feature_image size="card-960" format="webp"}} 960w,
+                         {{img_url feature_image size="card-1200" format="webp"}} 1200w"
+                 sizes="(max-width: 639px) calc(110vw - 32px), 540px"
+                 src="{{img_url feature_image size="m"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" loading="lazy" decoding="async">
+
+            {{#unless access}}
+                <span class="kd-rec__zamek">
+                    {{> "icons/lock"}}
+                    {{#has visibility="members"}}{{t "Members only"}}{{/has}}
+                    {{#has visibility="paid"}}{{t "Premium only"}}{{/has}}
+                    {{#has visibility="tiers"}}{{t "Premium only"}}{{/has}}
+                </span>
+            {{/unless}}
+        </div>
+    {{/if}}
+
+    <div class="kd-rec__text">
+        <h2 class="no-toc not-prose kd-rec__nadpis font-display">{{title}}</h2>
+
+        {{#if excerpt}}
+            <p class="kd-rec__uryvek">{{excerpt}}</p>
         {{/if}}
 
-        <div class="flex flex-col flex-1 p-6 md:p-8">
-            {{#match @custom.meta_display "!=" "Hide all meta"}}
-                {{#match @custom.meta_display "!=" "Hide tags"}}
-                    {{#match @custom.meta_display "!=" "Hide tags and post access meta"}}
-                        <div class="flex flex-wrap items-center justify-start mb-4 space-x-2.5">
-                            {{#foreach tags}}
-                                <a class="macaw-pill bg-acc-before text-accent post-tag-{{slug}}" href="{{url}}" title="{{name}}">
-                                    <svg class="h-1.5 w-1.5 fill-bg-acc ml-[-3px]" viewBox="0 0 6 6" aria-hidden="true">
-                                        <circle cx="3" cy="3" r="3"></circle>
-                                    </svg>
-                                    {{name}}
-                                </a>
-                            {{/foreach}}
+        {{#match @custom.meta_display "!=" "Hide all meta"}}
+            <footer class="kd-rec__meta macaw-post-meta">
+                {{> "kd-pribeh-karta"}}
+            </footer>
+        {{/match}}
 
-                            {{#if featured}}
-                                <span class="text-gray-900 macaw-pill bg-gray-400/25">{{t "Featured"}}</span>
-                            {{/if}}
-                        </div>
-                    {{/match}}
-                {{/match}}
-            {{/match}}
-
-            <h2 class="no-toc not-prose mb-3 text-2xl font-bold leading-tight transition-colors duration-300 md:text-3xl font-display group-hover:text-accent">
-                {{title}}
-            </h2>
-
-            {{#if excerpt}}
-                <p class="mb-4 text-base leading-relaxed text-gray-700 md:text-lg">
-                    {{excerpt}}
-                </p>
-            {{/if}}
-
-            {{#match @custom.meta_display "!=" "Hide all meta"}}
-                <footer class="flex flex-wrap items-center mt-auto text-sm leading-tight text-gray-600 sm:text-md font-display macaw-post-meta">
-                    {{> "kd-pribeh-karta"}}
-                </footer>
-            {{/match}}
-        </div>
-
-        <a class="absolute top-0 left-0 w-full h-full z-10" href="{{url}}" title="{{t "Read more about:"}} {{title}}"><span class="sr-only">{{title}}</span></a>
+        <span class="kd-rec__vyzva font-display" aria-hidden="true">Přisedni <span class="kd-rec__sipka">&#8594;</span></span>
     </div>
-</article>
 
+    <a class="kd-rec__odkaz" href="{{url}}" title="{{t "Read more about:"}} {{title}}"><span class="sr-only">{{title}}</span></a>
+</article>
