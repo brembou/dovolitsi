@@ -1,0 +1,3 @@
+{{!-- Délka čtení jako věta pod datem v hlavičce článku (schválila Martina 11. 10. 2026).
+     Hranice podle reading_time v minutách jako dřív u šálků: do 3, do 7, do 12, víc. --}}
+{{~#match reading_time "<=" 3}}Přečteš to, než ti vystydne kafe.{{else match reading_time "<=" 7}}Dej si k tomu kafe a sušenku.{{else match reading_time "<=" 12}}Uvař si dvě kafe, bude se hodit.{{else}}Tohle je na celou konvici čaje.{{/match~}}

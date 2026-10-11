@@ -1,8 +1,12 @@
-{{!-- Řádek pod úryvkem na kartě článku: osobní věta podle měsíce vydání (kd-datum-karta) a Martinin úvod k článku
-     (kd-uvod) – u každého článku jiný, ať se ve výpisu nic neopakuje. Pozvání na kafe a výzva k rozhovoru jsou až
-     v článku (kd-pribeh-clanek.hbs, post.hbs). U článku jen pro členky prosba o mlčenlivost. (Pepa 11. 10. 2026) --}}
+{{!-- Řádek pod úryvkem na kartě článku jako jedna věta (varianta B, schválila Martina 11. 10. 2026):
+     „Z března 2026, psáno s prvním sluníčkem. Uvař si kafe a přisedni, holky už tam sedí (3).“
+     Konec věty podle počtu komentářů doplní skript v default.hbs (kdKomentare), než dorazí počet, stojí tu text pro nulu –
+     všechny tři konce mají podobnou délku, aby se řádek po načtení nepřelomil jinak. U článku jen pro členky přibude „Pssst…“. --}}
 <p class="kd-pribeh-karta">
     <time datetime="{{date published_at format="YYYY-MM-DD"}}" title="{{date published_at format="D. M. YYYY"}}">{{> "kd-datum-karta"}}</time>
-    {{> "kd-uvod"}}
-    {{> "kd-clenky"}}
+    {{#if reading_time}}{{> "kd-cteni-karta"}}{{else}}Přisedni,{{/if}}
+    <a href="{{url}}#ghost-comments-root" class="kd-kom" data-kd-kom="karta"><hyvor-talk-comment-count page-id="{{id}}" mode="number" hidden></hyvor-talk-comment-count><span data-kd-kom-text>lavička je zatím volná.</span></a>
+    {{#has visibility="members"}}<span class="kd-clen">Pssst, tohle je jen mezi námi 🍒</span>{{/has}}
+    {{#has visibility="paid"}}<span class="kd-clen">Pssst, tohle je jen mezi námi 🍒</span>{{/has}}
+    {{#has visibility="tiers"}}<span class="kd-clen">Pssst, tohle je jen mezi námi 🍒</span>{{/has}}
 </p>
