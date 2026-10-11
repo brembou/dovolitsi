@@ -3,7 +3,7 @@
      Třetí větu doplní skript v default.hbs podle počtu komentářů, jména holek až po načtení komentářů (post.hbs) –
      vlastní dotaz na Hyvor kvůli jménům by stál kredit za každé zobrazení. Místo pro ni je rezervované v CSS (.kd-kom-radek). --}}
 <p class="kd-pribeh">
-    <time datetime="{{date published_at format="YYYY-MM-DD"}}" title="{{date published_at format="D. M. YYYY"}}">Psala jsem ti to {{> "kd-datum-clanek"}}.</time>
+    <time datetime="{{date published_at format="YYYY-MM-DD"}}" title="{{date published_at format="D. M. YYYY"}}">Psala jsem ti to {{> "kd-datum-clanek"}}</time>
     {{#if reading_time}}<span class="kd-pribeh-radek">{{> "kd-cteni-clanek"}}</span>{{/if}}
     <a href="#ghost-comments-root" class="kd-kom kd-kom-radek" data-kd-kom="clanek"><hyvor-talk-comment-count page-id="{{id}}" mode="number" hidden></hyvor-talk-comment-count><span data-kd-kom-text></span></a>
 </p>
