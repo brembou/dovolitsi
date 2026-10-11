@@ -1,5 +1,6 @@
 import aosJS from "./lib/aos";
 import { pagination } from "./lib/pagination";
+import { initKudrlinkyMista } from "./kudrlinky-mista";
 
 (() => {
 
@@ -16,6 +17,9 @@ import { pagination } from "./lib/pagination";
     // Load more pagination for blog posts - infinite scroll is basically disabled - you can set this to true if you want to enable infinite scroll
 
     pagination(false);
+
+    // Kudrlinky – další místa (patička, výzva pro odběratelky, uvítací stránka); vše se stahuje až po načtení stránky
+    initKudrlinkyMista();
 
 
     // =========================== Start of Header =========================== //

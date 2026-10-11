@@ -1,3 +1,6 @@
+{{!-- ZMĚNA (kudrlinky – další místa): v bloku loga místo statického bílého obrázku bílý strom s lavičkou podle ročního
+     období. Rozměr místa = původní logo (150 px na výšku), takže se patička ani o pixel nepohne.
+     Bez JS (a do chvíle, než se kresba stáhne) se ukazuje původní bílé logo; kresba ho nahradí. --}}
 <footer class="pt-6 pb-6 text-white md:pt-6 md:pb-6 lg:pt-10 lg:pb-10 bg-slate-900 footer">
 
     <div class="container">
@@ -7,9 +10,11 @@
         <!-- logo -->
         <div class="row">
             <div class="mb-6 w-full flex justify-center flex-col items-center">
-                <a class="text-2xl lg:text-4xl gh-head-logo" href="{{@site.url}}">
+                <a class="text-2xl lg:text-4xl gh-head-logo" href="{{@site.url}}" aria-label="{{@site.title}}">
                     {{#if @site.logo}}
-                        <img src="{{asset "img/dovolit-si-logo-white.webp"}}" alt="{{@site.title}}" width="150" height="150" loading="lazy" decoding="async">
+                        <span class="kd-misto kd-paticka" data-kd-src="{{asset "kudrlinky/paticka-jaro.svg"}}" data-kd-near="300px 0px">
+                            <img src="{{asset "img/dovolit-si-logo-white.webp"}}" alt="{{@site.title}}" width="150" height="150" loading="lazy" decoding="async">
+                        </span>
                     {{else}}
                         {{@site.title}}
                     {{/if}}

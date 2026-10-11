@@ -1901,3 +1901,34 @@ a[style*="font-weight: 600"] {
 /* 11 · fotky v článku se jemně vynoří (jen ty pod okrajem obrazovky při načtení, skrývá je až JS) */
 .kd-vynor { opacity: 0; }
 .kd-vynor--on { animation: kd-rise .7s cubic-bezier(.2, .7, .3, 1) both; }
+
+/* ===== Kudrlinky – další místa (předloha Claude Design; chování v assets/js/kudrlinky-mista.js) =====
+   Keyframes kd-* a klidná verze [data-anim] jsou výš v tomto souboru. */
+
+/* společné: místo je rezervované předem (poměr kresby 240 × 200 = 6 : 5), SVG ho jen vyplní */
+.kd-misto { display: block; aspect-ratio: 6 / 5; margin-inline: auto; }
+.kd-misto > svg { width: 100%; height: 100%; }
+
+/* 1 · patička: stejná výška jako původní logo (150 px), bílá kresba na terakotě */
+.kd-paticka { height: 150px; width: 180px; }
+.kd-paticka > img { display: block; width: 150px; height: 150px; margin-inline: auto; }
+/* s JS se původní logo vůbec nestáhne (lazy obrázek se display:none nenačítá); vrátí se jen při chybě */
+.kd-js .kd-paticka > img { display: none; }
+.kd-js .kd-paticka.kd-chyba > img { display: block; }
+
+/* 2 · výzva pro odběratelky: prázdná lavička nad nadpisem */
+.kd-cta-lavicka { width: 168px; margin-bottom: 4px; }
+@media (min-width: 640px) { .kd-cta-lavicka { width: 200px; } }
+/* bez JS nebo při chybě zůstane prázdné místo – raději ho zavřít až po chybě než nechat díru: */
+.kd-cta-lavicka.kd-chyba { display: none; }
+
+/* 3 · oddělovače na úvodní stránce: statická třešeň podle období (jeden soubor na období, sdílený všemi kartami).
+   Výchozí ikona zůstává, když období neznáme (bez JS). Rozměr se nemění → stránka neposkočí. */
+[data-kd-obdobi] .divide-y > :not([hidden]) ~ :not([hidden])::after { width: 48px; height: 40px; background-size: contain; }
+[data-kd-obdobi="jaro"] .divide-y > :not([hidden]) ~ :not([hidden])::after { background-image: url("../kudrlinky/tresen-staticka-jaro.svg"); }
+[data-kd-obdobi="leto"] .divide-y > :not([hidden]) ~ :not([hidden])::after { background-image: url("../kudrlinky/tresen-staticka-leto.svg"); }
+[data-kd-obdobi="podzim"] .divide-y > :not([hidden]) ~ :not([hidden])::after { background-image: url("../kudrlinky/tresen-staticka-podzim.svg"); }
+[data-kd-obdobi="zima"] .divide-y > :not([hidden]) ~ :not([hidden])::after { background-image: url("../kudrlinky/tresen-staticka-zima.svg"); }
+
+/* 5 · uvítací stránka /vitej-pod-tresni/ */
+.kd-vitej { width: min(300px, 78vw); margin-top: 8px; margin-bottom: 8px; }
