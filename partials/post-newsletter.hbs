@@ -2,7 +2,7 @@
 {{#if @site.members_enabled}}
     {{^if @member}}
         <div class="not-prose relative overflow-hidden my-12 md:my-16 px-6 py-8 md:p-10 grad-bg rounded-3xl flex flex-col items-center text-center">
-            <p class="mb-6 text-base md:text-lg font-text max-w-xl">
+            <p class="mb-6 text-base md:text-lg font-text max-w-xl [text-wrap:balance]">
                 Pokud nechceš, aby ti příště uteklo to nejlepší pod třešní, nech mi na sebe e-mail.
             </p>
             {{> "newsletter-form" label="clanek" source="post"}}
