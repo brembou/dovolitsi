@@ -1,4 +1,6 @@
-<progress class="reading-progress" value="0" max="100" aria-label="Reading progress"></progress>
+{{!-- Čtecí lišta jako větvička (kudrlinka 3): kreslí ji a posouvá assets/js/kudrlinky.js podle šířky okna.
+     Dřív <progress> s requestAnimationFrame smyčkou, která běžela 60× za sekundu i bez posouvání. --}}
+<div class="kd-vetvicka" aria-hidden="true"></div>
 
 
 <div class="progress-action">
@@ -61,32 +63,6 @@
 </div>
 
 <style>
-    .reading-progress {
-        position: fixed;
-        top: 0;
-        z-index: 9002;
-        width: 100%;
-        left: 0;
-        height: 3px;
-        /* Progress bar height */
-        background: #d8d8d8;
-        /* Progress bar background color */
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        /* Hide default progress bar */
-    }
-
-    .reading-progress::-webkit-progress-bar {
-        background-color: transparent;
-    }
-
-    .reading-progress::-webkit-progress-value {
-        background: var(--ghost-accent-color);
-        opacity: .85;
-        /* Progress bar color */
-    }
-
     .progress-action {
         opacity: 0;
         position: fixed;
@@ -126,27 +102,3 @@
         }
     }
 </style>
-
-<script>
-    const progressBar = document.querySelector('.reading-progress');
-    const myDiv = document.querySelector('.progress-action');
-
-    function updateProgress() {
-        const totalHeight = document.body.clientHeight;
-        const windowHeight = document.documentElement.clientHeight;
-        const position = window.scrollY;
-        const progress = (position / (totalHeight - windowHeight)) * 100;
-        progressBar.setAttribute('value', progress);
-
-        if (progress >= 45 && progress <= 85) {
-            myDiv.classList.add('progress-active');
-        }
-        else {
-            myDiv.classList.remove('progress-active');
-        }
-
-        requestAnimationFrame(updateProgress);
-    }
-
-    requestAnimationFrame(updateProgress);
-</script>

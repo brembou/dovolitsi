@@ -1791,3 +1791,113 @@ a[style*="font-weight: 600"] {
 .recommended-posts .post-card .gh-card-picture {
     margin-top: 0 !important;
 }
+
+/* ===== Kudrlinky (předloha Claude Design, projekt „dovolit.si — web“; chování v assets/js/kudrlinky.js) ===== */
+
+@keyframes kd-draw { from { stroke-dasharray: 1 1; stroke-dashoffset: 1; } to { stroke-dasharray: 1 1; stroke-dashoffset: 0; } }
+@keyframes kd-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes kd-bloom { from { opacity: 0; transform: scale(.25) rotate(-25deg); } to { opacity: 1; transform: none; } }
+@keyframes kd-pop { 0% { opacity: 0; transform: scale(.3); } 70% { opacity: 1; transform: scale(1.07); } 100% { opacity: 1; transform: none; } }
+@keyframes kd-swing { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(2.4deg); } 70% { transform: rotate(-1.6deg); } }
+@keyframes kd-leaffall {
+    0% { opacity: 1; transform: none; }
+    25% { transform: translate(8px, 14px) rotate(40deg); }
+    50% { transform: translate(-5px, 32px) rotate(95deg); }
+    75% { opacity: 1; transform: translate(14px, 52px) rotate(130deg); }
+    100% { opacity: 0; transform: translate(24px, 72px) rotate(170deg); }
+}
+@keyframes kd-flake { 0% { opacity: 0; transform: translateY(-12px); } 15% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; transform: translate(6px, 48px); } }
+@keyframes kd-fall { 0% { opacity: 0; transform: translate(0, 0); } 10% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx), var(--fy)); } }
+@keyframes kd-flutter { from { transform: translateX(-5px) rotate(-25deg); } to { transform: translateX(6px) rotate(35deg); } }
+@keyframes kd-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes kd-rise2 { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+@keyframes kd-growY { from { transform: scaleY(0); } to { transform: none; } }
+@keyframes kd-growX { from { transform: scaleX(0); } to { transform: none; } }
+@keyframes kd-grow { from { transform: scale(0); } to { transform: none; } }
+
+/* Omezené animace: zůstane hotová kresba, odlétající prvky se neukážou */
+@media (prefers-reduced-motion: reduce) {
+    [data-anim] { animation: none !important; }
+    [data-anim-hide] { display: none !important; }
+    [data-tw], [data-tw] * { transition: none !important; }
+    .kd-zpatky, .kd-citat, .kd-toast, .kd-dik, .kd-lavicka { transition: none !important; animation: none !important; }
+}
+
+/* 1 · třešeň podle ročního období (oddělovač pod článkem) */
+.divider-cherry.kd-tresen-on::after { display: none; }
+.divider-cherry.kd-tresen-on::before {
+    background: linear-gradient(90deg, #e2e8f0 0, #e2e8f0 calc(50% - 64px), transparent calc(50% - 64px), transparent calc(50% + 64px), #e2e8f0 calc(50% + 64px), #e2e8f0);
+}
+.kd-tresen { position: absolute; left: 50%; top: -92px; width: 112px; margin-left: -56px; z-index: 2; pointer-events: none; }
+
+/* 2 · lístky při dočtení (vrstva v banneru odběru) */
+.kd-listky { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+
+/* 3 · větvička místo čtecí lišty */
+.kd-vetvicka { position: fixed; top: 0; left: 0; right: 0; height: 16px; z-index: 9500; pointer-events: none; }
+
+/* 4 · lavička po přihlášení k odběru – vrstva přes banner, výška stránky se nemění */
+.kd-lavicka {
+    position: absolute; inset: 0; z-index: 6; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 6px; padding: 16px 20px; text-align: center; background: linear-gradient(160deg, #F5CFC6, #F9DFD2 55%, #FBEBDD);
+    animation: kd-fade .5s ease both;
+}
+.kd-lavicka__kresba { aspect-ratio: 6 / 5; max-width: 100%; }
+.kd-lavicka__nadpis { font-weight: 700; font-size: 21px; line-height: 1.25; margin: 4px 0 0; color: #111827; }
+.kd-lavicka__text { font-size: 14px; line-height: 1.5; margin: 0; color: #4B5563; max-width: 30rem; text-wrap: balance; }
+
+/* 6 · podpis Martiny (místo rezervované předem, stránka neposkočí) */
+.kd-podpis { display: flex; flex-direction: column; align-items: flex-end; margin: 8px 0 0; }
+.kd-podpis__plocha { width: 190px; aspect-ratio: 887 / 268; }
+
+/* 7 · čtení na kávu */
+.kd-delka { display: inline-flex; align-items: center; }
+.kd-salek { flex: none; width: 18px; height: 18px; margin-right: 6px; color: #4B5563; overflow: visible; }
+
+/* 8 · vítej zpátky */
+.kd-zpatky {
+    position: fixed; left: 12px; right: 12px; bottom: 14px; z-index: 9600; display: flex; align-items: center; gap: 10px;
+    padding: 12px 10px 12px 18px; background: #fff; border: 1px solid #f3f4f6; border-radius: 20px;
+    box-shadow: 0 10px 30px -8px rgba(17, 24, 39, .3); opacity: 0; transform: translateY(140%);
+    transition: transform .5s cubic-bezier(.2, .8, .2, 1), opacity .4s ease;
+}
+.kd-zpatky--on { opacity: 1; transform: none; }
+.kd-zpatky__text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; }
+.kd-zpatky__text strong { font-size: 15px; color: #111827; }
+.kd-zpatky__text span { font-size: 14px; color: #4B5563; }
+.kd-zpatky__dal {
+    flex: none; height: 40px; padding: 0 18px; border-radius: 1.5rem; background: var(--ghost-accent-color); color: #fff;
+    font-size: .875rem; line-height: 1; letter-spacing: .05em; text-transform: uppercase;
+}
+.kd-zpatky__zavrit { flex: none; width: 32px; height: 32px; font-size: 22px; line-height: 1; color: #9CA3AF; }
+@media (min-width: 640px) {
+    .kd-zpatky { left: 50%; right: auto; width: 480px; margin-left: -240px; bottom: 20px; }
+}
+
+/* 9 · sdílet citát */
+.kd-citat {
+    position: fixed; left: 0; top: 0; z-index: 9600; padding: 10px 16px; border-radius: 999px; background: #111827; color: #fff;
+    font-weight: 700; font-size: 12px; line-height: 1; letter-spacing: .1em; text-transform: uppercase;
+    box-shadow: 0 8px 20px -6px rgba(17, 24, 39, .4); opacity: 0; pointer-events: none; transition: opacity .2s ease;
+}
+.kd-citat--on { opacity: 1; pointer-events: auto; }
+.kd-toast {
+    position: fixed; left: 50%; bottom: 24px; z-index: 9600; transform: translateX(-50%); padding: 10px 18px; border-radius: 999px;
+    background: #111827; color: #fff; font-size: 14px; opacity: 0; transition: opacity .3s ease;
+}
+.kd-toast--on { opacity: 1; }
+
+/* 10 · poděkování za reakci (plovoucí – blok reakcí patří Hyvoru a nejde do něj vložit nic vedle) */
+.kd-dik {
+    position: fixed; left: 50%; bottom: 24px; z-index: 9600; display: flex; align-items: center; gap: 10px; height: 52px;
+    padding: 0 20px 0 12px; background: #fff; border: 1px solid #f3f4f6; border-radius: 999px; color: #111827;
+    box-shadow: 0 10px 30px -8px rgba(17, 24, 39, .3); transform: translateX(-50%); opacity: 0; pointer-events: none;
+    transition: opacity .4s ease;
+}
+.kd-dik--on { opacity: 1; }
+.kd-dik__kresba { width: 36px; flex: none; }
+.kd-dik span { font-size: 15px; white-space: nowrap; }
+
+/* 11 · fotky v článku se jemně vynoří (jen ty pod okrajem obrazovky při načtení, skrývá je až JS) */
+.kd-vynor { opacity: 0; }
+.kd-vynor--on { animation: kd-rise .7s cubic-bezier(.2, .7, .3, 1) both; }

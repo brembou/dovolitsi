@@ -1,7 +1,10 @@
 import ClipboardJS from './lib/clipboard.js';
 import FsLightbox from './lib/fslightbox.js';
+import { initKudrlinky } from './kudrlinky.js';
 
 document.addEventListener('DOMContentLoaded', function () {
+    initKudrlinky();
+
     const clipboardButton = document.querySelector('.macaw-copy-link');
 
     if (clipboardButton) {

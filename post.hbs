@@ -6,7 +6,8 @@
         {{> "progress-bar"}}
     {{/if}}
 
-    <article class="gh-article {{post_class}} mt-0">
+    {{!-- data-kd-* pro kudrlinky (assets/js/kudrlinky.js): id článku pro „vítej zpátky“ a adresa ilustrací s otiskem verze --}}
+    <article class="gh-article {{post_class}} mt-0" data-post-id="{{id}}" data-kd-assets="{{asset "kudrlinky/tresen-jaro.svg"}}">
 
         <header class="container mb-3 text-center md:mb-8 gh-header">
 
@@ -32,9 +33,9 @@
                 </span>-->
 
                 {{#if reading_time}}
-                    <div class="feed-length">
+                    <div class="feed-length kd-delka" title="{{reading_time minute="Čtení na minutku" minutes="Čtení na % min"}}">
                         <span class="mx-2 bull">&bull;</span>
-                        {{reading_time minute="Čtení na minutku" minutes="Čtení na % min"}}
+                        {{> "kudrlinky-salek"}}
                     </div>
                 {{/if}}
 
@@ -83,6 +84,10 @@
 
                 {{content}}
                 {{> "content-images-webp"}}
+                {{#is "post"}}{{#match primary_author.slug "martina"}}
+                    {{!-- Podpis se dopíše, až k němu čtenářka dojede; místo je rezervované předem (poměr stran), stránka neposkočí --}}
+                    <div class="kd-podpis not-prose" aria-hidden="true"><div class="kd-podpis__plocha"></div></div>
+                {{/match}}{{/is}}
                 {{> "post-newsletter"}}
 
                 {{#if @custom.display_share}}
