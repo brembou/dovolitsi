@@ -20,7 +20,7 @@
 
             {{!-- Uvítací stránka po potvrzení odběru: jen nadpis, bez autorky, data, délky čtení a komentářů (Pepa 11. 10. 2026) --}}
             {{#match slug "!=" "vitej-pod-tresni"}}
-            {{!-- Kdo, kdy, na jak dlouho a kdo už se ozval – jako věty (partials/kd-pribeh-clanek.hbs) --}}
+            {{!-- Osobní úvod, pozvání na kafe, datum a počet komentářů (partials/kd-pribeh-clanek.hbs) --}}
             {{> "kd-pribeh-clanek"}}
             {{/match}}
         </header>
@@ -81,6 +81,10 @@
                 {{!-- Hyvor komentáře - pouze v produkci --}}
                 {{#match @site.url "!=" "http://localhost:2368"}}
                     <section class="gh-post-comments mt-16" id="ghost-comments-root">
+
+                        {{!-- Martina dá slovo čtenářce. Jména těch, které už napsaly, doplní skript v default.hbs (kdKomentare)
+                             z odpovědi Hyvoru níž; do té doby a bez jmen platí věta bez jmen. Místo na 2 řádky rezervované v CSS. --}}
+                        <p class="kd-rozhovor not-prose" data-kd-rozhovor>Můj pohled znáš. Jak to vidíš ty?</p>
     
                         {{!-- Kontejner, kam to JavaScript vloží --}}
                         {{!-- Údaje člena jdou přes data-* atributy: HTML escapování Handlebars v atributu prohlížeč zase dekóduje,
@@ -102,10 +106,10 @@
                                     s.async = true;
                                     document.head.appendChild(s);
                                 }
-                                // Jména holek do hlavičky článku („Ivana s Jolanou se vyjádřily“, partials/kd-pribeh-clanek.hbs) ze stejné
+                                // Jména holek do výzvy nad komentáři („Ivana a Jolana mi už řekly svoje“, data-kd-rozhovor výš) ze stejné
                                 // odpovědi, kterou si komentáře stejně načítají – vlastní dotaz by stál kredit Hyvoru za každé zobrazení.
                                 // Bere první dvě různá křestní jména z komentářů první úrovně, bez Martiny (moderátorka) a jen
-                                // ženská (konec -a/-e), protože věta je v ženském rodě; jinak zůstane věta s počtem.
+                                // ženská (konec -a/-e), protože věta je v ženském rodě; jinak zůstane věta bez jmen. Počet jmen = počet různých žen.
                                 function kdJmenaZKomentaru() {
                                     const xhr = window.XMLHttpRequest && XMLHttpRequest.prototype;
                                     if (!xhr || xhr.kdOpen) return;
@@ -126,7 +130,7 @@
                                                     });
                                                     window.kdJmena = jmena;
                                                     if (window.kdKomentare) window.kdKomentare();
-                                                } catch (e) { /* bez jmen zůstane věta s počtem */ }
+                                                } catch (e) { /* bez jmen zůstane věta bez jmen */ }
                                             });
                                         }
                                         return puvodni.apply(this, arguments);

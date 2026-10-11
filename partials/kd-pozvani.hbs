@@ -1,0 +1,12 @@
+{{!-- Pozvání podle délky čtení – kolik kafe na to čtenářka potřebuje, místo „Čtení na 5 minut“. Stejné na kartě článku
+     (partials/kd-pribeh-karta.hbs) i v hlavičce (kd-pribeh-clanek.hbs). Minuty počítá Ghost (reading_time), hranice
+     do 2, 3, 4, do 7, do 12, víc; bez délky obecné pozvání. Bez „přisedni“ – to patří jen k výzvě k odběru. --}}
+{{~#if reading_time~}}
+{{~#match reading_time "<=" 2}}Jen na skok. Kafe ti ani nestihne vystydnout.
+{{~else match reading_time "<=" 3}}Na jedno rychlé kafe. Dlouho tě nezdržím.
+{{~else match reading_time "<=" 4}}Uvař si kafe. Než ho dopiješ, všechno ti povím.
+{{~else match reading_time "<=" 7}}Vezmi si ke kafi i sušenku. Chvíli tu posedíme.
+{{~else match reading_time "<=" 12}}Uvař si radši dvě kafe. Trochu jsem se rozpovídala.
+{{~else}}Postav vodu na čaj a udělej si pohodlí. Tohle na stojáka neprobereme.
+{{~/match~}}
+{{~else}}Máš chvilku? Něco ti chci povědět.{{/if~}}

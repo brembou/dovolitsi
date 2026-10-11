@@ -1,3 +1,0 @@
-{{!-- Délka čtení uprostřed věty na kartě článku („Z října 2025, psáno s čajem v ruce. Na jedno espresso. Holky se vyjádřily (3).“),
-     hranice jako v kd-cteni-clanek.hbs. Bez „přisedni“ – to slovo patří jen k výzvě k odběru (Pepa 11. 10. 2026). --}}
-{{~#match reading_time "<=" 2}}Na jedno espresso.{{else match reading_time "<=" 4}}Akorát na jedno kafe.{{else match reading_time "<=" 7}}Na kafe a sušenku.{{else match reading_time "<=" 12}}Na dvě kafe.{{else}}Na celou konvici čaje.{{/match~}}
