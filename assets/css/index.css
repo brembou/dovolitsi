@@ -824,7 +824,10 @@ body.is-font-azeret .header .nav li a{
     left: 0;
     top: 0;
     opacity: .35;
-    background-size: auto, cover !important;
+    /* Obrázek pozadí webu (Settings → Design → Cover, dovolit-si-background.jpeg) má 1472 × 704 px. V přirozené velikosti
+       končil u boxu vyššího než 704 px bílým pruhem (výzva u článku jen pro členky po přidání lavičky, rozbalená ukázka
+       dopisu na telefonu). Nižší boxy zůstávají beze změny, vyšší obrázek úměrně zvětší na celou výšku. */
+    background-size: auto max(100%, 704px) !important;
 }
 .featured-wrapper .grad-bg:before{
     background-size: 100% 100% !important;
