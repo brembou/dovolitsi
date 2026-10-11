@@ -2,7 +2,7 @@
 Karta doporučeného článku pod článkem a na 404 („Nespěcháš? Tak si dej tohle…“).
 Karta je vidět i bez najetí myší (krémové pozadí, okraj, jemný stín) – na telefonu hover není, dřív se karta
 slévala s bílou stránkou. Na širší obrazovce fotka vlevo a text vpravo, ať tři doporučení nezaberou tři obrazovky.
-Výzva „Přisedni →“ je jen vizuální, odkazem je celá karta (poslední <a> přes celou plochu).
+Výzva „Přečtu si to →“ (potvrzení akce po kliku; „přisedni“ jen u odběru) je jen vizuální, odkazem je celá karta (poslední <a> přes celou plochu).
 --}}
 
 <article class="post-card {{post_class}} kd-rec{{#unless access}} post-access-{{visibility}}{{/unless}}">
@@ -40,7 +40,7 @@ Výzva „Přisedni →“ je jen vizuální, odkazem je celá karta (poslední 
             </footer>
         {{/match}}
 
-        <span class="kd-rec__vyzva font-display" aria-hidden="true">Přisedni <span class="kd-rec__sipka">&#8594;</span></span>
+        <span class="kd-rec__vyzva font-display" aria-hidden="true">Přečtu si to <span class="kd-rec__sipka">&#8594;</span></span>
     </div>
 
     <a class="kd-rec__odkaz" href="{{url}}" title="{{t "Read more about:"}} {{title}}"><span class="sr-only">{{title}}</span></a>
