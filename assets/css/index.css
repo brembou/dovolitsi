@@ -1967,6 +1967,9 @@ a[style*="font-weight: 600"] {
 
 
 /* 12 · blok o Martině pod článkem (partials/author.hbs): větší kruh s videem ve smyčce, text jako vzkaz kamarádce */
+/* nad kruhem stejně místa jako pod kartou (vnější blok .macaw-authors má nahoře pt 72/80 px, kruh vyčnívá 56 px): mobil 32 px, počítač 64 px */
+.kd-autorka { margin-top: 16px; }
+@media (min-width: 1024px) { .kd-autorka { margin-top: 40px; } }
 .kd-autorka__foto { width: 160px; margin: -88px auto 0; }
 .kd-autorka__video { display: block; width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 1px solid #bfae9a; box-shadow: 0 6px 18px rgba(120, 60, 40, .18); background: #f3e3dc; }
 .kd-autorka__text { max-width: 30rem; margin: 0 auto; font-size: 1rem; line-height: 1.6; color: #374151; text-wrap: balance; }
