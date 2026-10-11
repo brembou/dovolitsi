@@ -1920,7 +1920,6 @@ a[style*="font-weight: 600"] {
 .kd-dopis__papir p { margin: 0 0 10px; }
 .kd-dopis__papir p:last-child { margin: 0; font-style: italic; }
 .kd-dopis__soukromi { font-size: 14px; line-height: 1.5; margin: 14px 0 0; color: #4B5563; text-wrap: balance; }
-.kd-dopis__podpis { display: block; width: 140px; height: auto; aspect-ratio: 140 / 54; margin: 14px 0 0 auto; transform: rotate(-6deg); }
 @media (min-width: 768px) {
     .kd-dopis__nadpis { font-size: 28px; }
     .kd-dopis__text { font-size: 19px; }

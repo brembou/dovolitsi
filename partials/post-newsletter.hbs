@@ -1,7 +1,7 @@
 {{!-- Dopis od Martiny hned za textem článku – formulář v patičce je až pod komentáři a doporučenými články, kam většina
      čtenářek nedojde. Rytmus podle skutečnosti (zhruba jednou za měsíc), ukázka = skutečný úvod posledního dopisu, který
      na webu není (karta „jen v e-mailu“ článku /futtitinni/). Ukázka je zavřená, místo se rozbalí až na klik – stránka
-     sama neposkočí. Podpis je obyčejný obrázek s rozměry a loading="lazy", stahuje se až před koncem článku. --}}
+     sama neposkočí. Vlastní podpis karta nemá – Martinin podpis je hned nad ní pod článkem (kd-podpis), dvakrát pod sebou rušil. --}}
 {{#if @site.members_enabled}}
     {{^if @member}}
         <div class="kd-dopis not-prose relative overflow-hidden my-12 md:my-16 px-6 py-8 md:p-10 grad-bg rounded-3xl flex flex-col items-center text-center">
@@ -17,7 +17,6 @@
                 </div>
             </details>
             <p class="kd-dopis__soukromi">Tvůj e-mail zůstane jen mezi námi. Odhlásit se můžeš jedním kliknutím.</p>
-            <img class="kd-dopis__podpis" src="{{asset "kudrlinky/podpis-martina.webp"}}" width="140" height="54" loading="lazy" decoding="async" alt="Martina">
         </div>
     {{/if}}
 {{/if}}
