@@ -24,10 +24,11 @@
         {{!-- prázdné --}}
         {{else}}
             <!-- Jemné doplnění důvěry a social proof -->
+            {{!-- Každá věta vlastní blok – s <br> v jednom bloku Chromium druhou větu nevyvážilo (text-wrap: balance) a „dopřává.“ zůstalo samo na řádku --}}
             <div class="mt-8 sm:mt-3 text-sm text-gray-700 text-center leading-relaxed">
-                🌿 <strong>1x za měsíc</strong> si dáme nový důvod zase posedět pod třešní.<br>
-                💌 Už více než <strong>600 žen</strong> <a href="/co-o-mne-rikaji/" class="underline">si
-                    tuto chvilku na lavičce dopřává</a>.
+                <span class="block [text-wrap:balance]">🌿 <strong>1x za měsíc</strong> si dáme nový důvod zase posedět pod třešní.</span>
+                <span class="block [text-wrap:balance]">💌 Už více než <strong>600 žen</strong> <a href="/co-o-mne-rikaji/" class="underline">si
+                    tuto chvilku na lavičce dopřává</a>.</span>
             </div>
     {{/match}}
 </form>
