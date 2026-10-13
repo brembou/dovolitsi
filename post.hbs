@@ -15,7 +15,7 @@
             <h1 class="max-w-md m-auto mb-2 text-3xl font-bold sm:leading-snug sm:text-3xl lg:max-w-3xl lg:leading-snug lg:text-5xl gh-title font-display">{{title}}</h1>
 
             {{#if custom_excerpt}}
-                <p class="kd-perex max-w-lg mx-auto mt-8 mb-4 font-normal md:mb-6 md:leading-relaxed md:mt-13 md:text-base lg:max-w-2xl font-text">{{custom_excerpt}}</p>
+                <p class="kd-perex font-text">{{custom_excerpt}}</p>
             {{/if}}
 
             {{!-- Uvítací stránka po potvrzení odběru: jen nadpis, bez autorky, data, délky čtení a komentářů (Pepa 11. 10. 2026) --}}
@@ -51,12 +51,11 @@
                 {{!-- Obsah článku (ne na uvítací stránce – tam má být po nadpisu rovnou video) --}}
                 {{#if @custom.display_toc}}{{#match slug "!=" "vitej-pod-tresni"}}
 
-                    <div class="mb-20 bg-gray-100 rounded-2xl">
-                        <div class="px-10 py-8">
-                            <h4 class="mb-8 text-xl toc-heading font-display">{{t "Table of contents"}}</h4>
-                            <div class="gh-toc font-display"></div>
-                        </div>
-                    </div>
+                    {{!-- Rámeček jen tak velký jako seznam kapitol (styl .kd-obsah v index.css) --}}
+                    <nav class="kd-obsah not-prose" aria-label="{{t "Table of contents"}}">
+                        <p class="kd-obsah__nadpis">{{t "Table of contents"}}</p>
+                        <div class="gh-toc font-display"></div>
+                    </nav>
 
                 {{/match}}{{/if}}
 

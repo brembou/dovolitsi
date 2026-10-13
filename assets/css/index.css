@@ -28,6 +28,9 @@ h1, h2, h3, h4, .kd-dopis__nadpis, .kd-lavicka__nadpis { text-wrap: balance; }
 /* Perex pod nadpisem článku (pár centrovaných řádků) stejně vyrovnaný; běžné odstavce a úryvky na kartách jen bez
    osamoceného slova na konci („pretty“ upraví jen poslední řádky, zbytek odstavce zůstane, jak byl) */
 .kd-perex { text-wrap: balance; }
+/* Úvod článku: perex nese hlavní myšlenku, tři věty pod ním (.kd-pribeh, sekce 7) jsou tichý doprovod oddělený krátkou linkou */
+.kd-perex { max-width: 38rem; margin: 1.25rem auto 0; font-size: 1.125rem; line-height: 1.7; color: #1F2937; }
+@media (min-width: 1024px) { .kd-perex { margin-top: 1.5rem; font-size: 1.1875rem; } }
 .prose p, .post-card p { text-wrap: pretty; }
 
 :root {
@@ -1897,7 +1900,8 @@ a[style*="font-weight: 600"] {
 /* 7 · kdo, kdy, na jak dlouho a kdo už se ozval – jako věty (partials/kd-pribeh-clanek.hbs, kd-pribeh-karta.hbs).
    Text o komentářích doplní skript až po načtení počtu, proto má v článku řádek místo rezervované předem
    (2 řádky na telefonu, 1 od 640 px) – stránka pod ním neposkočí. */
-.kd-pribeh { max-width: 36rem; margin: 0 auto; font-family: var(--font-sans); font-style: italic; font-size: 1.0625rem; line-height: 1.6; color: #4B5563; text-wrap: balance; }
+.kd-pribeh { position: relative; max-width: 36rem; margin: 1.75rem auto 0; padding-top: 1.25rem; font-family: var(--font-sans); font-style: italic; font-size: .9375rem; line-height: 1.6; color: #6B7280; text-wrap: balance; }
+.kd-pribeh::before { content: ""; position: absolute; top: 0; left: 50%; width: 2.5rem; height: 1px; background: rgba(157, 34, 53, .35); transform: translateX(-50%); }
 .kd-pribeh time, .kd-pribeh-radek, .kd-pribeh .kd-kom { display: block; }
 .kd-pribeh .kd-kom { min-height: 3.2em; color: var(--ghost-accent-color); text-decoration: none; }
 .kd-pribeh .kd-kom:hover { text-decoration: underline; }
@@ -2021,3 +2025,13 @@ a[style*="font-weight: 600"] {
 .kd-autorka__text + .kd-autorka__text, .macaw-author-header .kd-autorka__text { margin-top: .75rem; }
 .kd-autorka__text a { color: #111827; text-decoration: underline; font-weight: 600; }
 .kd-autorka__text a:hover { color: var(--ghost-accent-color); }
+
+/* 8 · obsah článku (post.hbs, číslování a skrytí prázdného v partials/toc.hbs): rámeček jen tak široký a vysoký jako seznam */
+.kd-obsah { width: fit-content; max-width: 100%; margin: 0 0 3.5rem; padding: 1.25rem 1.75rem 1.25rem 1.5rem; background: #FCF8F5; border: 1px solid rgba(157, 34, 53, .10); border-radius: 1rem; }
+@media (max-width: 640px) { .kd-obsah { margin: 1.75rem 1.2rem 2.5rem; max-width: calc(100% - 2.4rem); } }
+.kd-obsah__nadpis { margin: 0 0 .625rem; font-family: var(--font-display); font-size: 1rem; font-weight: 600; line-height: 1.4; color: #111827; }
+.kd-obsah .gh-toc { font-size: 1rem; }
+.kd-obsah .gh-toc > ol > li { margin: 0; padding: .1875rem 0; line-height: 1.45; }
+.kd-obsah .gh-toc > ol > li::before { color: var(--ghost-accent-color); }
+.kd-obsah .toc-link { color: #1F2937; text-decoration: underline; text-decoration-color: rgba(157, 34, 53, .3); text-underline-offset: 3px; }
+.kd-obsah .toc-link:hover { color: var(--ghost-accent-color); text-decoration-color: currentColor; }
