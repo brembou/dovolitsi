@@ -3,10 +3,9 @@
         scroll-behavior: smooth;
     }
     
-    /* 1. CLS FIX: Rezervace místa, aby stránka neposkočila */
+    /* Bez rezervy výšky: rámeček leží pod úvodní fotkou mimo první obrazovku, posun pod ním se do CLS nepočítá.
+       Rezerva 200 px dělala rámeček vyšší než krátký seznam. */
     .gh-toc {
-        margin: 1rem 0 0.5rem;
-        min-height: 200px;
         counter-reset: h2;
     }
 
@@ -23,7 +22,6 @@
         padding: 0;
     }
 
-    .gh-toc .toc-list,
     .gh-toc .toc-list.is-collapsible {
         margin: 0.5rem 0 0;
     }
@@ -81,7 +79,7 @@
         var list = tocDiv ? tocDiv.querySelector('.toc-list') : null;
 
         if (!list || list.children.length === 0) {
-            var wrapper = tocDiv.closest('.bg-gray-100'); 
+            var wrapper = tocDiv.closest('.kd-obsah'); 
             if (wrapper) wrapper.style.display = 'none';
             else tocDiv.style.display = 'none';
         }
