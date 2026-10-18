@@ -1876,6 +1876,9 @@ a[style*="font-weight: 600"] {
     background: linear-gradient(90deg, #e2e8f0 0, #e2e8f0 calc(50% - 64px), transparent calc(50% - 64px), transparent calc(50% + 64px), #e2e8f0 calc(50% + 64px), #e2e8f0);
 }
 .kd-tresen { position: absolute; left: 50%; top: -92px; width: 112px; margin-left: -56px; z-index: 2; pointer-events: none; }
+/* Přihlášená členka nevidí dopis s odběrem, oddělovač pak jde hned za podpisem – větvička (92 px nad oddělovačem)
+   by při mt-16 vjela do podpisu; odsazení drží stejnou vzdušnost jako pod dopisem */
+.kd-podpis + .divider-cherry { margin-top: 9rem; }
 
 /* 2 · lístky při dočtení (vrstva v banneru odběru) */
 .kd-listky { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
