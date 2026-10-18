@@ -1876,6 +1876,11 @@ a[style*="font-weight: 600"] {
     background: linear-gradient(90deg, #e2e8f0 0, #e2e8f0 calc(50% - 64px), transparent calc(50% - 64px), transparent calc(50% + 64px), #e2e8f0 calc(50% + 64px), #e2e8f0);
 }
 .kd-tresen { position: absolute; left: 50%; top: -92px; width: 112px; margin-left: -56px; z-index: 2; pointer-events: none; }
+/* Větvička vyčnívá 92 px nad oddělovač (top: -92px u .kd-tresen) – nad oddělovačem musí být víc místa, jinak vjede do toho,
+   co je nad ním (podpis, poslední odstavec, sdílení). Výjimka je dopis s odběrem: větvička do jeho spodního polstrování
+   zasahuje záměrně a jeho okraj (my-12 md:my-16) se s tímhle sčítá do 64 px. Při změně velikosti nebo polohy větvičky uprav i tady. */
+.divider-cherry { margin-top: 9rem; }
+.kd-dopis + .divider-cherry { margin-top: 4rem; }
 
 /* 2 · lístky při dočtení (vrstva v banneru odběru) */
 .kd-listky { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
