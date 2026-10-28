@@ -21,7 +21,8 @@
 
     {{!-- Když je to footer, nic nezobrazuj; dopis pod článkem (post-newsletter.hbs) má rytmus a soukromí ve vlastním textu --}}
     {{#match source "=" "footer"}}
-        {{!-- prázdné --}}
+        {{!-- Odkaz na zásady u formuláře vyžaduje Sklik (pravidla obsahu cílové stránky) --}}
+        <p class="mt-3 text-xs text-white/75 text-center"><a href="/ochrana-osobnich-udaju/" class="underline">Jak s tvým e-mailem zacházím</a></p>
         {{else match source "=" "dopis"}}
         {{!-- prázdné --}}
         {{else}}
@@ -31,6 +32,7 @@
                 <span class="block [text-wrap:balance]">🌿 <strong>1x za měsíc</strong> si dáme nový důvod zase posedět pod třešní.</span>
                 <span class="block [text-wrap:balance]">💌 Už více než <strong>600 žen</strong> <a href="/co-o-mne-rikaji/" class="underline">si
                     tuto chvilku na lavičce dopřává</a>.</span>
+                <span class="block"><a href="/ochrana-osobnich-udaju/" class="underline">Jak s tvým e-mailem zacházím</a></span>
             </div>
     {{/match}}
 </form>
