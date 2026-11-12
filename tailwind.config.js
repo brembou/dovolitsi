@@ -22,6 +22,8 @@ export default {
             },
             fontSize: {
                 card: ['2.8rem', '1.19'],
+                // Nejmenší písmo webu: nikdy pod 13 px (Google – čitelnost na mobilu), s větším písmem prohlížeče roste
+                xs: ['max(13px, 0.8125rem)', { lineHeight: '1.25rem' }],
             },
             typography: ({ theme }) => ({
                 macaw: {

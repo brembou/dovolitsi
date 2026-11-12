@@ -1939,7 +1939,7 @@ a[style*="font-weight: 600"] {
 /* 9 · sdílet citát */
 .kd-citat {
     position: fixed; left: 0; top: 0; z-index: 9600; padding: 10px 16px; border-radius: 999px; background: #111827; color: #fff;
-    font-weight: 700; font-size: 12px; line-height: 1; letter-spacing: .1em; text-transform: uppercase;
+    font-weight: 700; font-size: 13px; line-height: 1; letter-spacing: .1em; text-transform: uppercase;
     box-shadow: 0 8px 20px -6px rgba(17, 24, 39, .4); opacity: 0; pointer-events: none; transition: opacity .2s ease;
 }
 .kd-citat--on { opacity: 1; pointer-events: auto; }
@@ -2040,3 +2040,11 @@ a[style*="font-weight: 600"] {
 .kd-obsah .gh-toc > ol > li::before { color: var(--ghost-accent-color); }
 .kd-obsah .toc-link { color: #1F2937; text-decoration: underline; text-decoration-color: rgba(157, 34, 53, .3); text-underline-offset: 3px; }
 .kd-obsah .toc-link:hover { color: var(--ghost-accent-color); text-decoration-color: currentColor; }
+
+/* Ovládání videa v kartě Ghostu má 12,5 px – nejmenší písmo webu je 13 px (Google, čitelnost na mobilu) */
+html body .kg-video-card .kg-video-current-time,
+html body .kg-video-card .kg-video-time,
+html body .kg-video-card .kg-video-duration,
+html body .kg-video-card .kg-video-playback-rate {
+    font-size: 13px;
+}
