@@ -1,5 +1,5 @@
 {
-  "Your email": "Tvůj e-mail",
+  "Your email": "Tvůj e-\u2060mail",
   "Subscribe": "Přisedám si",
   "Search": "Hledat",
   "Menu": "Menu",
@@ -36,7 +36,7 @@
   "Share on Facebook": "Sdílet na Facebooku",
   "Share on LinkedIn": "Sdílet na  LinkedInu",
   "Share on WhatsApp": "Sdílet na  WhatsAppu",
-  "No member exists with this e-mail address. Please sign up first.": "Nikdo s\u00a0touhle e-mailovou adresou tu (zatím) není. Nejdřív se prosím zaregistruj.",
+  "No member exists with this e-mail address. Please sign up first.": "Nikdo s\u00a0touhle e-\u2060mailovou adresou tu (zatím) není. Nejdřív se prosím zaregistruj.",
   "Public": "Volně k\u00a0přečtení",
   "Members only": "Jen pro nás pod třešní \uD83C\uDF52",
   "Premium only": "S\u00a0pozvánkou na kávu",
