@@ -196,18 +196,18 @@
                     }
                     if (n === 0) return 'Zatím ticho. Budeš první?';
                     var a = jmena[0], b = jmena[1];
-                    if (n === 1 && a) return a + ' už mi k tomu napsala svoje. A ty?';
+                    if (n === 1 && a) return a + ' už mi k\u00a0tomu napsala svoje. A\u00a0ty?';
                     if (n === 2 && b) {
                         // „s Jolanou“, „s Lucií“; u jiných konců jmen raději „a“
                         var b7 = /ie$/.test(b) ? b.slice(0, -1) + 'í' : /a$/.test(b) ? b.slice(0, -1) + 'ou' : null;
-                        return (b7 ? a + ' s ' + b7 : a + ' a ' + b) + ' se vyjádřily. Přidáš svůj pohled?';
+                        return (b7 ? a + ' s\u00a0' + b7 : a + ' a\u00a0' + b) + ' se vyjádřily. Přidáš svůj pohled?';
                     }
-                    if (n >= 3 && n <= 5 && b) return a + ', ' + b + ' a další holky se vyjádřily. Přidáš svůj pohled?';
+                    if (n >= 3 && n <= 5 && b) return a + ', ' + b + ' a\u00a0další holky se vyjádřily. Přidáš svůj pohled?';
                     if (n >= 6 && b) {
                         var m = n - 2;
-                        return a + ', ' + b + (m <= 4 ? ' a další ' + m + ' holky se vyjádřily.' : ' a dalších ' + m + ' holek se vyjádřilo.') + ' Přidáš svůj pohled?';
+                        return a + ', ' + b + (m <= 4 ? ' a\u00a0další ' + m + ' holky se vyjádřily.' : ' a\u00a0dalších ' + m + ' holek se vyjádřilo.') + ' Přidáš svůj pohled?';
                     }
-                    return n === 1 ? 'Jedna už mi k tomu napsala svoje. A ty?' : 'Holky se k tomu vyjádřily (' + n + '). Přidáš svůj pohled?';
+                    return n === 1 ? 'Jedna už mi k\u00a0tomu napsala svoje. A\u00a0ty?' : 'Holky se k\u00a0tomu vyjádřily (' + n + '). Přidáš svůj pohled?';
                 }
                 function kdKomentare() {
                     document.querySelectorAll('[data-kd-kom]').forEach(function (el) {
